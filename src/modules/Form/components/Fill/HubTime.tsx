@@ -18,7 +18,9 @@ interface Props {
 const HubTimeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <FormItem label="Ngày làm việc" center>
-      <InputWrapper inline>{children}</InputWrapper>
+      <InputWrapper inline className="hub-time-input">
+        {children}
+      </InputWrapper>
     </FormItem>
   )
 }
@@ -50,6 +52,7 @@ const HubTime = ({ type = FORM_ACTION.ADD }: Props) => {
         onChange={onChangeTime}
         className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none w-full"
         dateFormat={'dd/MM/yyyy'}
+        onKeyDown={(e) => e.preventDefault()}
       />
     </HubTimeLayout>
   )

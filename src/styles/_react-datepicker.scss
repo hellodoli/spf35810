@@ -27,3 +27,14 @@
 .react-datepicker__year-text--in-range:hover {
   background-color: #d73211;
 }
+
+@media (max-width: 767px) {
+  .hub-time-input {
+    width: 100%;
+    .react-datepicker__input-container,
+    .react-datepicker__input-container > input,
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+  }
+}
