@@ -1,0 +1,7 @@
+.join-item {
+  &:hover {
+    .delete-join-button {
+      display: flex;
+    }
+  }
+}
