@@ -14,10 +14,11 @@ export const INCOME_SETTING: IncomeSetting = {
   SHOW_DETAIL_WITH_ORDER: true,
 }
 export const FILTER_HUBTYPE_MY_HUB_DEFAULT: FilterHubTypeSetting = {
-  [HUB_TYPE.HUB_10]: false,
+  [HUB_TYPE.HUB_10]: true,
   [HUB_TYPE.HUB_8]: true,
   [HUB_TYPE.HUB_5]: true,
   [HUB_TYPE.HUB_3]: true,
+  [HUB_TYPE.HUB_1]: true,
 }
 export const SETTINGS_DEFAULT: Settings = {
   ORDER_PRICE: {
@@ -70,6 +71,10 @@ export const EXTRA_ORDER: ExtraOrderList = {
     [7, 14, 2000],
     [15, null, 3000],
   ],
+  [HUB_TYPE.HUB_1]: [
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
 }
 export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
   [HUB_TYPE.HUB_10]: [
@@ -88,6 +93,10 @@ export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
     [5, 8, 2000],
     [9, null, 4000],
   ],
+  [HUB_TYPE.HUB_1]: [
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
 }
 
 export const HUB_COLORS: HubColorsFilter = {
@@ -95,4 +104,5 @@ export const HUB_COLORS: HubColorsFilter = {
   [HUB_TYPE.HUB_8]: '#4a90e2',
   [HUB_TYPE.HUB_5]: '#ee4d2d',
   [HUB_TYPE.HUB_3]: '#9b9b9b',
+  [HUB_TYPE.HUB_1]: '#9b9b9b',
 }

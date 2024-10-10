@@ -53,6 +53,11 @@ const HubType = ({ type = FORM_ACTION.ADD }: Props) => {
   const activeHubType = useSelector(hubTypeSelector)
   const [items] = useState<HubBtnItem[]>([
     {
+      id: 'hub_1',
+      text: 'Hub 1',
+      type: HUB_TYPE.HUB_1,
+    },
+    {
       id: 'hub_3',
       text: 'Hub 3',
       type: HUB_TYPE.HUB_3,

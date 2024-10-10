@@ -197,3 +197,8 @@ export const filterHubTypeHub3Selector = createSelector(
   [selectSlice],
   (state) => state.filterHubTypeSetting[HUB_TYPE.HUB_3],
 )
+
+export const filterHubTypeHub1Selector = createSelector(
+  [selectSlice],
+  (state) => state.filterHubTypeSetting[HUB_TYPE.HUB_1],
+)

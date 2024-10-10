@@ -14,11 +14,6 @@ dayjs.extend(isoWeek)
 const EXTRA_MINUTE_UT = 1000 * 60
 const EXTRA_HOUR_UT = 1000 * 60 * 60
 
-const HUB_10_UT = 10 * EXTRA_HOUR_UT
-const HUB_8_UT = 8 * EXTRA_HOUR_UT
-const HUB_5_UT = 5 * EXTRA_HOUR_UT
-const HUB_3_UT = 3 * EXTRA_HOUR_UT
-
 export function getExtraMinuteUnixTime(minute: number) {
   return minute * EXTRA_MINUTE_UT
 }
@@ -38,49 +33,33 @@ export function getDurationHubTime(start: string, end: string) {
 export function getHubTime(start: string, end: string) {
   const duration = getDurationHubTime(start, end)
   const extraMinutesUnixTime = getExtraMinuteUnixTime(59)
-
-  const min_hub_10 = HUB_10_UT
-  const max_hub_10 = min_hub_10 + extraMinutesUnixTime
-  const min_hub_8 = HUB_8_UT
-  const max_hub_8 = min_hub_8 + extraMinutesUnixTime
-  const min_hub_5 = HUB_5_UT
-  const max_hub_5 = min_hub_5 + extraMinutesUnixTime
-  const min_hub_3 = HUB_3_UT
-  const max_hub_3 = min_hub_3 + extraMinutesUnixTime
-
-  if (duration >= min_hub_10 && duration <= max_hub_10) {
-    // hub 5
-    return {
-      hub: HUB_TYPE.HUB_10,
-      duration,
-      minHub: min_hub_10,
-      maxHub: max_hub_10,
-    }
-  } else if (duration >= min_hub_8 && duration <= max_hub_8) {
-    // hub 5
-    return {
-      hub: HUB_TYPE.HUB_8,
-      duration,
-      minHub: min_hub_8,
-      maxHub: max_hub_8,
-    }
-  } else if (duration >= min_hub_5 && duration <= max_hub_5) {
-    // hub 5
-    return {
-      hub: HUB_TYPE.HUB_5,
-      duration,
-      minHub: min_hub_5,
-      maxHub: max_hub_5,
-    }
-  } else {
-    // hub 3
-    return {
-      hub: HUB_TYPE.HUB_3,
-      duration,
-      minHub: min_hub_3,
-      maxHub: max_hub_3,
+  const hubTime = {
+    hub: HUB_TYPE.HUB_1,
+    duration,
+    minHub: EXTRA_HOUR_UT,
+    maxHub: EXTRA_HOUR_UT + extraMinutesUnixTime,
+  }
+  const hubs: { type: HUB_TYPE; hour: number }[] = [
+    { type: HUB_TYPE.HUB_10, hour: 10 },
+    { type: HUB_TYPE.HUB_8, hour: 8 },
+    { type: HUB_TYPE.HUB_5, hour: 5 },
+    { type: HUB_TYPE.HUB_3, hour: 3 },
+    { type: HUB_TYPE.HUB_1, hour: 1 },
+  ]
+  for (let i = 0; i < hubs.length; i++) {
+    const hub = hubs[i]
+    const hour = hub.hour
+    const min = hour * EXTRA_HOUR_UT
+    const max = min + extraMinutesUnixTime
+    if (duration >= min && duration <= max) {
+      hubTime.hub = hub.type
+      hubTime.duration = duration
+      hubTime.minHub = min
+      hubTime.maxHub = max
+      break
     }
   }
+  return hubTime
 }
 
 export const generateHubShiftId = (start: string, end: string) => {
@@ -98,8 +77,15 @@ export const generate_HUB_SHIFT = () => {
     [HUB_TYPE.HUB_8]: [],
     [HUB_TYPE.HUB_5]: [],
     [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
   }
   const ALL_HUB: HubShiftRawArr = {
+    [HUB_TYPE.HUB_1]: [
+      ['10:55', '12:00'],
+      ['12:00', '13:00'],
+      ['16:55', '17:55'],
+      ['19:00', '20:00'],
+    ],
     [HUB_TYPE.HUB_3]: [
       ['00:00', '03:00'],
       ['03:05', '06:05'],
@@ -116,6 +102,8 @@ export const generate_HUB_SHIFT = () => {
       ['05:50', '10:50'],
       ['08:00', '13:00'],
       ['10:55', '16:00'],
+      ['13:00', '18:00'],
+      ['16:00', '21:00'],
       ['17:55', '23:00'],
     ],
     [HUB_TYPE.HUB_8]: [['10:55', '19:00']],
@@ -141,7 +129,12 @@ export const generate_HUB_SHIFT = () => {
 }
 
 export const isSoldierHub = (hubType: HUB_TYPE) => {
-  if (hubType === HUB_TYPE.HUB_3 || hubType === HUB_TYPE.HUB_5) return true
+  if (
+    hubType === HUB_TYPE.HUB_3 ||
+    hubType === HUB_TYPE.HUB_5 ||
+    hubType === HUB_TYPE.HUB_1
+  )
+    return true
   return false
 }
 

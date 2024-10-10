@@ -6,6 +6,7 @@ import { HUB_TYPE } from 'modules/Form/types'
 import {
   makeMyHubByHubTime,
   isExpandAllHubListSummarySelector,
+  filterHubTypeHub1Selector,
   filterHubTypeHub3Selector,
   filterHubTypeHub5Selector,
   filterHubTypeHub8Selector,
@@ -28,6 +29,8 @@ const HubDate = ({ date = '' }: Props) => {
   const history = useHistory()
   const dispatch: AppDispatch = useDispatch()
   const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
+
+  const filter_1 = useSelector(filterHubTypeHub1Selector)
   const filter_3 = useSelector(filterHubTypeHub3Selector)
   const filter_5 = useSelector(filterHubTypeHub5Selector)
   const filter_8 = useSelector(filterHubTypeHub8Selector)
@@ -38,6 +41,7 @@ const HubDate = ({ date = '' }: Props) => {
   const hubs = useMemo(() => {
     return hubsByDate.filter((hub) => {
       if (
+        (!filter_1 && hub.hubType === HUB_TYPE.HUB_1) ||
         (!filter_3 && hub.hubType === HUB_TYPE.HUB_3) ||
         (!filter_5 && hub.hubType === HUB_TYPE.HUB_5) ||
         (!filter_8 && hub.hubType === HUB_TYPE.HUB_8) ||
@@ -46,14 +50,7 @@ const HubDate = ({ date = '' }: Props) => {
         return false
       return true
     })
-  }, [hubsByDate, filter_3, filter_5, filter_8, filter_10])
-
-  console.log({
-    filter_3,
-    filter_5,
-    filter_8,
-    filter_10,
-  })
+  }, [hubsByDate, filter_1, filter_3, filter_5, filter_8, filter_10])
 
   const [toggle, setToggle] = useState(isExpandAllHub)
 

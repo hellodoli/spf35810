@@ -4,6 +4,7 @@ export enum FORM_ACTION {
 }
 
 export enum HUB_TYPE {
+  HUB_1 = 'HUB_1',
   HUB_3 = 'HUB_3',
   HUB_5 = 'HUB_5',
   HUB_8 = 'HUB_8',
