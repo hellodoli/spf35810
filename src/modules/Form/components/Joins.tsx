@@ -1,6 +1,7 @@
 import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
+import clsx from 'clsx'
 
 import type { JoinOrder } from 'modules/Form/types'
 import { JOIN_2_DEFAULT } from 'modules/Form/constants'
@@ -24,6 +25,8 @@ const formItemProps = {
   subLabelWidth: 80,
   labelWidth: '30%',
 }
+
+const joinTypeArr: JoinOrder['type'][] = [2, 3, 4, 5]
 
 const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const dispatch = useDispatch()
@@ -71,20 +74,35 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   }, [soldierHub, onChangeCreatePrice, fixedPrice])
 
   return (
-    <div>
-      <FormItem
-        {...formItemProps}
-        label="Loại đơn ghép (số đơn con trong một đơn ghép)"
-        isWrapLabel={false}
-      >
-        <InputNumber
+    <div className="border p-2 border-black">
+      <FormItem {...formItemProps} label="Loại ghép:" isWrapLabel={false}>
+        <div className="flex flex-wrap gap-2">
+          {joinTypeArr.map((type) => {
+            return (
+              <button
+                key={type}
+                className={clsx(
+                  'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
+                  {
+                    'stardust-button--active': joinType === type,
+                  },
+                )}
+                onClick={() => onChangeCreateJoinType(type)}
+              >
+                {`${type} đơn`}
+              </button>
+            )
+          })}
+        </div>
+        {/* OLD CODE: input type */}
+        {/*<InputNumber
           min={2}
           max={5}
           initValue={3}
           onChangeInput={onChangeCreateJoinType}
-        />
+        />*/}
       </FormItem>
-      <FormItem {...formItemProps} label="Số lượng" subLabel="đơn">
+      <FormItem {...formItemProps} label="Số lượng:" subLabel="đơn">
         <InputNumber
           min={0}
           max={max}
@@ -94,7 +112,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
         />
         <MaxLabel max={max} />
       </FormItem>
-      <FormItem {...formItemProps} label="Giá đơn ghép">
+      <FormItem {...formItemProps} label="Giá đơn ghép:">
         {!soldierHub ? (
           <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
             {orderPrice * joinType}

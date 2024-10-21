@@ -18,30 +18,30 @@ interface HubBtnItem {
 }
 
 const Button = ({
-  hub,
   isHubTypeActive = false,
   changeHubType,
   disabled = false,
+  text = '',
+  hubType,
 }: {
-  hub: HubBtnItem
+  text?: string
+  hubType: HUB_TYPE
   isHubTypeActive?: boolean
   changeHubType: (hubType: HUB_TYPE) => void
   disabled?: boolean
 }) => {
   return (
     <button
-      key={hub.id}
       className={clsx(
         'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
         {
           'stardust-button--active': isHubTypeActive,
         },
       )}
-      style={{ borderRadius: '1rem' }}
-      onClick={() => changeHubType(hub.type)}
+      onClick={() => changeHubType(hubType)}
       disabled={disabled}
     >
-      {hub.text}
+      {text}
     </button>
   )
 }
@@ -92,10 +92,11 @@ const HubType = ({ type = FORM_ACTION.ADD }: Props) => {
           return (
             <ChooseHubBtn
               key={hub.id}
-              hub={hub}
               isHubTypeActive={hub.type === activeHubType}
               changeHubType={changeHubType}
               disabled={type === FORM_ACTION.EDIT}
+              hubType={hub.type}
+              text={hub.text}
             />
           )
         })}
