@@ -36,6 +36,7 @@ const Order = ({ joinId, initValue }: Props) => {
         max={max}
         initValue={initValue}
         onChangeInput={onChangeInput}
+        isCounterMobile={true}
       />
       <MaxLabel max={max} />
     </>

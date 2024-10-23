@@ -109,6 +109,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
           initValue={0}
           onChangeInput={onChangeCreateOrder}
           resetCount={resetCountOrder}
+          isCounterMobile={true}
         />
         <MaxLabel max={max} />
       </FormItem>
