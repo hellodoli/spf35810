@@ -36,6 +36,7 @@ const Order = ({ type = FORM_ACTION.ADD }: Props) => {
         max={ST.ORDER_QUANTITY.MAX}
         initValue={initValue}
         onChangeInput={onChangeOrder}
+        isCounterMobile={true}
       />
     </FormItem>
   )
