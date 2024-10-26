@@ -2,6 +2,7 @@ import React, { useMemo, memo, useCallback, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from 'configStore'
+import { ReactComponent as TrashIcon } from 'assets/icons/trash-alt.svg'
 import { HUB_TYPE } from 'modules/Form/types'
 import {
   makeMyHubByHubTime,
@@ -51,12 +52,31 @@ const HubDate = ({ date = '' }: Props) => {
       return true
     })
   }, [hubsByDate, filter_1, filter_3, filter_5, filter_8, filter_10])
+  const displayDate = useMemo(() => getDisplayDate(new Date(+date)), [date])
 
   const [toggle, setToggle] = useState(isExpandAllHub)
 
   const onClickHubItem = useCallback((hubId: string) => {
     history.push(`${routes.hub}/${hubId}`)
   }, [])
+
+  const onHandleDeleteHubByDate = useCallback(() => {
+    dispatch(
+      asThunk.deleteHubByDate({
+        date,
+      }),
+    )
+  }, [date])
+
+  const deleteHubDate = () => {
+    if (window.confirm) {
+      const text = `Bạn có muốn xóa toàn bộ ca hub ngày ${displayDate} ?`
+      const confirm = window.confirm(text)
+      if (confirm) {
+        onHandleDeleteHubByDate()
+      }
+    }
+  }
 
   const onHandleDeleteHub = useCallback(
     (hubId: string) => {
@@ -83,14 +103,17 @@ const HubDate = ({ date = '' }: Props) => {
   }
   return (
     <div className="hub-date mb-6 last:mb-0 p-2 border-line" data-date={date}>
-      <div className="date mb-2 text-base">
-        <strong>{getDisplayDate(new Date(+date))}</strong>
+      <div className="date mb-2 text-base flex items-center">
+        <strong>{displayDate}</strong>
         <ExpandBtn
           isDetail={toggle}
           toggleDetail={toggleDetail}
           textHide="(Ẩn)"
           textShow="(Xem thống kê ngày)"
         />
+        <span className="ml-auto" onClick={deleteHubDate}>
+          <TrashIcon fill="rgba(0, 0, 0, 0.8)" width={14} height={14} />
+        </span>
       </div>
 
       {toggle && (

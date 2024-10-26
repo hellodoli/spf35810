@@ -50,9 +50,10 @@ const FilterHub = () => {
     <div className="button-group no-margin-x">
       {hubColors.map((color, index) => {
         const hubType = hubColorKeys[index]
+        const key = `${hubType}-${color}`
         return (
           <FilterItemMemo
-            key={color}
+            key={key}
             color={color}
             hubType={hubType}
             onChangeFilter={onChangeFilter}

@@ -14,6 +14,22 @@ import { actions } from './'
 
 import { getRangeTimeMyHubs } from 'utils/hub'
 
+function showLogToast({
+  isSuccess,
+  successText = 'Thành công',
+  errorText = 'Thất bại',
+}: {
+  isSuccess: boolean
+  successText?: string
+  errorText?: string
+}) {
+  if (isSuccess) {
+    toast.success(successText)
+  } else {
+    toast.error(errorText)
+  }
+}
+
 const getHubsByHubTime = createAsyncThunk<ResponseHubsAsyncThunk<Hub>, number>(
   'form/getHubsByHubTime',
   async (hubTime) => {
@@ -91,28 +107,79 @@ const getMyHubs = createAsyncThunk<
   return response as ResponseHubsAsyncThunk<Hub>
 })
 
+interface DeleteHubByIdData {
+  hubId: string
+  date: string
+}
+interface DeleteHubByIdProps {
+  id: string
+  date: string
+}
 const deleteHubById = createAsyncThunk<
-  ResponseDataAsyncThunk<{
-    hubId: string
-    date: string
-  }>,
-  {
-    id: string
-    date: string
-  }
+  ResponseDataAsyncThunk<DeleteHubByIdData>,
+  DeleteHubByIdProps
 >('form/deleteHubById', async (params) => {
   const { id, date } = params
   const response = await db.deleteHubById(id, date)
   const { isSuccess } = response
-  if (isSuccess) {
-    toast.success('Xóa ca hub thành công')
-  } else {
-    toast.error('Xóa ca hub thất bại')
-  }
-  return response as ResponseDataAsyncThunk<{
-    hubId: string
-    date: string
-  }>
+  // log toast
+  showLogToast({
+    isSuccess,
+    errorText: 'Xóa ca hub thất bại',
+    successText: 'Xóa ca hub thành công',
+  })
+  return response as ResponseDataAsyncThunk<DeleteHubByIdData>
 })
 
-export { getHubsByHubTime, modifyHub, getMyHubs, deleteHubById }
+interface DeleteHubByDateData {
+  date: string
+  ids: string[]
+}
+interface DeleteHubByDateProps {
+  date: string
+}
+const deleteHubByDate = createAsyncThunk<
+  ResponseDataAsyncThunk<DeleteHubByDateData>,
+  DeleteHubByDateProps
+>('form/deleteHubByDate', async (params, { getState }) => {
+  const { date } = params
+  const state = getState() as RootState
+  const hubsByDate = state.form?.myHubs?.[date]
+  if (hubsByDate) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const initialValue: Promise<any>[] = []
+    const hubs = [...Object.values(hubsByDate)]
+    const ids = hubs.map((hub) => hub.id)
+    const promises = ids.reduce((promiseArr, id) => {
+      const promise = db.deleteHubById(id, date)
+      promiseArr.push(promise)
+      return promiseArr
+    }, initialValue)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const responses = await Promise.all(promises)
+    // log toast
+    showLogToast({
+      isSuccess: true,
+      successText: 'Xóa ca hub thành công',
+    })
+    return {
+      data: { date, ids },
+      isError: false,
+      isSuccess: true,
+    } as ResponseDataAsyncThunk<DeleteHubByDateData>
+  }
+  // FAILED: dont have date in data
+  return {
+    data: { date, ids: [] },
+    isError: true,
+    isSuccess: false,
+  } as ResponseDataAsyncThunk<DeleteHubByDateData>
+})
+
+export {
+  getHubsByHubTime,
+  modifyHub,
+  getMyHubs,
+  deleteHubById,
+  deleteHubByDate,
+}

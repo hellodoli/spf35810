@@ -151,14 +151,18 @@ export const isDisabledHubShift = (
     const end = getDateHourTime(hubShift.end).getTime()
     const curHubTimeStart = getDateHourTime(hubShiftStart).getTime()
     const curHubTimeEnd = getDateHourTime(hubShiftEnd).getTime()
-    if (
+    if (curHubTimeStart < end && start < curHubTimeEnd) {
+      isDisabled = true
+      break
+    }
+    /*if (
       (curHubTimeStart >= start && curHubTimeStart < end) ||
       (curHubTimeEnd >= start && curHubTimeEnd <= end) ||
       (start >= curHubTimeStart && start <= curHubTimeEnd)
     ) {
       isDisabled = true
       break
-    }
+    }*/
   }
   return isDisabled
 }

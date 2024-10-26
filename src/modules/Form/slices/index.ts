@@ -14,6 +14,7 @@ import {
   modifyHub,
   getMyHubs,
   deleteHubById,
+  deleteHubByDate,
 } from './asyncThunk'
 
 export const slice = createSlice({
@@ -101,6 +102,25 @@ export const slice = createSlice({
       }
     })
     builder.addCase(deleteHubById.rejected, () => {})
+
+    builder.addCase(deleteHubByDate.fulfilled, (state, action) => {
+      const {
+        data: { date, ids },
+      } = action.payload
+      const isDirty = !!ids.find((id) => state.hubsExist[id])
+      if (state.myHubs?.[date]) delete state.myHubs[date]
+      if (isDirty) {
+        const hubsExist = { ...state.hubsExist }
+        for (let i = 0; i < ids.length; i++) {
+          const id = ids[i]
+          if (hubsExist[id]) delete hubsExist[id]
+        }
+        state.hubsExist = hubsExist
+      }
+    })
+    builder.addCase(deleteHubByDate.rejected, () => {
+      console.log('[deleteHubByDate] rejected ....')
+    })
   },
 })
 
