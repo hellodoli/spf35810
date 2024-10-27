@@ -28,7 +28,7 @@ const ExtraPrice = ({
     () =>
       getPriceExtraOrder({
         hubType,
-        order: order,
+        order,
         isJoin,
       }),
     [hubType, order],

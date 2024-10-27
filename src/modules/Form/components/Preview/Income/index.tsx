@@ -6,7 +6,7 @@ import { actions } from 'modules/Form/slices'
 
 import { CheckBox } from 'modules/Form/components/Input'
 import SingleOrder from './SingleOrder'
-import JoinOrderComp from './JoinOrder'
+import JoinOrder from './JoinOrder'
 import { ExtraJoinOrderPrice, ExtraOrderPrice } from './Extra'
 import Total from './Total'
 
@@ -52,7 +52,7 @@ const Income = () => {
         {/* Thu nhập đơn lẻ */}
         <SingleOrder />
         {/* Thu nhập đơn ghép */}
-        <JoinOrderComp joins={joins} />
+        <JoinOrder joins={joins} />
       </ul>
 
       <ul className="p-2 border-line -mt-[1px]">
