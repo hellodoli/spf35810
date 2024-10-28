@@ -1,10 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from 'types/RootState'
-import { JoinOrder, HUB_TYPE } from 'modules/Form/types'
+import { JoinOrder, HUB_TYPE, Hub } from 'modules/Form/types'
 import { initialState } from 'modules/Form/slices/initState'
 
 import { getMaxJoinOrder } from 'utils/join'
 import { isSoldierHub } from 'utils/hub'
+
+export * from './settings'
 
 const selectSlice = (state: RootState) => state.form || initialState
 
@@ -20,31 +22,6 @@ export const joinsObSelector = createSelector(
 
 export const joinsSelector = createSelector([joinsObSelector], (joinsOb) =>
   Object.values(joinsOb),
-)
-
-export const settingsSelector = createSelector(
-  [selectSlice],
-  (state) => state.settings,
-)
-
-export const orderPriceDefaultSelector = createSelector(
-  [settingsSelector],
-  (settings) => settings.ORDER_PRICE.DEFAULT,
-)
-
-export const incomeSettingSelector = createSelector(
-  [selectSlice],
-  (state) => state.incomeSetting,
-)
-
-export const isShowExtraJoinOrderPriceSelector = createSelector(
-  [incomeSettingSelector],
-  (incomeSetting) => incomeSetting['SHOW_EXTRA_JOIN_ORDER_PRICE'],
-)
-
-export const isShowDetailWithOrderSelector = createSelector(
-  [incomeSettingSelector],
-  (incomeSetting) => incomeSetting['SHOW_DETAIL_WITH_ORDER'],
 )
 
 export const hubTypeSelector = createSelector(
@@ -141,18 +118,29 @@ export const makeFilterHubType = createSelector(
   },
 )
 
-export const myHubObSelector = createSelector(
+export const myHubsObSelector = createSelector(
   [selectSlice],
   (state) => state.myHubs,
 )
+
+export const myHubsSelector = createSelector([myHubsObSelector], (myHubsOb) => {
+  const allHubs: Hub[] = []
+  const hubDates = Object.values(myHubsOb)
+  hubDates.forEach((hubByIds) => {
+    const hubs = Object.values(hubByIds)
+    hubs.forEach((hub) => allHubs.push(hub))
+  })
+  return allHubs
+})
 
 export const isOpenDbSelector = createSelector(
   [selectSlice],
   (state) => state.isOpenDb,
 )
 
-export const myHubKeysSelector = createSelector([myHubObSelector], (myHubOb) =>
-  Object.keys(myHubOb),
+export const myHubKeysSelector = createSelector(
+  [myHubsObSelector],
+  (myHubsOb) => Object.keys(myHubsOb),
 )
 
 export const displayMyHubTypeSelector = createSelector(

@@ -29,8 +29,8 @@ interface Props {
 const HubDate = ({ date = '' }: Props) => {
   const history = useHistory()
   const dispatch: AppDispatch = useDispatch()
-  const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
 
+  const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
   const filter_1 = useSelector(filterHubTypeHub1Selector)
   const filter_3 = useSelector(filterHubTypeHub3Selector)
   const filter_5 = useSelector(filterHubTypeHub5Selector)
@@ -39,6 +39,7 @@ const HubDate = ({ date = '' }: Props) => {
 
   const myHubByHubTime = useMemo(makeMyHubByHubTime, [])
   const hubsByDate = useSelector((state) => myHubByHubTime(state, +date))
+
   const hubs = useMemo(() => {
     return hubsByDate.filter((hub) => {
       if (
@@ -52,6 +53,7 @@ const HubDate = ({ date = '' }: Props) => {
       return true
     })
   }, [hubsByDate, filter_1, filter_3, filter_5, filter_8, filter_10])
+
   const displayDate = useMemo(() => getDisplayDate(new Date(+date)), [date])
   const hasData = !!hubs.length
 
