@@ -23,7 +23,7 @@ const Buttons = () => {
     )
   }, [])
   return (
-    <div className="button-group">
+    <div className="button-group no-margin-x has-border-x">
       {buttons.map((button) => {
         const active = displayMyHubType === button.value
         return (
@@ -31,7 +31,7 @@ const Buttons = () => {
             key={button.id}
             className={clsx(
               'stardust-button-reset stardust-button stardust-button--secondary',
-              '-ml-[1px] first:ml-0',
+              // '-ml-[1px] first:ml-0',
               'whitespace-nowrap',
             )}
             style={{

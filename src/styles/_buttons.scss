@@ -65,7 +65,7 @@
 }
 
 .button-group {
-  &:not(.no-margin-x) {
+  &:not(.no-margin-x):not(.has-border-x) {
     & > * {
       margin-left: -1px;
       &:first-child {

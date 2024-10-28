@@ -53,6 +53,7 @@ const HubDate = ({ date = '' }: Props) => {
     })
   }, [hubsByDate, filter_1, filter_3, filter_5, filter_8, filter_10])
   const displayDate = useMemo(() => getDisplayDate(new Date(+date)), [date])
+  const hasData = !!hubs.length
 
   const [toggle, setToggle] = useState(isExpandAllHub)
 
@@ -98,47 +99,54 @@ const HubDate = ({ date = '' }: Props) => {
     setToggle(isExpandAllHub)
   }, [isExpandAllHub])
 
-  if (!hubs.length) {
-    return <div className="text-center p-4 my-8">Không có ca hub nào.</div>
-  }
   return (
     <div className="hub-date mb-6 last:mb-0 p-2 border-line" data-date={date}>
       <div className="date mb-2 text-base flex items-center">
         <strong>{displayDate}</strong>
-        <ExpandBtn
-          isDetail={toggle}
-          toggleDetail={toggleDetail}
-          textHide="(Ẩn)"
-          textShow="(Xem thống kê ngày)"
-        />
-        <span className="ml-auto" onClick={deleteHubDate}>
-          <TrashIcon fill="rgba(0, 0, 0, 0.8)" width={14} height={14} />
-        </span>
+        {hasData && (
+          <>
+            <ExpandBtn
+              isDetail={toggle}
+              toggleDetail={toggleDetail}
+              textHide="(Ẩn)"
+              textShow="(Xem thống kê ngày)"
+            />
+            <span className="ml-auto" onClick={deleteHubDate}>
+              <TrashIcon fill="rgba(0, 0, 0, 0.8)" width={14} height={14} />
+            </span>
+          </>
+        )}
       </div>
 
-      {toggle && (
+      {!hasData && (
+        <div className="text-center p-4 my-2">Không có ca hub nào.</div>
+      )}
+
+      {toggle && hasData && (
         <div className="mb-2">
           <Price hubs={hubs} />
         </div>
       )}
 
-      <div className="py-2">
-        <div className="flex flex-wrap -m-1">
-          {hubs.map((hub) => {
-            return (
-              <HubItem
-                key={hub.id}
-                id={hub.id}
-                hubShift={hub.hubShift}
-                hubType={hub.hubType}
-                hubTime={hub.hubTime}
-                onClick={onClickHubItem}
-                onHandleDeleteHub={onHandleDeleteHub}
-              />
-            )
-          })}
+      {hasData && (
+        <div className="py-2">
+          <div className="flex flex-wrap -m-1">
+            {hubs.map((hub) => {
+              return (
+                <HubItem
+                  key={hub.id}
+                  id={hub.id}
+                  hubShift={hub.hubShift}
+                  hubType={hub.hubType}
+                  hubTime={hub.hubTime}
+                  onClick={onClickHubItem}
+                  onHandleDeleteHub={onHandleDeleteHub}
+                />
+              )
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
