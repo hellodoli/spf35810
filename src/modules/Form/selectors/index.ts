@@ -166,6 +166,11 @@ export const isExpandAllHubListSummarySelector = createSelector(
   (state) => state.isExpandAllHubListSummary,
 )
 
+export const filterHubTypeSelector = createSelector(
+  [selectSlice],
+  (state) => state.filterHubTypeSetting,
+)
+
 export const filterHubTypeHub10Selector = createSelector(
   [selectSlice],
   (state) => state.filterHubTypeSetting[HUB_TYPE.HUB_10],

@@ -11,17 +11,13 @@ import {
   isLoadingMyHubSelector,
   myHubsSelector,
   orderPriceDefaultSelector,
-  filterHubTypeHub1Selector,
-  filterHubTypeHub3Selector,
-  filterHubTypeHub5Selector,
-  filterHubTypeHub8Selector,
-  filterHubTypeHub10Selector,
+  filterHubTypeSelector,
 } from 'modules/Form/selectors'
-import { HUB_DISPLAY, HUB_TYPE } from 'modules/Form/types'
+import { HUB_DISPLAY } from 'modules/Form/types'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
 
 import { getFormat } from 'utils/price'
-import { getPriceOfHubs } from './utils'
+import { getPrice_Hubs, getFilter_Hubs } from './utils'
 
 import ExpandTotalPrice from './ExpandTotalPrice'
 import HubDate from './HubDate'
@@ -30,28 +26,18 @@ const Total = () => {
   const f = useMemo(() => getFormat(), [])
   const allHubs = useSelector(myHubsSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
-  const filter_1 = useSelector(filterHubTypeHub1Selector)
-  const filter_3 = useSelector(filterHubTypeHub3Selector)
-  const filter_5 = useSelector(filterHubTypeHub5Selector)
-  const filter_8 = useSelector(filterHubTypeHub8Selector)
-  const filter_10 = useSelector(filterHubTypeHub10Selector)
+  const filters = useSelector(filterHubTypeSelector)
 
-  const hubs = useMemo(() => {
-    return allHubs.filter((hub) => {
-      if (
-        (!filter_1 && hub.hubType === HUB_TYPE.HUB_1) ||
-        (!filter_3 && hub.hubType === HUB_TYPE.HUB_3) ||
-        (!filter_5 && hub.hubType === HUB_TYPE.HUB_5) ||
-        (!filter_8 && hub.hubType === HUB_TYPE.HUB_8) ||
-        (!filter_10 && hub.hubType === HUB_TYPE.HUB_10)
-      )
-        return false
-      return true
-    })
-  }, [allHubs, filter_1, filter_3, filter_5, filter_8, filter_10])
-
+  const hubs = useMemo(
+    () =>
+      getFilter_Hubs({
+        hubs: allHubs,
+        filters,
+      }),
+    [allHubs, filters],
+  )
   const price = useMemo(
-    () => getPriceOfHubs(hubs, orderPrice),
+    () => getPrice_Hubs(hubs, orderPrice),
     [hubs, orderPrice],
   )
 

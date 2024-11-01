@@ -5,7 +5,7 @@ import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { Hub } from 'modules/Form/types'
 import { getFormat } from 'utils/price'
 
-import { getOrderOfHubs, getPriceOfHubs } from '../utils'
+import { getOrderOfHubs, getPrice_Hubs } from '../utils'
 
 import JoinsPay from './JoinsPay'
 
@@ -16,7 +16,7 @@ interface Props {
 const Price = ({ hubs }: Props) => {
   const f = useMemo(() => getFormat(), [])
   const orderPrice = useSelector(orderPriceDefaultSelector)
-  const priceOfHubs = getPriceOfHubs(hubs, orderPrice)
+  const priceOfHubs = getPrice_Hubs(hubs, orderPrice)
 
   return (
     <ul className="p-2 border-line">

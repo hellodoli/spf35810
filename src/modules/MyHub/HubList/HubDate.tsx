@@ -3,20 +3,17 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from 'configStore'
 import { ReactComponent as TrashIcon } from 'assets/icons/trash-alt.svg'
-import { HUB_TYPE } from 'modules/Form/types'
+
 import {
   makeMyHubByHubTime,
   isExpandAllHubListSummarySelector,
-  filterHubTypeHub1Selector,
-  filterHubTypeHub3Selector,
-  filterHubTypeHub5Selector,
-  filterHubTypeHub8Selector,
-  filterHubTypeHub10Selector,
+  filterHubTypeSelector,
 } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
 
 import { routes } from 'utils/route-path'
 import { getDisplayDate } from 'utils/time'
+import { getFilter_Hubs } from './utils'
 
 import ExpandBtn from 'components/ExpandBtn'
 import HubItem from './HubItem'
@@ -31,29 +28,19 @@ const HubDate = ({ date = '' }: Props) => {
   const dispatch: AppDispatch = useDispatch()
 
   const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
-  const filter_1 = useSelector(filterHubTypeHub1Selector)
-  const filter_3 = useSelector(filterHubTypeHub3Selector)
-  const filter_5 = useSelector(filterHubTypeHub5Selector)
-  const filter_8 = useSelector(filterHubTypeHub8Selector)
-  const filter_10 = useSelector(filterHubTypeHub10Selector)
+  const filters = useSelector(filterHubTypeSelector)
 
   const myHubByHubTime = useMemo(makeMyHubByHubTime, [])
   const hubsByDate = useSelector((state) => myHubByHubTime(state, +date))
 
-  const hubs = useMemo(() => {
-    return hubsByDate.filter((hub) => {
-      if (
-        (!filter_1 && hub.hubType === HUB_TYPE.HUB_1) ||
-        (!filter_3 && hub.hubType === HUB_TYPE.HUB_3) ||
-        (!filter_5 && hub.hubType === HUB_TYPE.HUB_5) ||
-        (!filter_8 && hub.hubType === HUB_TYPE.HUB_8) ||
-        (!filter_10 && hub.hubType === HUB_TYPE.HUB_10)
-      )
-        return false
-      return true
-    })
-  }, [hubsByDate, filter_1, filter_3, filter_5, filter_8, filter_10])
-
+  const hubs = useMemo(
+    () =>
+      getFilter_Hubs({
+        hubs: hubsByDate,
+        filters,
+      }),
+    [hubsByDate, filters],
+  )
   const displayDate = useMemo(() => getDisplayDate(new Date(+date)), [date])
   const hasData = !!hubs.length
 
@@ -113,7 +100,10 @@ const HubDate = ({ date = '' }: Props) => {
               textHide="(Ẩn)"
               textShow="(Xem thống kê ngày)"
             />
-            <span className="ml-auto" onClick={deleteHubDate}>
+            <span
+              className="ml-auto cursor-pointer p-1"
+              onClick={deleteHubDate}
+            >
               <TrashIcon fill="rgba(0, 0, 0, 0.8)" width={14} height={14} />
             </span>
           </>

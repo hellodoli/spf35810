@@ -6,7 +6,7 @@ import Income from './Income'
 
 const Preview = () => {
   const [checked, setChecked] = useState({
-    order: true,
+    order: false,
     income: true,
   })
 
