@@ -6,6 +6,7 @@ import { Hub, MyHubs, RangeTime } from './hub'
 export interface HubState {
   settings: Settings
   incomeSetting: IncomeSetting
+  isHubWellDone: boolean
   hubType: HUB_TYPE
   hubShift: string
   hubTime: number

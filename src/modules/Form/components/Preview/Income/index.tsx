@@ -7,7 +7,7 @@ import { actions } from 'modules/Form/slices'
 import { CheckBox } from 'modules/Form/components/Input'
 import SingleOrder from './SingleOrder'
 import JoinOrder from './JoinOrder'
-import { ExtraJoinOrderPrice, ExtraOrderPrice } from './Extra'
+import { ExtraJoinOrderPrice, ExtraOrderPrice, ExtraContainer } from './Extra'
 import Total from './Total'
 
 const Income = () => {
@@ -55,10 +55,10 @@ const Income = () => {
         <JoinOrder joins={joins} />
       </ul>
 
-      <ul className="p-2 border-line -mt-[1px]">
+      <ExtraContainer>
         <ExtraOrderPrice />
         <ExtraJoinOrderPrice />
-      </ul>
+      </ExtraContainer>
     </div>
   )
 }

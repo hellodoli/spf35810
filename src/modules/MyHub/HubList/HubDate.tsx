@@ -13,7 +13,7 @@ import * as asThunk from 'modules/Form/slices/asyncThunk'
 
 import { routes } from 'utils/route-path'
 import { getDisplayDate } from 'utils/time'
-import { getFilter_Hubs } from './utils'
+import { getFilter_Hubs } from 'utils/income'
 
 import ExpandBtn from 'components/ExpandBtn'
 import HubItem from './HubItem'
@@ -133,6 +133,7 @@ const HubDate = ({ date = '' }: Props) => {
                   hubTime={hub.hubTime}
                   onClick={onClickHubItem}
                   onHandleDeleteHub={onHandleDeleteHub}
+                  isHubWellDone={hub.isHubWellDone}
                 />
               )
             })}

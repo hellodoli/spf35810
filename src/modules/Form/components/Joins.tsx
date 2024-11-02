@@ -174,7 +174,6 @@ const Joins = () => {
   return (
     <FormItem label="Đơn ghép trong ca:">
       <div className="border-line p-2">
-        <div className="flex items-center gap-1 mb-4">Switch</div>
         {/* Joins */}
         <List />
         {/* Tùy chỉnh */}

@@ -5,7 +5,7 @@ import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { Hub } from 'modules/Form/types'
 import { getFormat } from 'utils/price'
 
-import { getOrderOfHubs, getPrice_Hubs } from '../utils'
+import { getOrderOfHubs, getPrice_Hubs } from 'utils/income'
 
 import JoinsPay from './JoinsPay'
 

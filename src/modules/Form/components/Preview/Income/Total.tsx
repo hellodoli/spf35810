@@ -6,9 +6,10 @@ import {
   joinsSelector,
   hubTypeSelector,
   isShowExtraJoinOrderPriceSelector,
+  isHubWellDoneSelector,
 } from 'modules/Form/selectors'
-import { getPriceJoinOrder, getFormat, getPriceExtraOrder } from 'utils/price'
-import { getPreviewOrder } from 'utils/preview'
+import { getFormat } from 'utils/price'
+import { getPrice_Hub } from 'utils/income'
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
@@ -16,50 +17,24 @@ const Total = () => {
   const order = useSelector(orderSelector)
   const joins = useSelector(joinsSelector)
   const hubType = useSelector(hubTypeSelector)
+  const isHubWellDone = useSelector(isHubWellDoneSelector)
   const isShowExtraJoinOrderPrice = useSelector(
     isShowExtraJoinOrderPriceSelector,
   )
-  const { singleOrder, totalJoinsOrder } = useMemo(
-    () => getPreviewOrder({ order, joins }),
-    [order, joins],
-  )
-  const totalPriceJoinOrder = useMemo(
-    () => getPriceJoinOrder({ joins }),
-    [joins],
-  )
-  const singleOrderPrice = singleOrder * orderPrice
 
-  // extra price
-  const extraOrder = useMemo(
-    () =>
-      getPriceExtraOrder({
-        hubType,
-        order,
-        isJoin: false,
-      }),
-    [hubType, order],
-  )
-  const extraJoinOrder = useMemo(
-    () =>
-      getPriceExtraOrder({
-        hubType,
-        order: totalJoinsOrder,
-        isJoin: true,
-      }),
-    [hubType, order, totalJoinsOrder],
-  )
+  const totalPrice = getPrice_Hub({
+    hubType,
+    joins,
+    order,
+    orderPrice,
+    isHubWellDone,
+    isShowExtraJoinOrderPrice,
+  })
 
   return (
     <div className="p-2 border-line -mt-[1px] text-xl">
       <span>Tổng thu nhập:</span>
-      <strong className="ml-1">
-        {f(
-          singleOrderPrice +
-            totalPriceJoinOrder +
-            extraOrder.totalPrice +
-            (isShowExtraJoinOrderPrice ? extraJoinOrder.totalPrice : 0),
-        )}
-      </strong>
+      <strong className="ml-1">{f(totalPrice)}</strong>
     </div>
   )
 }

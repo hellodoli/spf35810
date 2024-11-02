@@ -57,6 +57,7 @@ const modifyHub = createAsyncThunk(
         hubTime: state.form.hubTime,
         order: state.form.order,
         joins: [...Object.values(state.form.joins)],
+        isHubWellDone: state.form.isHubWellDone,
       }
       console.log('modifyHub: ', { form: state.form, hub, type })
       const response =

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'configStore'
 import DatePicker from 'react-datepicker'
-import { FORM_ACTION } from 'modules/Form/types'
 import { actions } from 'modules/Form/slices'
 import { getHubsByHubTime } from 'modules/Form/slices/asyncThunk'
 import { hubTimeSelector } from 'modules/Form/selectors'
@@ -10,10 +9,6 @@ import { getUnixTime } from 'utils/time'
 
 import FormItem from 'modules/Form/components/FormItem'
 import { InputWrapper } from 'modules/Form/components/Input'
-
-interface Props {
-  type?: FORM_ACTION
-}
 
 const HubTimeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -25,8 +20,7 @@ const HubTimeLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const HubTime = ({ type = FORM_ACTION.ADD }: Props) => {
+const HubTime = () => {
   const dispatch: AppDispatch = useDispatch()
   const hubTime = useSelector(hubTimeSelector)
   const selected = useMemo(() => new Date(hubTime), [hubTime])

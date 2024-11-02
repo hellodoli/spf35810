@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react'
+import clsx from 'clsx'
 import { useSelector } from 'react-redux'
 import {
   orderSelector,
   joinsSelector,
   hubTypeSelector,
   isShowExtraJoinOrderPriceSelector,
+  isHubWellDoneSelector,
 } from 'modules/Form/selectors'
 import { getTotalOrderOfJoins } from 'utils/join'
 import { isSoldierHub } from 'utils/hub'
+
+import { ReactComponent as CircleExclamation } from 'assets/icons/circle-exclamation.svg'
 
 import ExtraPrice from './ExtraPrice'
 
@@ -35,4 +39,31 @@ const ExtraJoinOrderPrice = () => {
   )
 }
 
-export { ExtraOrderPrice, ExtraJoinOrderPrice }
+const ExtraContainer = ({ children }: { children: React.ReactNode }) => {
+  const isHubWellDone = useSelector(isHubWellDoneSelector)
+  return (
+    <ul
+      className={clsx('p-2 border-line -mt-[1px]', {
+        'opacity-50': !isHubWellDone,
+        'select-none': !isHubWellDone,
+      })}
+    >
+      {!isHubWellDone && (
+        <li>
+          <span className="inline-flex italic text-color-error text-sm">
+            <CircleExclamation
+              fill="var(--nc-error)"
+              className="mt-1 mr-1 flex-none"
+              width={12}
+              height={12}
+            />
+            Bạn sẽ không nhận được thu nhập dưới đây do không đạt hiệu suất.
+          </span>
+        </li>
+      )}
+      {children}
+    </ul>
+  )
+}
+
+export { ExtraOrderPrice, ExtraJoinOrderPrice, ExtraContainer }

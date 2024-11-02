@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { HubState, HUB_TYPE, Hub } from 'modules/Form/types'
+import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
 import { convertFromJoinsOb } from 'utils/join'
 
 export const formActions = {
@@ -33,6 +34,13 @@ export const formActions = {
     const { shift } = action.payload
     state.hubShift = shift
   },
+  changeIsHubWellDone: (
+    state: HubState,
+    action: PayloadAction<{ isHubWellDone: boolean }>,
+  ) => {
+    const { isHubWellDone } = action.payload
+    state.isHubWellDone = isHubWellDone
+  },
   changeHubDetail: (state: HubState, action: PayloadAction<{ hub: Hub }>) => {
     const { hub } = action.payload
     state.hubShift = hub.hubShift
@@ -41,5 +49,9 @@ export const formActions = {
     state.order = hub.order
     state.joins = convertFromJoinsOb(hub.joins)
     state.isLoading = false
+    state.isHubWellDone =
+      typeof hub.isHubWellDone === 'boolean'
+        ? hub.isHubWellDone
+        : IS_HUB_WELL_DONE_DEFAULT
   },
 }

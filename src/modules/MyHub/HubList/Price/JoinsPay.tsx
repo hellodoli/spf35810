@@ -4,7 +4,7 @@ import { Hub } from 'modules/Form/types'
 import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 
 import { getFormat } from 'utils/price'
-import { getDiffJoinsPrice_Hubs } from '../utils'
+import { getDiffJoinsPrice_Hubs } from 'utils/income'
 
 const JoinsPay = ({ hubs }: { hubs: Hub[] }) => {
   const f = useMemo(() => getFormat(), [])

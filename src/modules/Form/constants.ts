@@ -106,3 +106,5 @@ export const HUB_COLORS: HubColorsFilter = {
   [HUB_TYPE.HUB_3]: '#9b9b9b',
   [HUB_TYPE.HUB_1]: '#9b9b9b',
 }
+
+export const IS_HUB_WELL_DONE_DEFAULT = true

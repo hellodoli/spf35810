@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { HUB_TYPE } from 'modules/Form/types'
-import { HUB_COLORS } from 'modules/Form/constants'
+import { HUB_COLORS, IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
 import { getDisplayDate } from 'utils/time'
 
 import './style.scss'
@@ -13,6 +13,7 @@ interface Props {
   isDisabledClicked?: boolean
   onClick?: (hubId: string) => void
   onHandleDeleteHub?: (hubId: string) => void
+  isHubWellDone?: boolean
 }
 
 const HubItem = ({
@@ -23,6 +24,7 @@ const HubItem = ({
   isDisabledClicked = false,
   onClick,
   onHandleDeleteHub,
+  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
 }: Props) => {
   const [start, end] = hubShift.split('_')
   const label = `${start} - ${end}`
@@ -49,7 +51,10 @@ const HubItem = ({
     <div className="flex-[0_0_auto] p-1 lg:w-1/3">
       <div
         className="hub-item flex items-center justify-between cursor-pointer p-2 rounded-lg border-line h-[40px] stardust-button-reset stardust-button stardust-button--secondary"
-        style={{ borderColor: HUB_COLORS[hubType] }}
+        style={{
+          borderStyle: isHubWellDone ? 'solid' : 'dashed',
+          borderColor: HUB_COLORS[hubType],
+        }}
         onClick={onHandleClick}
       >
         <span className="leading-normal">{label}</span>

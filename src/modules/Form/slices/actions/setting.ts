@@ -3,11 +3,13 @@ import { HUB_TYPE, HubState, IncomeSetting } from 'modules/Form/types'
 import { getResetHubFillState } from 'utils/state'
 
 const changeResetHubFillState = (state: HubState) => {
-  const { hubShift, hubTime, hubType, joins } = getResetHubFillState()
+  const { hubShift, hubTime, hubType, joins, isHubWellDone } =
+    getResetHubFillState()
   state.hubShift = hubShift
   state.hubTime = hubTime
   state.hubType = hubType
   state.joins = joins
+  state.isHubWellDone = isHubWellDone
 
   state.order = state.settings['ORDER_QUANTITY']['INIT']
   state.isLoading = false

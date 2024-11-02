@@ -17,6 +17,7 @@ import HubType from './HubType'
 import HubSelect from './HubSelect'
 import HubTime from './HubTime'
 import Meta from './Meta'
+import Kpi from './Kpi'
 
 interface FillProps {
   type?: FORM_ACTION
@@ -59,6 +60,8 @@ const Fill = ({
       <div className={`hub-form lg:flex overflow-hidden ${type}`}>
         <ContainerLayout>
           <>
+            {/* Kpi có đạt hay không */}
+            <Kpi />
             {/* Loại hub */}
             <HubType type={type} />
             {/* Số lượng đơn */}
@@ -66,7 +69,7 @@ const Fill = ({
             {!isCalMode && (
               <>
                 {/* Ngày làm việc */}
-                <HubTime type={type} />
+                <HubTime />
                 {/* Ca (thời gian) hoạt động hub */}
                 <HubSelect type={type} hubId={hubId} />
               </>

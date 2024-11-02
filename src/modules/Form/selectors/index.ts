@@ -24,6 +24,11 @@ export const joinsSelector = createSelector([joinsObSelector], (joinsOb) =>
   Object.values(joinsOb),
 )
 
+export const isHubWellDoneSelector = createSelector(
+  [selectSlice],
+  (state) => state.isHubWellDone,
+)
+
 export const hubTypeSelector = createSelector(
   [selectSlice],
   (state) => state.hubType,

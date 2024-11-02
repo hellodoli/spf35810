@@ -29,6 +29,7 @@ export interface HubGenaral {
   hubTime: number
   order: number
   joins: JoinOrder[]
+  isHubWellDone?: boolean
 }
 
 export interface Hub extends HubGenaral {

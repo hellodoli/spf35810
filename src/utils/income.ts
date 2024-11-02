@@ -4,48 +4,9 @@ import {
   HUB_TYPE,
   JoinOrder,
 } from 'modules/Form/types'
+import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceJoinOrder, getPriceExtraOrder } from 'utils/price'
-
-const getSumPrice_Hub = ({
-  order,
-  joins,
-  hubType,
-  orderPrice,
-}: {
-  order: number
-  joins: JoinOrder[]
-  hubType: HUB_TYPE
-  orderPrice: number
-}) => {
-  const { singleOrder, totalJoinsOrder } = getPreviewOrder({ order, joins })
-
-  const totalPriceJoinOrder = getPriceJoinOrder({ joins })
-
-  const singleOrderPrice = singleOrder * orderPrice
-
-  // thu nhập đơn ghép vượt mốc
-  const extraOrder = getPriceExtraOrder({
-    hubType,
-    order,
-    isJoin: false,
-  })
-
-  // thu nhập đơn con (của đơn ghép) vượt mốc
-  const extraJoinOrder = getPriceExtraOrder({
-    hubType,
-    order: totalJoinsOrder,
-    isJoin: true,
-  })
-
-  const price =
-    singleOrderPrice +
-    totalPriceJoinOrder +
-    extraOrder.totalPrice +
-    extraJoinOrder.totalPrice
-
-  return price
-}
 
 export const getOrderOfHubs = (hubs: Hub[]) => {
   return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
@@ -78,16 +39,66 @@ export const getFilter_Hubs = ({
   })
 }
 
-export const getPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
+export const getPrice_Hub = ({
+  order,
+  joins,
+  hubType,
+  orderPrice,
+  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+  isShowExtraJoinOrderPrice = true,
+}: {
+  order: number
+  joins: JoinOrder[]
+  hubType: HUB_TYPE
+  orderPrice: number
+  isHubWellDone?: boolean
+  isShowExtraJoinOrderPrice?: boolean
+}) => {
+  const { singleOrder, totalJoinsOrder } = getPreviewOrder({ order, joins })
+
+  const totalPriceJoinOrder = getPriceJoinOrder({ joins })
+
+  const singleOrderPrice = singleOrder * orderPrice
+
+  // thu nhập đơn ghép vượt mốc
+  const extraOrder = getPriceExtraOrder({
+    hubType,
+    order,
+    isJoin: false,
+  })
+
+  // thu nhập đơn con (của đơn ghép) vượt mốc
+  const extraJoinOrder = getPriceExtraOrder({
+    hubType,
+    order: totalJoinsOrder,
+    isJoin: true,
+  })
+
+  let price = singleOrderPrice + totalPriceJoinOrder
+
+  if (isHubWellDone) {
+    price += extraOrder.totalPrice
+    if (isShowExtraJoinOrderPrice) price += extraJoinOrder.totalPrice
+  }
+
+  return price
+}
+export const getPrice_Hubs = (
+  hubs: Hub[],
+  orderPrice: number,
+  isShowExtraJoinOrderPrice: boolean = true,
+) => {
   let total = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType } = hub
-    const price = getSumPrice_Hub({
+    const { order, joins, hubType, isHubWellDone } = hub
+    const price = getPrice_Hub({
       order,
       joins,
       hubType,
       orderPrice,
+      isHubWellDone,
+      isShowExtraJoinOrderPrice,
     })
     total += price
   }
