@@ -27,8 +27,8 @@ const Layout = ({
 }: Props) => {
   return (
     <div
-      className={clsx('md:flex', 'first:mt-0', {
-        'md:items-center': center,
+      className={clsx('lg:flex first:mt-0', {
+        'lg:items-center': center,
         'mt-4': mt === '',
         [className]: !!className,
       })}
@@ -38,10 +38,10 @@ const Layout = ({
     >
       <div
         className={clsx(
-          `overflow-hidden md:text-right`,
+          `overflow-hidden lg:text-right`,
           // default mobile
           'pb-1',
-          `md:pb-[${applyPxStyleValue(pb)}]`,
+          `lg:pb-[${applyPxStyleValue(pb)}]`,
           `max-[575px]:!w-auto`,
           {
             'whitespace-nowrap': isWrapLabel,
@@ -59,8 +59,8 @@ const Layout = ({
         className={clsx(
           'flex-1 box-border',
           'pl-0', // default mobile
-          `md:pl-[${applyPxStyleValue(pl)}]`,
-          `md:pb-[${applyPxStyleValue(pb)}]`,
+          `lg:pl-[${applyPxStyleValue(pl)}]`,
+          `lg:pb-[${applyPxStyleValue(pb)}]`,
         )}
         style={{
           width: contentWidth,
@@ -73,8 +73,8 @@ const Layout = ({
         <div
           className={clsx(
             'flex-none overflow-hidden whitespace-nowrap',
-            'md:pl-[20px]',
-            'hidden md:flex',
+            'lg:pl-[20px]',
+            'hidden lg:flex',
           )}
           style={{
             color: 'rgba(85,85,85,0.8)',

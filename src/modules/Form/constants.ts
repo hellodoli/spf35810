@@ -36,7 +36,7 @@ export const SETTINGS_DEFAULT: Settings = {
     PRICE: 20900,
   },
   JOIN_3: {
-    PRICE: 30000,
+    PRICE: 31200,
   },
   JOIN_4: {
     PRICE: 40000,

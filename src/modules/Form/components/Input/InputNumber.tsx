@@ -56,7 +56,7 @@ const CounterMobile = ({
     })
   }
   return (
-    <div className="md:hidden w-6 h-full">
+    <div className="lg:hidden w-6 h-full">
       <div className="w-full h-1/2 flex items-stretch">
         <button
           className="w-full stardust-button-reset stardust-button flex items-center justify-center"

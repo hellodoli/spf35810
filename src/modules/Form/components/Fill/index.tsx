@@ -8,7 +8,6 @@ import {
 import { actions } from 'modules/Form/slices'
 import { FORM_ACTION } from 'modules/Form/types'
 
-import FormItem from 'modules/Form/components/FormItem'
 import Joins from 'modules/Form/components/Joins'
 import PreviewContainer from 'modules/Form/components/Preview/PreviewContainer'
 import Preview from 'modules/Form/components/Preview'
@@ -18,6 +17,12 @@ import HubType from './HubType'
 import HubSelect from './HubSelect'
 import HubTime from './HubTime'
 import Meta from './Meta'
+
+interface FillProps {
+  type?: FORM_ACTION
+  isCalMode?: boolean
+  hubId?: string
+}
 
 const ContainerLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch()
@@ -45,11 +50,7 @@ const Fill = ({
   type = FORM_ACTION.ADD,
   isCalMode = false,
   hubId = '',
-}: {
-  type?: FORM_ACTION
-  isCalMode?: boolean
-  hubId?: string
-}) => {
+}: FillProps) => {
   return (
     <>
       <div className="flex-none w-full p-4 pb-0">
@@ -71,13 +72,12 @@ const Fill = ({
               </>
             )}
             {/* Đơn ghép */}
-            <FormItem label="Đơn ghép trong ca:">
-              <Joins />
-            </FormItem>
+            <Joins />
             {/* Meta zone */}
             <Meta type={type} hubId={hubId} />
           </>
         </ContainerLayout>
+        {/* Preview (right)*/}
         <PreviewContainer>
           <Preview />
         </PreviewContainer>

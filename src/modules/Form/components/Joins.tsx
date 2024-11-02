@@ -172,20 +172,23 @@ const Joins = () => {
   }, [])
 
   return (
-    <div className="border-line p-2">
-      {/* Joins */}
-      <List />
-      {/* Tùy chỉnh */}
-      <div className="flex items-center gap-1 mt-4 mb-2 min-h-[30px]">
-        <button
-          className="stardust-button-reset stardust-button stardust-button--primary"
-          onClick={openAdv}
-        >
-          + Thêm loại đơn ghép
-        </button>
+    <FormItem label="Đơn ghép trong ca:">
+      <div className="border-line p-2">
+        <div className="flex items-center gap-1 mb-4">Switch</div>
+        {/* Joins */}
+        <List />
+        {/* Tùy chỉnh */}
+        <div className="flex items-center gap-1 mt-4 mb-2 min-h-[30px]">
+          <button
+            className="stardust-button-reset stardust-button stardust-button--primary"
+            onClick={openAdv}
+          >
+            + Thêm loại đơn ghép
+          </button>
+        </div>
+        {isOpenAdv && <Add closeAdv={closeAdv} />}
       </div>
-      {isOpenAdv && <Add closeAdv={closeAdv} />}
-    </div>
+    </FormItem>
   )
 }
 
