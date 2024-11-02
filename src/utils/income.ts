@@ -110,23 +110,27 @@ export const getDiffJoinsPrice_Hub = ({
   joins,
   hubType,
   orderPrice,
+  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
 }: {
   order: number
   joins: JoinOrder[]
   hubType: HUB_TYPE
   orderPrice: number
+  isHubWellDone?: boolean
 }) => {
   const { totalJoinsOrder } = getPreviewOrder({ order, joins })
 
-  // thu nhập đơn con (của đơn ghép) vượt mốc
-  const extraJoinOrder = getPriceExtraOrder({
-    hubType,
-    order: totalJoinsOrder,
-    isJoin: true,
-  })
-
   const full = orderPrice * totalJoinsOrder
-  const crop = getPriceJoinOrder({ joins }) + extraJoinOrder.totalPrice
+  let crop = getPriceJoinOrder({ joins })
+  if (isHubWellDone) {
+    // thu nhập đơn con (của đơn ghép) vượt mốc
+    const extraJoinOrder = getPriceExtraOrder({
+      hubType,
+      order: totalJoinsOrder,
+      isJoin: true,
+    })
+    crop += extraJoinOrder.totalPrice
+  }
   const diff = crop - full
   return diff
 }
@@ -134,12 +138,13 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
   let measure = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType } = hub
+    const { order, joins, hubType, isHubWellDone } = hub
     const diff = getDiffJoinsPrice_Hub({
       order,
       joins,
       hubType,
       orderPrice,
+      isHubWellDone,
     })
     measure += diff
   }
