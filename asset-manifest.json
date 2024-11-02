@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/spf35810/static/css/main.47a2d1f4.css",
-    "main.js": "/spf35810/static/js/main.05038038.js",
+    "main.js": "/spf35810/static/js/main.c4dd4b5e.js",
     "static/media/right-to-bracket.svg": "/spf35810/static/media/right-to-bracket.e8625aa9de758d7be046400b68f15f68.svg",
     "static/media/trash-alt.svg": "/spf35810/static/media/trash-alt.766e0c757bd618d68c95043c0813ccb5.svg",
     "static/media/home.svg": "/spf35810/static/media/home.ae8d27efbf90844a569fbc571d021b29.svg",
@@ -11,10 +11,10 @@
     "static/media/caret-up.svg": "/spf35810/static/media/caret-up.16a1f6e6e92d2e19beda0ef38f41ea08.svg",
     "static/media/caret-down.svg": "/spf35810/static/media/caret-down.c6768da234ea14c51e954198d037fab2.svg",
     "main.47a2d1f4.css.map": "/spf35810/static/css/main.47a2d1f4.css.map",
-    "main.05038038.js.map": "/spf35810/static/js/main.05038038.js.map"
+    "main.c4dd4b5e.js.map": "/spf35810/static/js/main.c4dd4b5e.js.map"
   },
   "entrypoints": [
     "static/css/main.47a2d1f4.css",
-    "static/js/main.05038038.js"
+    "static/js/main.c4dd4b5e.js"
   ]
 }
