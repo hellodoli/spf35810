@@ -1,7 +1,6 @@
 import React, { useMemo, memo } from 'react'
 import { HUB_TYPE } from 'modules/Form/types/enum'
 
-import { isSoldierHub } from 'utils/hub'
 import { getExtraOrderQtt } from 'utils/preview'
 
 interface Props {
@@ -65,14 +64,11 @@ const ExtraOrder = ({ order, totalJoinsOrder, hubType }: Props) => {
         <strong className="ml-1">{eO.extraOrder}</strong>
         {renderExtraOrderFromTo(eO)}
       </li>
-
-      {isSoldierHub(hubType) && (
-        <li>
-          <span>Số đơn con (của đơn ghép) vượt mốc:</span>
-          <strong className="ml-1">{eOJoin.extraOrder}</strong>
-          {renderExtraOrderFromTo(eOJoin)}
-        </li>
-      )}
+      <li>
+        <span>Số đơn con (của đơn ghép) vượt mốc:</span>
+        <strong className="ml-1">{eOJoin.extraOrder}</strong>
+        {renderExtraOrderFromTo(eOJoin)}
+      </li>
     </ul>
   )
 }

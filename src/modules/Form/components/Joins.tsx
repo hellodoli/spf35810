@@ -8,7 +8,6 @@ import { JOIN_2_DEFAULT } from 'modules/Form/constants'
 import {
   joinsSelector,
   makeMaxJoinOrderPreview,
-  isSoldierHubSelector,
   orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
@@ -27,6 +26,10 @@ const formItemProps = {
 }
 
 const joinTypeArr: JoinOrder['type'][] = [2, 3, 4, 5]
+/**
+ * LATER: chế độ đơn ghép trả tiền đầy đủ
+ */
+const isHappyJoin = false
 
 const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const dispatch = useDispatch()
@@ -39,7 +42,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const maxJoinOrder = useMemo(makeMaxJoinOrderPreview, [])
   const maxOrder = useSelector((state) => maxJoinOrder(state, joinType))
   const max = maxOrder > 0 ? maxOrder : 0
-  const soldierHub = useSelector(isSoldierHubSelector)
+
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const fixedPrice = orderPrice * joinType
 
@@ -70,8 +73,8 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   }, [])
 
   useEffect(() => {
-    if (!soldierHub) onChangeCreatePrice(fixedPrice)
-  }, [soldierHub, onChangeCreatePrice, fixedPrice])
+    if (isHappyJoin) onChangeCreatePrice(fixedPrice)
+  }, [isHappyJoin, onChangeCreatePrice, fixedPrice])
 
   return (
     <div className="border p-2 border-black">
@@ -114,7 +117,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
         <MaxLabel max={max} />
       </FormItem>
       <FormItem {...formItemProps} label="Giá đơn ghép:">
-        {!soldierHub ? (
+        {isHappyJoin ? (
           <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
             {orderPrice * joinType}
           </div>
@@ -125,7 +128,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
             step={ST.ORDER_PRICE.STEP}
             initValue={ST['JOIN_3'].PRICE}
             onChangeInput={onChangeCreatePrice}
-            disabled={!soldierHub}
+            disabled={isHappyJoin}
           />
         )}
       </FormItem>

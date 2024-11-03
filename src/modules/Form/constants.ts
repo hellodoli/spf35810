@@ -78,12 +78,12 @@ export const EXTRA_ORDER: ExtraOrderList = {
 }
 export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
   [HUB_TYPE.HUB_10]: [
-    [0, 0, 0],
-    [0, null, 0],
+    [18, 22, 4000],
+    [23, null, 6000],
   ],
   [HUB_TYPE.HUB_8]: [
-    [0, 0, 0],
-    [0, null, 0],
+    [15, 19, 4000],
+    [20, null, 6000],
   ],
   [HUB_TYPE.HUB_5]: [
     [9, 13, 3000],

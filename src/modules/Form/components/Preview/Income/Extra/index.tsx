@@ -4,12 +4,10 @@ import { useSelector } from 'react-redux'
 import {
   orderSelector,
   joinsSelector,
-  hubTypeSelector,
   isShowExtraJoinOrderPriceSelector,
   isHubWellDoneSelector,
 } from 'modules/Form/selectors'
 import { getTotalOrderOfJoins } from 'utils/join'
-import { isSoldierHub } from 'utils/hub'
 
 import { ReactComponent as CircleExclamation } from 'assets/icons/circle-exclamation.svg'
 
@@ -23,13 +21,12 @@ const ExtraOrderPrice = () => {
 }
 
 const ExtraJoinOrderPrice = () => {
-  const hubType = useSelector(hubTypeSelector)
   const joins = useSelector(joinsSelector)
   const isShowExtraJoinOrderPrice = useSelector(
     isShowExtraJoinOrderPriceSelector,
   )
   const totalOrderOfJoins = useMemo(() => getTotalOrderOfJoins(joins), [joins])
-  if (!isSoldierHub(hubType) || !isShowExtraJoinOrderPrice) return null
+  if (!isShowExtraJoinOrderPrice) return null
   return (
     <ExtraPrice
       order={totalOrderOfJoins}

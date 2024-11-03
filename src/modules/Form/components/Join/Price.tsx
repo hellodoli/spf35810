@@ -1,10 +1,7 @@
 import React, { memo, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { JoinOrder } from 'modules/Form/types/join'
-import {
-  orderPriceDefaultSelector,
-  isSoldierHubSelector,
-} from 'modules/Form/selectors'
+import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { useSettings } from 'modules/Form/hooks/useSettings'
 
@@ -16,12 +13,16 @@ interface Props {
   initValue: number
 }
 
+/**
+ * LATER: chế độ đơn ghép trả tiền đầy đủ
+ */
+const isHappyJoin = false
+
 const Price = ({ joinId, joinType, initValue }: Props) => {
   const dispatch = useDispatch()
   const orderPrice = useSelector(orderPriceDefaultSelector)
 
   const { settings: ST } = useSettings()
-  const soldierHub = useSelector(isSoldierHubSelector)
   const fixedPrice = orderPrice * joinType
 
   const onChangeInput = useCallback(
@@ -38,12 +39,12 @@ const Price = ({ joinId, joinType, initValue }: Props) => {
   )
 
   useEffect(() => {
-    if (!soldierHub) onChangeInput(fixedPrice)
-  }, [soldierHub, onChangeInput, fixedPrice])
+    if (isHappyJoin) onChangeInput(fixedPrice)
+  }, [isHappyJoin, onChangeInput, fixedPrice])
 
   return (
     <>
-      {!soldierHub ? (
+      {isHappyJoin ? (
         <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
           {fixedPrice}
         </div>
@@ -54,7 +55,7 @@ const Price = ({ joinId, joinType, initValue }: Props) => {
           step={ST.ORDER_PRICE.STEP}
           initValue={initValue}
           onChangeInput={onChangeInput}
-          disabled={!soldierHub}
+          disabled={isHappyJoin}
         />
       )}
     </>
