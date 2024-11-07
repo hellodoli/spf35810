@@ -9,7 +9,10 @@ import {
 import { getDateHourTime, getUnixTime } from './time'
 
 import isoWeek from 'dayjs/plugin/isoWeek'
+import weekday from 'dayjs/plugin/weekday'
+
 dayjs.extend(isoWeek)
+dayjs.extend(weekday)
 
 const EXTRA_MINUTE_UT = 1000 * 60
 const EXTRA_HOUR_UT = 1000 * 60 * 60
@@ -138,6 +141,10 @@ export const isSoldierHub = (hubType: HUB_TYPE) => {
   return false
 }
 
+export const isEnhanceHub = (hubType: HUB_TYPE) => {
+  return hubType === HUB_TYPE.HUB_1
+}
+
 export const isDisabledHubShift = (
   hubs: Hub[],
   hubShiftStart: string,
@@ -170,26 +177,52 @@ export const isDisabledHubShift = (
 export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
   const date = new Date()
   const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-  if (displayType === HUB_DISPLAY.D_TODAY) {
-    return {
-      start: today.getTime(),
-      end: today.getTime(),
+  const td = dayjs(today)
+
+  const getVal = (td: dayjs.Dayjs) => td.valueOf()
+
+  switch (displayType) {
+    case HUB_DISPLAY.D_TODAY: {
+      return {
+        start: today.getTime(),
+        end: today.getTime(),
+      }
     }
-  }
-  if (displayType === HUB_DISPLAY.D_3DAYS) {
-    return {
-      start: dayjs(today).subtract(2, 'day').valueOf(),
-      end: getUnixTime(today),
+    case HUB_DISPLAY.D_3DAYS: {
+      return {
+        start: getVal(td.subtract(2, 'day')),
+        end: getUnixTime(today),
+      }
     }
-  }
-  if (displayType === HUB_DISPLAY.D_WEEK) {
-    return {
-      start: dayjs(today).startOf('isoWeek').valueOf(),
-      end: getUnixTime(today),
+    case HUB_DISPLAY.D_WEEK: {
+      return {
+        start: getVal(td.weekday(1)),
+        end: getVal(td.weekday(7)),
+      }
     }
-  }
-  return {
-    start: today.getTime(),
-    end: today.getTime(),
+    case HUB_DISPLAY.D_PREV_WEEK: {
+      return {
+        start: getVal(td.weekday(-6)), // -6 means the Monday of the previous week
+        end: getVal(td.weekday(0)), // 0 means the Sunday of the previous week
+      }
+    }
+    case HUB_DISPLAY.D_MONTH: {
+      return {
+        start: getVal(td.startOf('month')), // First day of the month
+        end: getVal(td.endOf('month')), // Last day of the month
+      }
+    }
+    case HUB_DISPLAY.D_PREV_MONTH: {
+      return {
+        start: getVal(td.subtract(1, 'month').startOf('month')), // First day of the previous month
+        end: getVal(td.subtract(1, 'month').endOf('month')), // Last day of the previous month
+      }
+    }
+    default: {
+      return {
+        start: today.getTime(),
+        end: today.getTime(),
+      }
+    }
   }
 }

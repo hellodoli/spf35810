@@ -8,8 +8,11 @@ import { actions } from 'modules/Form/slices'
 const buttons = [
   { id: 1, text: '3 ngày gần nhất', value: HUB_DISPLAY.D_3DAYS },
   { id: 2, text: 'Hôm nay', value: HUB_DISPLAY.D_TODAY },
-  { id: 3, text: 'Tuần này', value: HUB_DISPLAY.D_WEEK },
-  { id: 4, text: 'Tùy chỉnh...', value: HUB_DISPLAY.D_CUSTOM },
+  { id: 3, text: 'Tuần trước', value: HUB_DISPLAY.D_PREV_WEEK },
+  { id: 4, text: 'Tuần này', value: HUB_DISPLAY.D_WEEK },
+  { id: 5, text: 'Tháng này', value: HUB_DISPLAY.D_MONTH },
+  { id: 6, text: 'Tháng trước', value: HUB_DISPLAY.D_PREV_MONTH },
+  { id: 7, text: 'Tùy chỉnh...', value: HUB_DISPLAY.D_CUSTOM },
 ]
 
 const Buttons = () => {
@@ -25,7 +28,8 @@ const Buttons = () => {
   return (
     <div className="button-group no-margin-x has-border-x">
       {buttons.map((button) => {
-        const active = displayMyHubType === button.value
+        const hubDisplay = button.value
+        const active = displayMyHubType === hubDisplay
         return (
           <button
             key={button.id}
@@ -35,12 +39,11 @@ const Buttons = () => {
               'whitespace-nowrap',
             )}
             style={{
-              backgroundColor: active ? '#ee4d2d' : '#fff',
-              borderColor: active ? 'transparent' : 'rgba(0, 0, 0, 0.09)',
+              backgroundColor: active ? 'var(--nc-primary)' : '#fff',
+              borderColor: active ? 'transparent' : 'var(--nc-util-line)',
               color: active ? '#fff' : '#555',
-              flex: 'auto',
             }}
-            onClick={() => onClick(button.value)}
+            onClick={() => onClick(hubDisplay)}
           >
             {button.text}
           </button>

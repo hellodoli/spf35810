@@ -15,7 +15,9 @@ export enum HUB_DISPLAY {
   D_TODAY = 'D_TODAY',
   D_3DAYS = 'D_3DAYS',
   D_WEEK = 'D_WEEK',
+  D_PREV_WEEK = 'D_PREV_WEEK',
   D_MONTH = 'D_MONTH',
+  D_PREV_MONTH = 'D_PREV_MONTH',
   D_CUSTOM = 'D_CUSTOM',
 }
 
