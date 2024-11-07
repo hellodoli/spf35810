@@ -22,7 +22,7 @@ export const getExtraOrderQtt = ({
       break
     }
   }
-  const extraOrder = order >= point ? order - point + 1 : 0
+  const extraOrder = point > 0 && order >= point ? order - point + 1 : 0
   const extraOrderFrom = extraOrder === 0 ? 0 : point
   const extraOrderTo = extraOrder === 0 ? 0 : point + extraOrder - 1
   return {
