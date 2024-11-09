@@ -51,6 +51,12 @@ export const JOIN_2_DEFAULT: JoinOrder = {
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_2.PRICE,
 }
+export const JOIN_3_DEFAULT: JoinOrder = {
+  key: 'order_join_3_default_key',
+  type: 3,
+  order: 0,
+  price: SETTINGS_DEFAULT.JOIN_3.PRICE,
+}
 
 export const HUB_SHIFT = generate_HUB_SHIFT()
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import clsx from 'clsx'
 
 import type { JoinOrder } from 'modules/Form/types'
-import { JOIN_2_DEFAULT } from 'modules/Form/constants'
+import { JOIN_3_DEFAULT } from 'modules/Form/constants'
 import {
   joinsSelector,
   makeMaxJoinOrderPreview,
@@ -35,9 +35,11 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const dispatch = useDispatch()
   const { settings: ST } = useSettings()
 
-  const [order, setOrder] = useState(0)
+  const [order, setOrder] = useState(JOIN_3_DEFAULT.order)
   const [resetCountOrder, setResetCountOrder] = useState(0)
-  const [joinType, setJoinType] = useState<JoinOrder['type']>(3)
+  const [joinType, setJoinType] = useState<JoinOrder['type']>(
+    JOIN_3_DEFAULT.type,
+  )
 
   const maxJoinOrder = useMemo(makeMaxJoinOrderPreview, [])
   const maxOrder = useSelector((state) => maxJoinOrder(state, joinType))
@@ -46,7 +48,11 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const fixedPrice = orderPrice * joinType
 
-  const createJoin = useRef<JoinOrder>({ ...JOIN_2_DEFAULT })
+  const createJoin = useRef<JoinOrder>({
+    ...JOIN_3_DEFAULT,
+    order,
+    type: joinType,
+  })
 
   const addJoin = () => {
     const newJoin: JoinOrder = {
@@ -58,12 +64,17 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
     dispatch(actions.addJoin({ join: newJoin }))
   }
 
-  const onChangeCreateJoinType = useCallback((newType: number) => {
-    const joinType = newType as JoinOrder['type']
-    createJoin.current.type = joinType
-    setJoinType(joinType)
-    setResetCountOrder((count) => count + 1)
-  }, [])
+  const onChangeCreateJoinType = useCallback(
+    (newType: number) => {
+      const newJoinType = newType as JoinOrder['type']
+      if (newJoinType === joinType) return
+      // change new type
+      createJoin.current.type = newJoinType
+      setJoinType(newJoinType)
+      setResetCountOrder((count) => count + 1)
+    },
+    [joinType],
+  )
   const onChangeCreateOrder = useCallback((order: number) => {
     createJoin.current.order = order
     setOrder(order)
