@@ -196,14 +196,14 @@ export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
     }
     case HUB_DISPLAY.D_WEEK: {
       return {
-        start: getVal(td.weekday(1)),
-        end: getVal(td.weekday(7)),
+        start: getVal(td.startOf('isoWeek')),
+        end: getVal(td.endOf('isoWeek')),
       }
     }
     case HUB_DISPLAY.D_PREV_WEEK: {
       return {
-        start: getVal(td.weekday(-6)), // -6 means the Monday of the previous week
-        end: getVal(td.weekday(0)), // 0 means the Sunday of the previous week
+        start: getVal(td.startOf('isoWeek').subtract(1, 'week')),
+        end: getVal(td.startOf('isoWeek').subtract(1, 'day')),
       }
     }
     case HUB_DISPLAY.D_MONTH: {
