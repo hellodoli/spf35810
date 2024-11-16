@@ -45,9 +45,7 @@ const Total = () => {
     <div className="mb-4">
       <div className="p-2 border-line text-xl">
         <span>Tổng thu nhập:</span>
-        <strong className="ml-1" style={{ color: 'var(--nc-success)' }}>
-          {f(price)}
-        </strong>
+        <strong className="ml-1 text-color-success">{f(price)}</strong>
       </div>
     </div>
   )

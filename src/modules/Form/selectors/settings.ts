@@ -29,3 +29,8 @@ export const isShowDetailWithOrderSelector = createSelector(
   [incomeSettingSelector],
   (incomeSetting) => incomeSetting['SHOW_DETAIL_WITH_ORDER'],
 )
+
+export const isShowIncomeDropByJoinOrderSelector = createSelector(
+  [incomeSettingSelector],
+  (incomeSetting) => incomeSetting['SHOW_INCOME_DROP_BY_JOIN_ORDER'],
+)

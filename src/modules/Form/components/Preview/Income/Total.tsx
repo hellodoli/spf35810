@@ -34,7 +34,7 @@ const Total = () => {
   return (
     <div className="p-2 border-line -mt-[1px] text-xl">
       <span>Tổng thu nhập:</span>
-      <strong className="ml-1">{f(totalPrice)}</strong>
+      <strong className="ml-1 text-color-success">{f(totalPrice)}</strong>
     </div>
   )
 }

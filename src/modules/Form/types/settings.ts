@@ -29,6 +29,7 @@ export interface Settings {
 export interface IncomeSetting {
   SHOW_DETAIL_WITH_ORDER: boolean
   SHOW_EXTRA_JOIN_ORDER_PRICE: boolean
+  SHOW_INCOME_DROP_BY_JOIN_ORDER: boolean
 }
 
 export type FilterHubTypeSetting = {

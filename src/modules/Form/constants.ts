@@ -12,6 +12,7 @@ import { generate_HUB_SHIFT } from 'utils/hub'
 export const INCOME_SETTING: IncomeSetting = {
   SHOW_EXTRA_JOIN_ORDER_PRICE: true,
   SHOW_DETAIL_WITH_ORDER: true,
+  SHOW_INCOME_DROP_BY_JOIN_ORDER: true,
 }
 export const FILTER_HUBTYPE_MY_HUB_DEFAULT: FilterHubTypeSetting = {
   [HUB_TYPE.HUB_10]: true,

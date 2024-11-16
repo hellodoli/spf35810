@@ -26,9 +26,7 @@ const Price = ({ hubs }: Props) => {
       </li>
       <li className="mb-1 last:mb-0">
         <span>Tổng thu nhập ngày:</span>
-        <strong className="ml-1" style={{ color: 'var(--nc-success)' }}>
-          {f(priceOfHubs)}
-        </strong>
+        <strong className="ml-1 text-color-success">{f(priceOfHubs)}</strong>
       </li>
       <JoinsPay hubs={hubs} />
     </ul>
