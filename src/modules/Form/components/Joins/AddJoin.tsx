@@ -1,4 +1,11 @@
-import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import React, {
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+  useEffect,
+  memo,
+} from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
 import clsx from 'clsx'
@@ -6,16 +13,20 @@ import clsx from 'clsx'
 import type { JoinOrder } from 'modules/Form/types'
 import { JOIN_3_DEFAULT } from 'modules/Form/constants'
 import {
-  joinsSelector,
   makeMaxJoinOrderPreview,
   orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
+
 import { useSettings } from 'modules/Form/hooks/useSettings'
 
-import { MaxLabel, InputNumber } from './Input'
-import FormItem from './FormItem'
-import Join from './Join'
+import { MaxLabel, InputNumber } from '../Input'
+import FormItem from '../FormItem'
+
+interface Props {
+  closeAdv: () => void
+  isHappyJoin?: boolean
+}
 
 const formItemProps = {
   pb: 0,
@@ -26,20 +37,16 @@ const formItemProps = {
 }
 
 const joinTypeArr: JoinOrder['type'][] = [2, 3, 4, 5]
-/**
- * LATER: chế độ đơn ghép trả tiền đầy đủ
- */
-const isHappyJoin = false
 
-const Add = ({ closeAdv }: { closeAdv: () => void }) => {
+const JOIN_DEFAULT = { ...JOIN_3_DEFAULT }
+
+const AddJoin = ({ closeAdv, isHappyJoin = false }: Props) => {
   const dispatch = useDispatch()
   const { settings: ST } = useSettings()
 
-  const [order, setOrder] = useState(JOIN_3_DEFAULT.order)
+  const [order, setOrder] = useState(JOIN_DEFAULT.order)
   const [resetCountOrder, setResetCountOrder] = useState(0)
-  const [joinType, setJoinType] = useState<JoinOrder['type']>(
-    JOIN_3_DEFAULT.type,
-  )
+  const [joinType, setJoinType] = useState<JoinOrder['type']>(JOIN_DEFAULT.type)
 
   const maxJoinOrder = useMemo(makeMaxJoinOrderPreview, [])
   const maxOrder = useSelector((state) => maxJoinOrder(state, joinType))
@@ -49,7 +56,7 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   const fixedPrice = orderPrice * joinType
 
   const createJoin = useRef<JoinOrder>({
-    ...JOIN_3_DEFAULT,
+    ...JOIN_DEFAULT,
     order,
     type: joinType,
   })
@@ -163,46 +170,4 @@ const Add = ({ closeAdv }: { closeAdv: () => void }) => {
   )
 }
 
-const List = () => {
-  const joins = useSelector(joinsSelector)
-  return (
-    <div className="joins-list">
-      {joins.map((join) => (
-        <Join key={join.key} joinOrder={join} />
-      ))}
-    </div>
-  )
-}
-
-const Joins = () => {
-  const [isOpenAdv, setIsOpenAdv] = useState(false)
-
-  const openAdv = useCallback(() => {
-    setIsOpenAdv(true)
-  }, [])
-
-  const closeAdv = useCallback(() => {
-    setIsOpenAdv(false)
-  }, [])
-
-  return (
-    <FormItem label="Đơn ghép trong ca:">
-      <div className="border-line p-2">
-        {/* Joins */}
-        <List />
-        {/* Tùy chỉnh */}
-        <div className="flex items-center gap-1 mt-4 mb-2 min-h-[30px]">
-          <button
-            className="stardust-button-reset stardust-button stardust-button--primary"
-            onClick={openAdv}
-          >
-            + Thêm loại đơn ghép
-          </button>
-        </div>
-        {isOpenAdv && <Add closeAdv={closeAdv} />}
-      </div>
-    </FormItem>
-  )
-}
-
-export default Joins
+export default memo(AddJoin)

@@ -41,7 +41,9 @@ const HubDate = ({ date = '' }: Props) => {
       }),
     [hubsByDate, filters],
   )
-  const displayDate = useMemo(() => getDisplayDate(new Date(+date)), [date])
+  const displayDate = useMemo(() => {
+    return getDisplayDate(new Date(+date), true)
+  }, [date])
   const hasData = !!hubs.length
 
   const [toggle, setToggle] = useState(isExpandAllHub)
