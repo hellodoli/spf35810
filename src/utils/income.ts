@@ -39,6 +39,12 @@ export const getFilter_Hubs = ({
   })
 }
 
+export const getColorDiffPrice = (diffPrice: number) => {
+  if (diffPrice === 0) return ''
+  if (diffPrice < 0) return 'var(--nc-error)'
+  return 'var(--nc-success)'
+}
+
 export const getPrice_Hub = ({
   order,
   joins,
