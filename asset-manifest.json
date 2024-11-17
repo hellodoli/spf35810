@@ -1,8 +1,9 @@
 {
   "files": {
     "main.css": "/spf35810/static/css/main.7ea11e3d.css",
-    "main.js": "/spf35810/static/js/main.77d8b8dd.js",
+    "main.js": "/spf35810/static/js/main.ae95198e.js",
     "service-worker.js": "/spf35810/service-worker.js",
+    "static/media/gear.svg": "/spf35810/static/media/gear.72079afaf05c5d028023907e4ea3a7b9.svg",
     "static/media/sliders.svg": "/spf35810/static/media/sliders.3bdfb679742078f6b02ccab3d749902e.svg",
     "static/media/right-to-bracket.svg": "/spf35810/static/media/right-to-bracket.e8625aa9de758d7be046400b68f15f68.svg",
     "index.html": "/spf35810/index.html",
@@ -13,10 +14,10 @@
     "static/media/caret-up.svg": "/spf35810/static/media/caret-up.16a1f6e6e92d2e19beda0ef38f41ea08.svg",
     "static/media/caret-down.svg": "/spf35810/static/media/caret-down.c6768da234ea14c51e954198d037fab2.svg",
     "main.7ea11e3d.css.map": "/spf35810/static/css/main.7ea11e3d.css.map",
-    "main.77d8b8dd.js.map": "/spf35810/static/js/main.77d8b8dd.js.map"
+    "main.ae95198e.js.map": "/spf35810/static/js/main.ae95198e.js.map"
   },
   "entrypoints": [
     "static/css/main.7ea11e3d.css",
-    "static/js/main.77d8b8dd.js"
+    "static/js/main.ae95198e.js"
   ]
 }
