@@ -6,6 +6,7 @@ export const routes = {
   detailHub: '/hub/:id',
   myHub: '/my-hub',
   notFoundHub: '/notfound-hub',
+  setting: '/setting',
 }
 
 export const isCalPathName = (pathname: string = '') => {

@@ -14,6 +14,7 @@ import Update from 'modules/Form/components/Update'
 import BackToHome from 'modules/BackToHome'
 import Menu from 'modules/Menu'
 import MyHub from 'modules/MyHub'
+import Setting from 'modules/Setting'
 
 openDb()
 
@@ -35,7 +36,6 @@ const Watcher = () => {
 }
 
 const Container = () => {
-  console.log('re-render <Container>')
   useSlice()
   return (
     <>
@@ -46,6 +46,7 @@ const Container = () => {
         <Route path={routes.detailHub} component={Update} />
         <Route path={routes.cal} component={FillCal} />
         <Route path={routes.myHub} component={MyHub} />
+        <Route path={routes.setting} component={Setting} />
         <Route path={routes.notFoundHub} component={NotFoundHub} />
         <Route component={BackToHome} />
       </Switch>

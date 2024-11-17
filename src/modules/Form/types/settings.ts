@@ -24,6 +24,7 @@ export interface Settings {
   JOIN_5: {
     PRICE: number
   }
+  LOCATE: 'TPHCM' | 'HANOI'
 }
 
 export interface IncomeSetting {

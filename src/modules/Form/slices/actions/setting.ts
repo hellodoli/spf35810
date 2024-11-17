@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { HUB_TYPE, HubState, IncomeSetting } from 'modules/Form/types'
+import { HUB_TYPE, HubState, IncomeSetting, Settings } from 'modules/Form/types'
 import { getResetHubFillState } from 'utils/state'
 
 const changeResetHubFillState = (state: HubState) => {
@@ -42,6 +42,15 @@ export const settingActions = {
       state.isOpenPreview = true
       changeResetHubFillState(state)
     }
+  },
+  changeLocateSetting: (
+    state: HubState,
+    action: PayloadAction<{
+      locate: Settings['LOCATE']
+    }>,
+  ) => {
+    const { locate } = action.payload
+    state.settings.LOCATE = locate
   },
   resetHubFill: (state: HubState) => {
     changeResetHubFillState(state)

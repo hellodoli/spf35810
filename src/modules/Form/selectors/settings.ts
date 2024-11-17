@@ -15,6 +15,11 @@ export const orderPriceDefaultSelector = createSelector(
   (settings) => settings.ORDER_PRICE.DEFAULT,
 )
 
+export const locateSettingSelector = createSelector(
+  [settingsSelector],
+  (settings) => settings.LOCATE,
+)
+
 export const incomeSettingSelector = createSelector(
   [selectSlice],
   (state) => state.incomeSetting,

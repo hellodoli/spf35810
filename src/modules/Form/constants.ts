@@ -45,6 +45,7 @@ export const SETTINGS_DEFAULT: Settings = {
   JOIN_5: {
     PRICE: 50000,
   },
+  LOCATE: 'TPHCM',
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
   key: 'order_join_2_default_key',
