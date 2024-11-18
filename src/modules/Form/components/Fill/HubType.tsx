@@ -5,7 +5,7 @@ import { FORM_ACTION, HUB_TYPE } from 'modules/Form/types'
 import { actions } from 'modules/Form/slices'
 import { hubTypeSelector } from 'modules/Form/selectors'
 
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 
 interface Props {
   type?: FORM_ACTION

@@ -7,7 +7,7 @@ import { getHubsByHubTime } from 'modules/Form/slices/asyncThunk'
 import { hubTimeSelector } from 'modules/Form/selectors'
 import { getUnixTime } from 'utils/time'
 
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 import { InputWrapper } from 'modules/Form/components/Input'
 
 const HubTimeLayout = ({ children }: { children: React.ReactNode }) => {

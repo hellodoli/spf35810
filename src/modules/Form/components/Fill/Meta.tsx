@@ -16,7 +16,7 @@ import * as thunk from 'modules/Form/slices/asyncThunk'
 
 import { routes } from 'utils/route-path'
 
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 
 import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
 

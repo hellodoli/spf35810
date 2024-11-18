@@ -5,7 +5,7 @@ import { orderSelector } from 'modules/Form/selectors'
 import { useSettings } from 'modules/Form/hooks/useSettings'
 import { FORM_ACTION } from 'modules/Form/types/enum'
 
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 import { InputNumber } from 'modules/Form/components/Input'
 
 interface Props {

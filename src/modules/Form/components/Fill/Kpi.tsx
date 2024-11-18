@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from 'modules/Form/slices'
 import { isHubWellDoneSelector } from 'modules/Form/selectors'
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 
 const Kpi = () => {
   const dispatch = useDispatch()

@@ -16,7 +16,7 @@ import { HubShift, FORM_ACTION } from 'modules/Form/types'
 import { actions } from 'modules/Form/slices'
 import { isDisabledHubShift } from 'utils/hub'
 
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 import { InputWrapper } from 'modules/Form/components/Input'
 
 interface Props {

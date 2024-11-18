@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { joinsSelector } from 'modules/Form/selectors'
 
-import FormItem from '../FormItem'
+import FormItem from 'components/FormItem'
 import Join from '../Join'
 import AddJoin from './AddJoin'
 

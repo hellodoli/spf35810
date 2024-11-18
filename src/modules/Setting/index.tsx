@@ -7,7 +7,7 @@ import { routes } from 'utils/route-path'
 
 import { Settings } from 'modules/Form/types'
 import { locateSettingSelector } from 'modules/Form/selectors'
-import FormItem from 'modules/Form/components/FormItem'
+import FormItem from 'components/FormItem'
 
 interface LocateBtnItem {
   id: string

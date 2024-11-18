@@ -21,7 +21,7 @@ import { actions } from 'modules/Form/slices'
 import { useSettings } from 'modules/Form/hooks/useSettings'
 
 import { MaxLabel, InputNumber } from '../Input'
-import FormItem from '../FormItem'
+import FormItem from 'components/FormItem'
 
 interface Props {
   closeAdv: () => void

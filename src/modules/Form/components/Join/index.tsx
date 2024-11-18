@@ -5,7 +5,7 @@ import { getJoinLabel } from 'utils/join'
 import type { JoinOrder } from 'modules/Form/types'
 import { actions } from 'modules/Form/slices'
 
-import FormItem from '../FormItem'
+import FormItem from 'components/FormItem'
 import Order from './Order'
 import Price from './Price'
 
