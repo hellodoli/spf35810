@@ -1,6 +1,7 @@
 import React, { useState, useMemo, memo } from 'react'
+import { useSelector } from 'react-redux'
 
-import { JoinOrder } from 'modules/Form/types/join'
+import { joinsSelector } from 'modules/Form/selectors'
 import { getPriceJoinOrder } from 'utils/price'
 import { getFormat } from 'utils/price'
 
@@ -8,7 +9,8 @@ import JoinOrderList from './JoinOrderList'
 
 const f = getFormat()
 
-const JoinOrderComp = ({ joins }: { joins: JoinOrder[] }) => {
+const JoinOrderComp = () => {
+  const joins = useSelector(joinsSelector)
   const [isDetail, setIsDetail] = useState(true)
   const priceJO = useMemo(() => getPriceJoinOrder({ joins }), [joins])
 

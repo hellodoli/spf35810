@@ -1,47 +1,25 @@
-import React, { memo, useCallback, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { memo, useCallback, useState, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import { IncomeSetting } from 'modules/Form/types'
-import { joinsSelector } from 'modules/Form/selectors'
+import {
+  isShowDetailWithOrderSelector,
+  isShowExtraJoinOrderPriceSelector,
+  isShowIncomeDropByJoinOrderSelector,
+} from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
+
+import { CheckBox } from 'modules/Form/components/Input'
+import Main from './Main'
 
 import { ReactComponent as SettingIcon } from 'assets/icons/sliders.svg'
 import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
-
-import { CheckBox } from 'modules/Form/components/Input'
-import SingleOrder from './SingleOrder'
-import JoinOrder from './JoinOrder'
-import { ExtraJoinOrderPrice, ExtraOrderPrice, ExtraContainer } from './Extra'
-import Total from './Total'
-import JoinsPay from './JoinsPay'
-
 interface CheckBoxSetting {
-  id: number
+  id: string
   label: string
   defaultValue: boolean
   settingKey: keyof IncomeSetting
 }
-
-const checkBoxSettingList: CheckBoxSetting[] = [
-  {
-    id: 1,
-    label: 'Thu nhập đơn ghép vượt mốc',
-    defaultValue: true,
-    settingKey: 'SHOW_EXTRA_JOIN_ORDER_PRICE',
-  },
-  {
-    id: 2,
-    label: 'Thu nhập tăng/giảm do đơn ghép',
-    defaultValue: true,
-    settingKey: 'SHOW_INCOME_DROP_BY_JOIN_ORDER',
-  },
-  {
-    id: 3,
-    label: 'Chi tiết với số đơn',
-    defaultValue: true,
-    settingKey: 'SHOW_DETAIL_WITH_ORDER',
-  },
-]
 
 const iconStyle = {
   fill: 'var(--nc-primary)',
@@ -51,7 +29,13 @@ const iconStyle = {
 
 const Income = () => {
   const dispatch = useDispatch()
-  const joins = useSelector(joinsSelector)
+  const isShowDetailWithOrder = useSelector(isShowDetailWithOrderSelector)
+  const isShowExtraJoinOrderPrice = useSelector(
+    isShowExtraJoinOrderPriceSelector,
+  )
+  const isShowIncomeDropByJoinOrder = useSelector(
+    isShowIncomeDropByJoinOrderSelector,
+  )
   const [toggleSetting, setToggleSetting] = useState(false)
 
   const onChangeChecked = useCallback(
@@ -65,6 +49,33 @@ const Income = () => {
     },
     [],
   )
+
+  const checkBoxSettingList = useMemo<CheckBoxSetting[]>(() => {
+    return [
+      {
+        id: `INCOME_SETTING__SHOW_EXTRA_JOIN_ORDER_PRICE`,
+        label: 'Thu nhập đơn ghép vượt mốc',
+        defaultValue: isShowExtraJoinOrderPrice,
+        settingKey: 'SHOW_EXTRA_JOIN_ORDER_PRICE',
+      },
+      {
+        id: `INCOME_SETTING__SHOW_INCOME_DROP_BY_JOIN_ORDER`,
+        label: 'Thu nhập tăng/giảm do đơn ghép',
+        defaultValue: isShowIncomeDropByJoinOrder,
+        settingKey: 'SHOW_INCOME_DROP_BY_JOIN_ORDER',
+      },
+      {
+        id: `INCOME_SETTING__SHOW_DETAIL_WITH_ORDER`,
+        label: 'Chi tiết với số đơn',
+        defaultValue: isShowDetailWithOrder,
+        settingKey: 'SHOW_DETAIL_WITH_ORDER',
+      },
+    ]
+  }, [
+    isShowDetailWithOrder,
+    isShowExtraJoinOrderPrice,
+    isShowIncomeDropByJoinOrder,
+  ])
 
   return (
     <div className="order-preview text-base p-2">
@@ -104,21 +115,7 @@ const Income = () => {
         )}
       </div>
 
-      <Total />
-
-      <ul className="p-2 border-line -mt-[1px]">
-        {/* Thu nhập đơn lẻ */}
-        <SingleOrder />
-        {/* Thu nhập đơn ghép */}
-        <JoinOrder joins={joins} />
-      </ul>
-
-      <ExtraContainer>
-        <ExtraOrderPrice />
-        <ExtraJoinOrderPrice />
-      </ExtraContainer>
-
-      <JoinsPay />
+      <Main />
     </div>
   )
 }

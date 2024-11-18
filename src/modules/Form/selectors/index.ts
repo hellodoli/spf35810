@@ -7,6 +7,7 @@ import { getMaxJoinOrder } from 'utils/join'
 import { isSoldierHub } from 'utils/hub'
 
 export * from './settings'
+export * from './income-setting'
 
 const selectSlice = (state: RootState) => state.form || initialState
 
