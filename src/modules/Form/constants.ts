@@ -6,8 +6,21 @@ import {
   ExtraOrderList,
   FilterHubTypeSetting,
   HubColorsFilter,
+  SETTING_LOCATE,
 } from './types'
 import { generate_HUB_SHIFT } from 'utils/hub'
+
+import { getLocalStorage } from 'utils/storages'
+import {
+  SETTINGS_DEFAULT__LOCATE,
+  SETTINGS_DEFAULT__LOCATE__LS_KEY,
+} from './default'
+
+const get_SettingsDefault_Locate = () => {
+  const locate = getLocalStorage(SETTINGS_DEFAULT__LOCATE__LS_KEY)
+  if (locate && locate in SETTING_LOCATE) return locate as SETTING_LOCATE
+  return SETTINGS_DEFAULT__LOCATE
+}
 
 export const INCOME_SETTING: IncomeSetting = {
   SHOW_EXTRA_JOIN_ORDER_PRICE: true,
@@ -45,7 +58,7 @@ export const SETTINGS_DEFAULT: Settings = {
   JOIN_5: {
     PRICE: 50000,
   },
-  LOCATE: 'TPHCM',
+  LOCATE: get_SettingsDefault_Locate(),
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
   key: 'order_join_2_default_key',

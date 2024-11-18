@@ -1,5 +1,10 @@
 import { HUB_TYPE } from './enum'
 
+export enum SETTING_LOCATE {
+  TPHCM = 'TPHCM',
+  HANOI = 'HANOI',
+}
+
 export interface Settings {
   ORDER_PRICE: {
     MIN: number
@@ -24,7 +29,7 @@ export interface Settings {
   JOIN_5: {
     PRICE: number
   }
-  LOCATE: 'TPHCM' | 'HANOI'
+  LOCATE: SETTING_LOCATE
 }
 
 export interface IncomeSetting {

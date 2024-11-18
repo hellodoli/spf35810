@@ -1,6 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { HUB_TYPE, HubState, IncomeSetting, Settings } from 'modules/Form/types'
+import {
+  HUB_TYPE,
+  HubState,
+  IncomeSetting,
+  SETTING_LOCATE,
+} from 'modules/Form/types'
+import { SETTINGS_DEFAULT__LOCATE__LS_KEY } from 'modules/Form/default'
 import { getResetHubFillState } from 'utils/state'
+import { setLocalStorage } from 'utils/storages'
 
 const changeResetHubFillState = (state: HubState) => {
   const { hubShift, hubTime, hubType, joins, isHubWellDone } =
@@ -46,11 +53,12 @@ export const settingActions = {
   changeLocateSetting: (
     state: HubState,
     action: PayloadAction<{
-      locate: Settings['LOCATE']
+      locate: SETTING_LOCATE
     }>,
   ) => {
     const { locate } = action.payload
     state.settings.LOCATE = locate
+    setLocalStorage(SETTINGS_DEFAULT__LOCATE__LS_KEY, locate)
   },
   resetHubFill: (state: HubState) => {
     changeResetHubFillState(state)

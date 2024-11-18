@@ -20,11 +20,11 @@ const menus = [
     text: 'Hub của tôi',
     path: routes.myHub,
   },
-  /*{
+  {
     id: 5,
     text: '',
     path: routes.setting,
-  },*/
+  },
 ]
 
 const Menu = () => {

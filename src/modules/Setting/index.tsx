@@ -5,28 +5,28 @@ import { useHistory } from 'react-router-dom'
 import { actions } from 'modules/Form/slices'
 import { routes } from 'utils/route-path'
 
-import { Settings } from 'modules/Form/types'
+import { SETTING_LOCATE } from 'modules/Form/types'
 import { locateSettingSelector } from 'modules/Form/selectors'
 import FormItem from 'components/FormItem'
 
 interface LocateBtnItem {
   id: string
   text: string
-  value: Settings['LOCATE']
+  value: SETTING_LOCATE
 }
 
 const Button = ({
   isActive = false,
   disabled = false,
   text = '',
-  value = 'TPHCM',
+  value = SETTING_LOCATE.TPHCM,
   onChangeLocate,
 }: {
   text?: string
   isActive?: boolean
   disabled?: boolean
-  value?: Settings['LOCATE']
-  onChangeLocate: (value: Settings['LOCATE']) => void
+  value?: SETTING_LOCATE
+  onChangeLocate: (value: SETTING_LOCATE) => void
 }) => {
   return (
     <button
@@ -47,24 +47,24 @@ const ChooseHubBtn = memo(Button)
 
 const locateText = 'locate'
 const locates: LocateBtnItem[] = [
-  { id: `${locateText}-1`, text: 'TPHCM', value: 'TPHCM' },
-  { id: `${locateText}-2`, text: 'Hà Nội', value: 'HANOI' },
+  { id: `${locateText}-1`, text: 'TPHCM', value: SETTING_LOCATE.TPHCM },
+  { id: `${locateText}-2`, text: 'Hà Nội', value: SETTING_LOCATE.HANOI },
 ]
 
 const Setting = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const curLocate = useSelector(locateSettingSelector)
-  const [initInfo, setInitInfo] = useState({
+  const [info, setInfo] = useState({
     locate: curLocate,
     isDirty: false,
   })
 
-  const isDisabled = curLocate === initInfo.locate
+  const isDisabled = curLocate === info.locate
 
-  const onChangeLocate = useCallback((locate: Settings['LOCATE']) => {
-    setInitInfo((state) => ({
-      ...state,
+  const onChangeLocate = useCallback((locate: SETTING_LOCATE) => {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
       locate,
       isDirty: true,
     }))
@@ -77,7 +77,7 @@ const Setting = () => {
   const onSave = () => {
     dispatch(
       actions.changeLocateSetting({
-        locate: initInfo.locate,
+        locate: info.locate,
       }),
     )
   }
@@ -93,7 +93,7 @@ const Setting = () => {
                   key={id}
                   text={text}
                   value={value}
-                  isActive={value === initInfo.locate}
+                  isActive={value === info.locate}
                   onChangeLocate={onChangeLocate}
                 />
               )
