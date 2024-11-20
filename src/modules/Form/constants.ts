@@ -1,12 +1,13 @@
 import {
+  HUB_TYPE,
+  SETTING_LOCATE,
   JoinOrder,
   Settings,
   IncomeSetting,
-  HUB_TYPE,
   ExtraOrderList,
   FilterHubTypeSetting,
   HubColorsFilter,
-  SETTING_LOCATE,
+  ExtraOrderSundayList,
 } from './types'
 import { generate_HUB_SHIFT } from 'utils/hub'
 
@@ -117,6 +118,20 @@ export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
   [HUB_TYPE.HUB_1]: [
     [0, 0, 0],
     [0, 0, 0],
+  ],
+}
+export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
+  [SETTING_LOCATE.TPHCM]: [
+    [20, 29, 25000],
+    [30, 39, 40000],
+    [40, 49, 60000],
+    [50, null, 80000],
+  ],
+  [SETTING_LOCATE.HANOI]: [
+    [20, 29, 35000],
+    [30, 39, 50000],
+    [40, 49, 70000],
+    [50, null, 90000],
   ],
 }
 

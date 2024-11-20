@@ -3,13 +3,20 @@ import {
   FilterHubTypeSetting,
   HUB_TYPE,
   JoinOrder,
+  SETTING_LOCATE,
 } from 'modules/Form/types'
-import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
+import {
+  IS_HUB_WELL_DONE_DEFAULT,
+  EXTRA_SUNDAY_ORDER,
+} from 'modules/Form/constants'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceJoinOrder, getPriceExtraOrder } from 'utils/price'
+import { isEnhanceHub } from 'utils/hub'
 
-export const getOrderOfHubs = (hubs: Hub[]) => {
-  return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
+export const getColorPrice = (price: number) => {
+  if (price === 0) return ''
+  if (price < 0) return 'var(--nc-error)'
+  return 'var(--nc-success)'
 }
 
 export const getFilter_Hubs = ({
@@ -39,10 +46,8 @@ export const getFilter_Hubs = ({
   })
 }
 
-export const getColorDiffPrice = (diffPrice: number) => {
-  if (diffPrice === 0) return ''
-  if (diffPrice < 0) return 'var(--nc-error)'
-  return 'var(--nc-success)'
+export const getOrder_Hubs = (hubs: Hub[]) => {
+  return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
 }
 
 export const getPrice_Hub = ({
@@ -155,4 +160,35 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
     measure += diff
   }
   return measure
+}
+
+export const getExtraSundayPrice = (order: number, loc: SETTING_LOCATE) => {
+  let yRw = 0
+  const rws = EXTRA_SUNDAY_ORDER[loc]
+
+  for (let i = 0; i < rws.length; i++) {
+    const reward = rws[i]
+    const [from, to, price] = reward
+    if (
+      (to === null && order >= from) ||
+      (order >= from && to && order <= to)
+    ) {
+      yRw = price
+      break
+    }
+  }
+
+  return yRw
+}
+export const getExtraSundayPrice_Hubs = (hubs: Hub[], loc: SETTING_LOCATE) => {
+  const sumOrder = hubs.reduce((accumulator, hub) => {
+    const isHubWellDone =
+      typeof hub.isHubWellDone === 'boolean'
+        ? hub.isHubWellDone
+        : IS_HUB_WELL_DONE_DEFAULT
+    const count = !isEnhanceHub(hub.hubType) && isHubWellDone ? hub.order : 0
+    return accumulator + count
+  }, 0)
+
+  return getExtraSundayPrice(sumOrder, loc)
 }

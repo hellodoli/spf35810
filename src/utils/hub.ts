@@ -132,16 +132,6 @@ export const generate_HUB_SHIFT = () => {
   return hubShift
 }
 
-export const isSoldierHub = (hubType: HUB_TYPE) => {
-  if (
-    hubType === HUB_TYPE.HUB_3 ||
-    hubType === HUB_TYPE.HUB_5 ||
-    hubType === HUB_TYPE.HUB_1
-  )
-    return true
-  return false
-}
-
 export const isEnhanceHub = (hubType: HUB_TYPE) => {
   return hubType === HUB_TYPE.HUB_1
 }

@@ -1,9 +1,4 @@
-import { HUB_TYPE } from './enum'
-
-export enum SETTING_LOCATE {
-  TPHCM = 'TPHCM',
-  HANOI = 'HANOI',
-}
+import { HUB_TYPE, SETTING_LOCATE } from './enum'
 
 export interface Settings {
   ORDER_PRICE: {
@@ -40,4 +35,8 @@ export interface IncomeSetting {
 
 export type FilterHubTypeSetting = {
   [key in HUB_TYPE]: boolean
+}
+
+export type ExtraOrderSundayList = {
+  [key in SETTING_LOCATE]: [number, number | null, number][]
 }

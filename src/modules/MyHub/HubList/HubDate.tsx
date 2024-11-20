@@ -41,9 +41,10 @@ const HubDate = ({ date = '' }: Props) => {
       }),
     [hubsByDate, filters],
   )
-  const displayDate = useMemo(() => {
-    return getDisplayDate(new Date(+date), true)
-  }, [date])
+  const displayDate = useMemo(
+    () => getDisplayDate(new Date(+date), true),
+    [date],
+  )
   const hasData = !!hubs.length
 
   const [toggle, setToggle] = useState(isExpandAllHub)
@@ -118,7 +119,7 @@ const HubDate = ({ date = '' }: Props) => {
 
       {toggle && hasData && (
         <div className="mb-2">
-          <Price hubs={hubs} />
+          <Price hubs={hubs} unixDate={+date} />
         </div>
       )}
 

@@ -4,7 +4,7 @@ import { Hub } from 'modules/Form/types'
 import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 
 import { getFormat } from 'utils/price'
-import { getDiffJoinsPrice_Hubs, getColorDiffPrice } from 'utils/income'
+import { getDiffJoinsPrice_Hubs, getColorPrice } from 'utils/income'
 
 const JoinsPay = ({ hubs }: { hubs: Hub[] }) => {
   const f = useMemo(() => getFormat(), [])
@@ -17,7 +17,7 @@ const JoinsPay = ({ hubs }: { hubs: Hub[] }) => {
       <strong
         className="ml-1"
         style={{
-          color: getColorDiffPrice(diffPrice),
+          color: getColorPrice(diffPrice),
         }}
       >
         {f(diffPrice)}

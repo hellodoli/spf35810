@@ -27,3 +27,8 @@ export enum HUB_COLOR {
   HUB_8 = '#4a90e2',
   HUB_10 = '#d0021b',
 }
+
+export enum SETTING_LOCATE {
+  TPHCM = 'TPHCM',
+  HANOI = 'HANOI',
+}

@@ -4,7 +4,6 @@ import { JoinOrder, HUB_TYPE, Hub } from 'modules/Form/types'
 import { initialState } from 'modules/Form/slices/initState'
 
 import { getMaxJoinOrder } from 'utils/join'
-import { isSoldierHub } from 'utils/hub'
 
 export * from './settings'
 export * from './income-setting'
@@ -48,11 +47,6 @@ export const hubShiftSelector = createSelector(
 export const isOpenPreviewSelector = createSelector(
   [selectSlice],
   (state) => state.isOpenPreview,
-)
-
-export const isSoldierHubSelector = createSelector(
-  [hubTypeSelector],
-  (hubType) => isSoldierHub(hubType),
 )
 
 export const hubsExistObSelector = createSelector(
