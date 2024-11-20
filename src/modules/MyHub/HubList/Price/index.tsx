@@ -7,7 +7,7 @@ import {
 
 import { Hub } from 'modules/Form/types'
 import { getFormat } from 'utils/price'
-
+import { isApplyForExtraSunday } from 'utils/hub'
 import {
   getOrder_Hubs,
   getPrice_Hubs,
@@ -27,14 +27,11 @@ const Price = ({ hubs, unixDate }: Props) => {
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const locate = useSelector(locateSettingSelector)
 
-  const d = new Date(unixDate)
-  const isSunday = d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
-
   const orderHubs = getOrder_Hubs(hubs)
   const extraSundayPrice = getExtraSundayPrice_Hubs(hubs, locate)
 
-  let priceHubs = getPrice_Hubs(hubs, orderPrice)
-  if (isSunday) priceHubs += extraSundayPrice
+  const isSunday = isApplyForExtraSunday(unixDate)
+  const priceHubs = getPrice_Hubs(hubs, orderPrice, true, locate)
 
   return (
     <ul className="p-2 border-line">

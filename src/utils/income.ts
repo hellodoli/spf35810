@@ -11,7 +11,7 @@ import {
 } from 'modules/Form/constants'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceJoinOrder, getPriceExtraOrder } from 'utils/price'
-import { isEnhanceHub } from 'utils/hub'
+import { isEnhanceHub, isApplyForExtraSunday } from 'utils/hub'
 
 export const getColorPrice = (price: number) => {
   if (price === 0) return ''
@@ -44,6 +44,37 @@ export const getFilter_Hubs = ({
       return false
     return true
   })
+}
+
+export const getExtraSundayPrice = (order: number, loc: SETTING_LOCATE) => {
+  let yRw = 0
+  const rws = EXTRA_SUNDAY_ORDER[loc]
+
+  for (let i = 0; i < rws.length; i++) {
+    const reward = rws[i]
+    const [from, to, price] = reward
+    if (
+      (to === null && order >= from) ||
+      (order >= from && to && order <= to)
+    ) {
+      yRw = price
+      break
+    }
+  }
+
+  return yRw
+}
+export const getExtraSundayPrice_Hubs = (hubs: Hub[], loc: SETTING_LOCATE) => {
+  const sumOrder = hubs.reduce((accumulator, hub) => {
+    const isHubWellDone =
+      typeof hub.isHubWellDone === 'boolean'
+        ? hub.isHubWellDone
+        : IS_HUB_WELL_DONE_DEFAULT
+    const count = !isEnhanceHub(hub.hubType) && isHubWellDone ? hub.order : 0
+    return accumulator + count
+  }, 0)
+
+  return getExtraSundayPrice(sumOrder, loc)
 }
 
 export const getOrder_Hubs = (hubs: Hub[]) => {
@@ -98,7 +129,11 @@ export const getPrice_Hubs = (
   hubs: Hub[],
   orderPrice: number,
   isShowExtraJoinOrderPrice: boolean = true,
+  loc: SETTING_LOCATE = SETTING_LOCATE.TPHCM,
 ) => {
+  const sdList: {
+    [key: string]: Hub[]
+  } = {}
   let total = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
@@ -112,7 +147,22 @@ export const getPrice_Hubs = (
       isShowExtraJoinOrderPrice,
     })
     total += price
+
+    // extra sunday (split logic LATER)
+    const isSunday = isApplyForExtraSunday(hub.hubTime)
+    if (isSunday) {
+      if (!sdList[hub.hubTime]) sdList[hub.hubTime] = [hub]
+      else sdList[hub.hubTime].push(hub)
+    }
   }
+
+  // extra sunday (split logic LATER)
+  const hubsSunday = Object.values(sdList)
+  for (let j = 0; j < hubsSunday.length; j++) {
+    const extraSundayPrice = getExtraSundayPrice_Hubs(hubsSunday[j], loc)
+    total += extraSundayPrice
+  }
+
   return total
 }
 
@@ -160,35 +210,4 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
     measure += diff
   }
   return measure
-}
-
-export const getExtraSundayPrice = (order: number, loc: SETTING_LOCATE) => {
-  let yRw = 0
-  const rws = EXTRA_SUNDAY_ORDER[loc]
-
-  for (let i = 0; i < rws.length; i++) {
-    const reward = rws[i]
-    const [from, to, price] = reward
-    if (
-      (to === null && order >= from) ||
-      (order >= from && to && order <= to)
-    ) {
-      yRw = price
-      break
-    }
-  }
-
-  return yRw
-}
-export const getExtraSundayPrice_Hubs = (hubs: Hub[], loc: SETTING_LOCATE) => {
-  const sumOrder = hubs.reduce((accumulator, hub) => {
-    const isHubWellDone =
-      typeof hub.isHubWellDone === 'boolean'
-        ? hub.isHubWellDone
-        : IS_HUB_WELL_DONE_DEFAULT
-    const count = !isEnhanceHub(hub.hubType) && isHubWellDone ? hub.order : 0
-    return accumulator + count
-  }, 0)
-
-  return getExtraSundayPrice(sumOrder, loc)
 }

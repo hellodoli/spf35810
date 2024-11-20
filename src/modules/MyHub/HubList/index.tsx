@@ -12,6 +12,7 @@ import {
   myHubsSelector,
   orderPriceDefaultSelector,
   filterHubTypeSelector,
+  locateSettingSelector,
 } from 'modules/Form/selectors'
 import { HUB_DISPLAY } from 'modules/Form/types'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
@@ -27,6 +28,7 @@ const Total = () => {
   const allHubs = useSelector(myHubsSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const filters = useSelector(filterHubTypeSelector)
+  const loc = useSelector(locateSettingSelector)
 
   const hubs = useMemo(
     () =>
@@ -37,8 +39,8 @@ const Total = () => {
     [allHubs, filters],
   )
   const price = useMemo(
-    () => getPrice_Hubs(hubs, orderPrice),
-    [hubs, orderPrice],
+    () => getPrice_Hubs(hubs, orderPrice, true, loc),
+    [hubs, orderPrice, loc],
   )
 
   return (

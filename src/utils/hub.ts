@@ -217,3 +217,8 @@ export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
     }
   }
 }
+
+export const isApplyForExtraSunday = (unixDate: number) => {
+  const d = new Date(unixDate)
+  return d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
+}
