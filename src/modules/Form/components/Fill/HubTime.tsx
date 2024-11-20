@@ -47,6 +47,7 @@ const HubTime = () => {
         className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none w-full"
         dateFormat={'dd/MM/yyyy'}
         onKeyDown={(e) => e.preventDefault()}
+        calendarStartDay={1}
       />
     </HubTimeLayout>
   )

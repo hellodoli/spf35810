@@ -28,7 +28,7 @@ const Price = ({ hubs, unixDate }: Props) => {
   const locate = useSelector(locateSettingSelector)
 
   const d = new Date(unixDate)
-  const isSunday = d.getDay() === 0
+  const isSunday = d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
 
   const orderHubs = getOrder_Hubs(hubs)
   const extraSundayPrice = getExtraSundayPrice_Hubs(hubs, locate)
