@@ -11,7 +11,11 @@ import {
 } from 'modules/Form/constants'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceJoinOrder, getPriceExtraOrder } from 'utils/price'
-import { isEnhanceHub, isApplyForExtraSunday } from 'utils/hub'
+import {
+  isEnhanceHub,
+  isApplyForExtraSunday,
+  getIsHubWellDone,
+} from 'utils/hub'
 
 export const getColorPrice = (price: number) => {
   if (price === 0) return ''
@@ -64,12 +68,12 @@ export const getExtraSundayPrice = (order: number, loc: SETTING_LOCATE) => {
 
   return yRw
 }
-export const getExtraSundayPrice_Hubs = (hubs: Hub[], loc: SETTING_LOCATE) => {
-  const sumOrder = hubs.reduce((accumulator, hub) => {
-    const isHubWellDone =
-      typeof hub.isHubWellDone === 'boolean'
-        ? hub.isHubWellDone
-        : IS_HUB_WELL_DONE_DEFAULT
+export const getExtraSundayPrice_Hubs = (
+  hubsByDate: Hub[],
+  loc: SETTING_LOCATE,
+) => {
+  const sumOrder = hubsByDate.reduce((accumulator, hub) => {
+    const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     const count = !isEnhanceHub(hub.hubType) && isHubWellDone ? hub.order : 0
     return accumulator + count
   }, 0)

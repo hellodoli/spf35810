@@ -6,6 +6,7 @@ import {
   Hub,
   HUB_DISPLAY,
 } from 'modules/Form/types'
+import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
 import { getDateHourTime, getUnixTime } from './time'
 
 import isoWeek from 'dayjs/plugin/isoWeek'
@@ -221,4 +222,10 @@ export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
 export const isApplyForExtraSunday = (unixDate: number) => {
   const d = new Date(unixDate)
   return d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
+}
+
+export const getIsHubWellDone = (isHubWellDone?: boolean) => {
+  return typeof isHubWellDone === 'boolean'
+    ? isHubWellDone
+    : IS_HUB_WELL_DONE_DEFAULT
 }

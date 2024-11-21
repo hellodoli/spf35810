@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { HubState, HUB_TYPE, Hub } from 'modules/Form/types'
-import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
+import { getIsHubWellDone } from 'utils/hub'
 import { convertFromJoinsOb } from 'utils/join'
 
 export const formActions = {
@@ -49,9 +49,6 @@ export const formActions = {
     state.order = hub.order
     state.joins = convertFromJoinsOb(hub.joins)
     state.isLoading = false
-    state.isHubWellDone =
-      typeof hub.isHubWellDone === 'boolean'
-        ? hub.isHubWellDone
-        : IS_HUB_WELL_DONE_DEFAULT
+    state.isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
   },
 }
