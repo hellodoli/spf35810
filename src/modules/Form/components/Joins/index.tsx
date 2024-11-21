@@ -1,30 +1,13 @@
-import React, { useState, useCallback, memo } from 'react'
-import { useSelector } from 'react-redux'
-
-import { joinsSelector } from 'modules/Form/selectors'
+import React, { useState, useCallback } from 'react'
 
 import FormItem from 'components/FormItem'
-import Join from '../Join'
 import AddJoin from './AddJoin'
+import List from './List'
 
 /**
  * LATER: chế độ đơn ghép trả tiền đầy đủ
  */
 const isHappyJoin = false
-
-const ListJoin = () => {
-  console.log(' re-rende ListJoin')
-  const joins = useSelector(joinsSelector)
-  return (
-    <div className="joins-list">
-      {joins.map((join) => (
-        <Join key={join.key} joinOrder={join} />
-      ))}
-    </div>
-  )
-}
-
-const List = memo(ListJoin)
 
 const Joins = () => {
   const [isOpenAdv, setIsOpenAdv] = useState(false)
