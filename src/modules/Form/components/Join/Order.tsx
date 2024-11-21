@@ -10,7 +10,7 @@ interface Props {
   initValue: number
 }
 
-const Order = ({ joinId, initValue }: Props) => {
+const Order = ({ joinId, initValue: nextValue }: Props) => {
   const dispatch = useDispatch()
   const maxJoinOrder = useMemo(makeMaxJoinOrder, [])
   const maxOrder = useSelector((state) => maxJoinOrder(state, joinId))
@@ -34,9 +34,10 @@ const Order = ({ joinId, initValue }: Props) => {
       <InputNumber
         min={0}
         max={max}
-        initValue={initValue}
+        initValue={nextValue}
         onChangeInput={onChangeInput}
         isCounterMobile={true}
+        resetCount={1} // trick always change when `initValue` change
       />
       <MaxLabel max={max} />
     </>

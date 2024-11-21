@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react'
 import FormItem from 'components/FormItem'
 import AddJoin from './AddJoin'
 import List from './List'
+import Quick from './Quick'
 
 /**
  * LATER: chế độ đơn ghép trả tiền đầy đủ
@@ -25,16 +26,24 @@ const Joins = () => {
       <div className="border-line p-2">
         {/* Joins */}
         <List />
-        {/* Tùy chỉnh */}
-        <div className="flex items-center gap-1 mt-4 mb-2 min-h-[30px]">
-          <button
-            className="stardust-button-reset stardust-button stardust-button--primary"
-            onClick={openAdv}
-          >
-            + Thêm loại đơn ghép
-          </button>
+
+        <div>
+          {/* Quick Add */}
+          <Quick />
+          {/* Custom Add */}
+          <FormItem label="Thêm tùy chỉnh:" center={true}>
+            <button
+              className="stardust-button-reset stardust-button stardust-button--primary"
+              onClick={openAdv}
+              disabled={isOpenAdv}
+            >
+              + Thêm loại đơn ghép
+            </button>
+          </FormItem>
+          {isOpenAdv && (
+            <AddJoin closeAdv={closeAdv} isHappyJoin={isHappyJoin} />
+          )}
         </div>
-        {isOpenAdv && <AddJoin closeAdv={closeAdv} isHappyJoin={isHappyJoin} />}
       </div>
     </FormItem>
   )

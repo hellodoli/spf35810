@@ -1,24 +1,15 @@
-import React, {
-  useState,
-  useRef,
-  useMemo,
-  useCallback,
-  useEffect,
-  memo,
-} from 'react'
+import React, { useState, useRef, useCallback, useEffect, memo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
 import clsx from 'clsx'
 
 import type { JoinOrder } from 'modules/Form/types'
 import { JOIN_3_DEFAULT } from 'modules/Form/constants'
-import {
-  makeMaxJoinOrderPreview,
-  orderPriceDefaultSelector,
-} from 'modules/Form/selectors'
+import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 
 import { useSettings } from 'modules/Form/hooks/useSettings'
+import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
 
 import { MaxLabel, InputNumber } from '../Input'
 import FormItem from 'components/FormItem'
@@ -47,10 +38,7 @@ const AddJoin = ({ closeAdv, isHappyJoin = false }: Props) => {
   const [order, setOrder] = useState(JOIN_DEFAULT.order)
   const [resetCountOrder, setResetCountOrder] = useState(0)
   const [joinType, setJoinType] = useState<JoinOrder['type']>(JOIN_DEFAULT.type)
-
-  const maxJoinOrder = useMemo(makeMaxJoinOrderPreview, [])
-  const maxOrder = useSelector((state) => maxJoinOrder(state, joinType))
-  const max = maxOrder > 0 ? maxOrder : 0
+  const { max } = useMaxJoinOrderPreview(joinType)
 
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const fixedPrice = orderPrice * joinType
@@ -95,7 +83,7 @@ const AddJoin = ({ closeAdv, isHappyJoin = false }: Props) => {
   }, [isHappyJoin, onChangeCreatePrice, fixedPrice])
 
   return (
-    <div className="border p-2 border-black">
+    <div className="border p-2 border-black mt-2">
       <FormItem {...formItemProps} label="Loại ghép:" isWrapLabel={false}>
         <div className="flex flex-wrap gap-2">
           {joinTypeArr.map((type) => {

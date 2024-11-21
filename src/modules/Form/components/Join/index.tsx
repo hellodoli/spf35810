@@ -70,7 +70,7 @@ const Join = (props: Props) => {
         center={true}
         isWrapLabel={false}
       >
-        <Order joinId={join.key} initValue={memoJoin.order} />
+        <Order joinId={join.key} initValue={join.order} />
       </FormItem>
       {/* Giá đơn */}
       <FormItem

@@ -77,3 +77,17 @@ export const getMaxJoinOrder = ({
   const max = Math.floor(remainOrder / joinType)
   return max
 }
+
+interface JoinsOb {
+  [key: string]: JoinOrder
+}
+export const getSameJoin = (joins: JoinsOb, join: JoinOrder) => {
+  const joinsArr = Object.values(joins)
+  const existJoin = joinsArr.find(
+    (j) => j.price === join.price && j.type === join.type,
+  )
+  return {
+    existJoin: existJoin || null,
+    isSameJoin: !!existJoin,
+  }
+}

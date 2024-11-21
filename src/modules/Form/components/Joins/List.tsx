@@ -7,7 +7,7 @@ import Join from '../Join'
 const ListJoin = () => {
   const joins = useSelector(joinsSelector)
   return (
-    <div className="joins-list">
+    <div className="joins-list mb-4 empty:mb-0">
       {joins.map((join) => (
         <Join key={join.key} joinOrder={join} />
       ))}
