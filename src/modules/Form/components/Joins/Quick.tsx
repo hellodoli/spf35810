@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import type { JoinOrder } from 'modules/Form/types'
 
+import { getFormat } from 'utils/price'
 import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
 import { actions } from 'modules/Form/slices'
 
@@ -22,6 +23,7 @@ const QuickAddBtn = ({
   join: JoinOrder
   addJoin: (join: JoinOrder) => void
 }) => {
+  const f = getFormat()
   const { max } = useMaxJoinOrderPreview(join.type)
   return (
     <button
@@ -29,7 +31,7 @@ const QuickAddBtn = ({
       disabled={max === 0}
       onClick={() => addJoin(join)}
     >
-      {`+ Ghép ${join.type}: ${join.price}`}
+      {`+ Ghép ${join.type}: ${f(join.price)}`}
     </button>
   )
 }

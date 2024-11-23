@@ -21,7 +21,6 @@ export const getTotalOrderOfJoins = (joins: JoinOrder[]) => {
     return accumulator + order
   }, 0)
 }
-
 export const getOrderOfJoins = (joins: JoinOrder[]) => {
   return joins.reduce((accumulator, join) => accumulator + join.order, 0)
 }
@@ -90,4 +89,8 @@ export const getSameJoin = (joins: JoinsOb, join: JoinOrder) => {
     existJoin: existJoin || null,
     isSameJoin: !!existJoin,
   }
+}
+
+export const getNoEmptyJoins = (joins: JoinOrder[]) => {
+  return joins.filter((join) => join.order > 0)
 }
