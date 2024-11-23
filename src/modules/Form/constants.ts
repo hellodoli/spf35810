@@ -9,6 +9,7 @@ import {
   HubColorsFilter,
   ExtraOrderSundayList,
 } from './types'
+import { v4 as uuidv4 } from 'uuid'
 import { generate_HUB_SHIFT } from 'utils/hub'
 
 import { getLocalStorage } from 'utils/storages'
@@ -62,13 +63,13 @@ export const SETTINGS_DEFAULT: Settings = {
   LOCATE: get_SettingsDefault_Locate(),
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
-  key: 'order_join_2_default_key',
+  key: `order_join_2_default_key_${uuidv4()}`,
   type: 2,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_2.PRICE,
 }
 export const JOIN_3_DEFAULT: JoinOrder = {
-  key: 'order_join_3_default_key',
+  key: `order_join_3_default_key_${uuidv4()}`,
   type: 3,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_3.PRICE,

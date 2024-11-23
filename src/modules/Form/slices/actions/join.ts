@@ -24,9 +24,11 @@ export const joinActions = {
     }>,
   ) => {
     const { updateKey, joinId, value } = action.payload
-    state.joins[joinId] = {
-      ...state.joins[joinId],
-      [updateKey]: value,
+    if (state.joins[joinId]) {
+      state.joins[joinId] = {
+        ...state.joins[joinId],
+        [updateKey]: value,
+      }
     }
   },
   deleteJoin: (
