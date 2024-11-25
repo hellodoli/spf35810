@@ -13,6 +13,7 @@ import * as db from 'db'
 import { actions } from './'
 
 import { getRangeTimeMyHubs } from 'utils/hub'
+import { getNoEmptyJoins } from 'utils/join'
 
 function showLogToast({
   isSuccess,
@@ -50,16 +51,18 @@ const modifyHub = createAsyncThunk(
   ) => {
     const state = getState() as RootState
     if (state?.form) {
+      const { hubType, hubShift, hubTime, order, isHubWellDone } = state.form
+      const joins = getNoEmptyJoins([...Object.values(state.form.joins)])
       const hub: Hub = {
         id: hubId,
-        hubType: state.form.hubType,
-        hubShift: state.form.hubShift,
-        hubTime: state.form.hubTime,
-        order: state.form.order,
-        joins: [...Object.values(state.form.joins)],
-        isHubWellDone: state.form.isHubWellDone,
+        hubType,
+        hubShift,
+        hubTime,
+        order,
+        isHubWellDone,
+        joins,
       }
-      console.log('modifyHub: ', { form: state.form, hub, type })
+      console.log('modifyHub: ', { form: state.form, hub, type, joins })
       const response =
         type === FORM_ACTION.ADD
           ? ((await db.addHub({
