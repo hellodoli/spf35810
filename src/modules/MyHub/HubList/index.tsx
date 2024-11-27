@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'configStore'
 
@@ -9,49 +9,13 @@ import {
   rangeTimeStartSelector,
   rangeTimeEndSelector,
   isLoadingMyHubSelector,
-  myHubsSelector,
-  orderPriceDefaultSelector,
-  filterHubTypeSelector,
-  locateSettingSelector,
 } from 'modules/Form/selectors'
 import { HUB_DISPLAY } from 'modules/Form/types'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
 
-import { getFormat } from 'utils/price'
-import { getPrice_Hubs, getFilter_Hubs } from 'utils/income'
-
 import ExpandTotalPrice from './ExpandTotalPrice'
 import HubDate from './HubDate'
-
-const Total = () => {
-  const f = useMemo(() => getFormat(), [])
-  const allHubs = useSelector(myHubsSelector)
-  const orderPrice = useSelector(orderPriceDefaultSelector)
-  const filters = useSelector(filterHubTypeSelector)
-  const loc = useSelector(locateSettingSelector)
-
-  const hubs = useMemo(
-    () =>
-      getFilter_Hubs({
-        hubs: allHubs,
-        filters,
-      }),
-    [allHubs, filters],
-  )
-  const price = useMemo(
-    () => getPrice_Hubs(hubs, orderPrice, true, loc),
-    [hubs, orderPrice, loc],
-  )
-
-  return (
-    <div className="mb-4">
-      <div className="p-2 border-line text-xl">
-        <span>Tổng thu nhập:</span>
-        <strong className="ml-1 text-color-success">{f(price)}</strong>
-      </div>
-    </div>
-  )
-}
+import Total from './Total'
 
 const HubList = () => {
   const dispatch: AppDispatch = useDispatch()
