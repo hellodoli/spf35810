@@ -50,7 +50,7 @@ const Total = () => {
   const renderShowPrice = () => {
     const showWeekReward = isShowWeekReward({ displayMyHubType })
     if (showWeekReward) {
-      return <WeekReward totalPrice={price} />
+      return <WeekReward hubs={hubs} totalPrice={price} />
     }
 
     // just display total price only

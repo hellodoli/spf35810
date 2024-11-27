@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Hub, HUB_TYPE } from 'modules/Form/types'
-import { myHubsSelector } from 'modules/Form/selectors'
 import { WEEK_REWARD } from 'modules/Form/constants'
 
 import { getFormat } from 'utils/price'
@@ -80,10 +78,14 @@ const getWeekReward = (hubs: Hub[]) => {
   return price
 }
 
-const WeekReward = ({ totalPrice = 0 }: { totalPrice?: number }) => {
+const WeekReward = ({
+  hubs,
+  totalPrice = 0,
+}: {
+  hubs: Hub[]
+  totalPrice?: number
+}) => {
   const f = useMemo(() => getFormat(), [])
-  const hubs = useSelector(myHubsSelector)
-
   const weekRewardPrice = getWeekReward(hubs)
   const totalPriceSumWeekReward = totalPrice + weekRewardPrice
 
