@@ -40,3 +40,7 @@ export type FilterHubTypeSetting = {
 export type ExtraOrderSundayList = {
   [key in SETTING_LOCATE]: [number, number | null, number][]
 }
+
+export type WeekRewardList = {
+  [key in HUB_TYPE]?: [number, number | null, number][]
+}

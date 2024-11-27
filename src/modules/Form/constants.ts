@@ -8,6 +8,7 @@ import {
   FilterHubTypeSetting,
   HubColorsFilter,
   ExtraOrderSundayList,
+  WeekRewardList,
 } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { generate_HUB_SHIFT } from 'utils/hub'
@@ -133,6 +134,24 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
     [30, 39, 50000],
     [40, 49, 70000],
     [50, null, 90000],
+  ],
+}
+
+export const WEEK_REWARD: WeekRewardList = {
+  [HUB_TYPE.HUB_10]: [
+    [4, 4, 100000],
+    [5, 5, 150000],
+    [6, null, 300000],
+  ],
+  [HUB_TYPE.HUB_8]: [
+    [4, 4, 100000],
+    [5, 5, 150000],
+    [6, null, 300000],
+  ],
+  [HUB_TYPE.HUB_5]: [
+    [6, 6, 150000],
+    [9, 9, 300000],
+    [12, null, 500000],
   ],
 }
 

@@ -1,18 +1,34 @@
 import React, { useMemo, memo } from 'react'
 import { useSelector } from 'react-redux'
 
+import { HUB_DISPLAY } from 'modules/Form/types'
 import {
   myHubsSelector,
   orderPriceDefaultSelector,
   filterHubTypeSelector,
   locateSettingSelector,
+  displayMyHubTypeSelector,
 } from 'modules/Form/selectors'
 
 import { getFormat } from 'utils/price'
 import { getPrice_Hubs, getFilter_Hubs } from 'utils/income'
 
+import WeekReward from './WeekReward'
+
+const isShowWeekReward = ({
+  displayMyHubType,
+}: {
+  displayMyHubType: HUB_DISPLAY
+}) => {
+  return (
+    displayMyHubType === HUB_DISPLAY.D_PREV_WEEK ||
+    displayMyHubType === HUB_DISPLAY.D_WEEK
+  )
+}
+
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
+  const displayMyHubType = useSelector(displayMyHubTypeSelector) // displayMyHubType
   const allHubs = useSelector(myHubsSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const filters = useSelector(filterHubTypeSelector)
@@ -31,12 +47,24 @@ const Total = () => {
     [hubs, orderPrice, loc],
   )
 
-  return (
-    <div className="mb-4">
-      <div className="p-2 border-line text-xl">
+  const renderShowPrice = () => {
+    const showWeekReward = isShowWeekReward({ displayMyHubType })
+    if (showWeekReward) {
+      return <WeekReward totalPrice={price} />
+    }
+
+    // just display total price only
+    return (
+      <li className="text-lg">
         <span>Tổng thu nhập:</span>
         <strong className="ml-1 text-color-success">{f(price)}</strong>
-      </div>
+      </li>
+    )
+  }
+
+  return (
+    <div className="mb-4">
+      <ul className="p-2 border-line">{renderShowPrice()}</ul>
     </div>
   )
 }
