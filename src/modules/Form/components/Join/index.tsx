@@ -21,11 +21,12 @@ const Join = (props: Props) => {
   const labelPrice = getJoinLabel(join.type, true)
   const memoJoin = useMemo(() => join, []) // remember first render join.
   console.log('re-render [Join]', { type: join.type, join, memoJoin })
+  const joinId = join.key
 
   const deleteJoin = () => {
     dispatch(
       actions.deleteJoin({
-        joinId: join.key,
+        joinId,
       }),
     )
   }
@@ -70,7 +71,7 @@ const Join = (props: Props) => {
         center={true}
         isWrapLabel={false}
       >
-        <Order joinId={join.key} initValue={join.order} />
+        <Order joinId={joinId} initValue={join.order} />
       </FormItem>
       {/* Giá đơn */}
       <FormItem
@@ -84,7 +85,7 @@ const Join = (props: Props) => {
         isWrapLabel={false}
       >
         <Price
-          joinId={join.key}
+          joinId={joinId}
           joinType={join.type}
           initValue={memoJoin.price}
         />
