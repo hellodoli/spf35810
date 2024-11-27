@@ -1,12 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from 'types/RootState'
-import { JoinOrder, HUB_TYPE, Hub } from 'modules/Form/types'
+import { JoinOrder, HUB_TYPE } from 'modules/Form/types'
 import { initialState } from 'modules/Form/slices/initState'
 
 import { getMaxJoinOrder } from 'utils/join'
 
 export * from './settings'
 export * from './income-setting'
+export * from './my-hub'
 
 const selectSlice = (state: RootState) => state.form || initialState
 
@@ -64,11 +65,6 @@ export const isLoadingSelector = createSelector(
   (state) => state.isLoading,
 )
 
-export const isLoadingMyHubSelector = createSelector(
-  [selectSlice],
-  (state) => state.isLoadingMyHub,
-)
-
 export const isCalModeSelector = createSelector(
   [selectSlice],
   (state) => state.isCalMode,
@@ -118,29 +114,9 @@ export const makeFilterHubType = createSelector(
   },
 )
 
-export const myHubsObSelector = createSelector(
-  [selectSlice],
-  (state) => state.myHubs,
-)
-
-export const myHubsSelector = createSelector([myHubsObSelector], (myHubsOb) => {
-  const allHubs: Hub[] = []
-  const hubDates = Object.values(myHubsOb)
-  hubDates.forEach((hubByIds) => {
-    const hubs = Object.values(hubByIds)
-    hubs.forEach((hub) => allHubs.push(hub))
-  })
-  return allHubs
-})
-
 export const isOpenDbSelector = createSelector(
   [selectSlice],
   (state) => state.isOpenDb,
-)
-
-export const myHubKeysSelector = createSelector(
-  [myHubsObSelector],
-  (myHubsOb) => Object.keys(myHubsOb),
 )
 
 export const displayMyHubTypeSelector = createSelector(

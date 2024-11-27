@@ -85,7 +85,7 @@ const HubList = () => {
   if (isLoadingMyHub === null) return
   if (isLoadingMyHub) {
     /**
-     * add some loading component here.
+     * LATER: add some loading component here.
      */
     return null
   }
@@ -94,6 +94,7 @@ const HubList = () => {
   }
 
   console.log({
+    displayMyHubType: type,
     rangeTimeStart,
     rangeTimeEnd,
     isLoadingMyHub,
