@@ -33,7 +33,6 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
   const isCalMode = useSelector(isCalModeSelector)
   const isOpenPreview = useSelector(isOpenPreviewSelector)
 
-  const disabledAnalyst = !isCalMode
   const disabled = !hubShift || isLoading
 
   const toggle = () => {
@@ -76,7 +75,6 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
             'mt-4 md:mt-0 w-full md:w-auto md:ml-auto',
             'flex items-center text-center justify-center',
           )}
-          disabled={disabledAnalyst}
           onClick={toggle}
         >
           <span className="mr-2">
