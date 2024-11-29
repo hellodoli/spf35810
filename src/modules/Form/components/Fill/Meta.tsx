@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom'
 import { AppDispatch } from 'configStore'
 import { FORM_ACTION } from 'modules/Form/types'
 import {
-  orderSelector,
   hubShiftSelector,
   isLoadingSelector,
   isCalModeSelector,
@@ -29,14 +28,13 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
   const dispatch: AppDispatch = useDispatch()
   const history = useHistory()
 
-  const order = useSelector(orderSelector)
   const hubShift = useSelector(hubShiftSelector)
   const isLoading = useSelector(isLoadingSelector)
   const isCalMode = useSelector(isCalModeSelector)
   const isOpenPreview = useSelector(isOpenPreviewSelector)
 
-  const disabledAnalyst = order <= 0 && !isCalMode
-  const disabled = order <= 0 || !hubShift || isLoading
+  const disabledAnalyst = !isCalMode
+  const disabled = !hubShift || isLoading
 
   const toggle = () => {
     dispatch(actions.toggleIsOpenPreview())

@@ -47,7 +47,7 @@ export const SETTINGS_DEFAULT: Settings = {
   ORDER_QUANTITY: {
     MIN: 0,
     MAX: 100,
-    INIT: 10,
+    INIT: 0,
   },
   JOIN_2: {
     PRICE: 20900,
