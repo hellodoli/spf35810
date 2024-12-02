@@ -1,5 +1,4 @@
-import React, { memo, useCallback, useState } from 'react'
-import clsx from 'clsx'
+import React, { useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { actions } from 'modules/Form/slices'
@@ -7,49 +6,10 @@ import { routes } from 'utils/route-path'
 
 import { SETTING_LOCATE } from 'modules/Form/types'
 import { locateSettingSelector } from 'modules/Form/selectors'
+
 import FormItem from 'components/FormItem'
-
-interface LocateBtnItem {
-  id: string
-  text: string
-  value: SETTING_LOCATE
-}
-
-const Button = ({
-  isActive = false,
-  disabled = false,
-  text = '',
-  value = SETTING_LOCATE.TPHCM,
-  onChangeLocate,
-}: {
-  text?: string
-  isActive?: boolean
-  disabled?: boolean
-  value?: SETTING_LOCATE
-  onChangeLocate: (value: SETTING_LOCATE) => void
-}) => {
-  return (
-    <button
-      className={clsx(
-        'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
-        {
-          'stardust-button--active': isActive,
-        },
-      )}
-      onClick={() => onChangeLocate(value)}
-      disabled={disabled}
-    >
-      {text}
-    </button>
-  )
-}
-const ChooseHubBtn = memo(Button)
-
-const locateText = 'locate'
-const locates: LocateBtnItem[] = [
-  { id: `${locateText}-1`, text: 'TPHCM', value: SETTING_LOCATE.TPHCM },
-  { id: `${locateText}-2`, text: 'Hà Nội', value: SETTING_LOCATE.HANOI },
-]
+import LocateInfoView, { locatesArr as locates } from './LocateInfoView'
+import ChooseHubBtn from './ChooseHubBtn'
 
 const Setting = () => {
   const history = useHistory()
@@ -101,7 +61,17 @@ const Setting = () => {
           </div>
         </FormItem>
 
-        <FormItem label="">
+        <FormItem>
+          <em className="link cursor-pointer select-none !no-underline">
+            *Tiền thưởng sẽ thay đổi tùy vào khu vực
+          </em>
+          <div className="link cursor-pointer select-none !no-underline mt-4 mb-1">
+            (Tiền thưởng chuyên cần chủ nhật)
+          </div>
+          <LocateInfoView curLocate={info.locate} />
+        </FormItem>
+
+        <FormItem>
           <div className="md:flex md:items-center w-full">
             <button
               className="stardust-button-reset stardust-button stardust-button--primary stardust-button--wide w-full md:w-auto"

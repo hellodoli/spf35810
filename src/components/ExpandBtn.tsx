@@ -9,17 +9,21 @@ const ExpandBtn = ({
   isMarginLeft = true,
 }: {
   isDetail: boolean
-  toggleDetail: () => void
+  toggleDetail?: () => void
   textHide?: string
   textShow?: string
   isMarginLeft?: boolean
 }) => {
+  const onClick = () => {
+    toggleDetail?.()
+  }
+
   return (
     <span
       className={clsx('link cursor-pointer select-none', {
         'ml-1': isMarginLeft,
       })}
-      onClick={toggleDetail}
+      onClick={onClick}
     >
       {`${isDetail ? textHide : textShow}`}
     </span>
