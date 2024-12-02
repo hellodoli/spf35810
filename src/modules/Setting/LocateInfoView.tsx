@@ -23,10 +23,12 @@ const Item = ({
   children,
   className = '',
   fade = false,
+  style,
 }: {
   children: React.ReactNode
   className?: string
   fade?: boolean
+  style?: React.CSSProperties
 }) => {
   return (
     <div
@@ -40,6 +42,7 @@ const Item = ({
           'opacity-50': fade,
         },
       )}
+      style={style}
     >
       {children}
     </div>
@@ -53,13 +56,22 @@ const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
   const extraSundayOrder = EXTRA_SUNDAY_ORDER[curLocate]
 
   return (
-    <div className={`grid gap-1 md:gap-2 grid-cols-${locateCount + 1}`}>
+    <div
+      className="grid gap-1 md:gap-2"
+      style={{
+        gridTemplateColumns: `repeat(${locateCount + 1}, minmax(0, 1fr))`,
+      }}
+    >
       {/* Header */}
       <Item className={`${headerClassName} row-start-1 row-end-3`}>
         Tổng số đơn hoàn thành
       </Item>
       <Item
-        className={`${headerClassName} col-start-2 col-end-${2 + locateCount}`}
+        className={headerClassName}
+        style={{
+          gridColumnStart: 2,
+          gridColumnEnd: 2 + locateCount,
+        }}
       >
         Nhận thêm
       </Item>
