@@ -135,6 +135,12 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
     [40, 49, 70000],
     [50, null, 90000],
   ],
+  [SETTING_LOCATE.OTHER]: [
+    [20, 29, 0],
+    [30, 39, 0],
+    [40, 49, 0],
+    [50, null, 0],
+  ],
 }
 
 export const WEEK_REWARD: WeekRewardList = {

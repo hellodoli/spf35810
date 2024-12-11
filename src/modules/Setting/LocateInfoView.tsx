@@ -17,6 +17,7 @@ const locateText = 'locate-1.1'
 export const locatesArr: LocateBtnItem[] = [
   { id: `${locateText}-1`, text: 'TPHCM', value: SETTING_LOCATE.TPHCM },
   { id: `${locateText}-2`, text: 'Hà Nội', value: SETTING_LOCATE.HANOI },
+  { id: `${locateText}-3`, text: 'Khác', value: SETTING_LOCATE.OTHER },
 ]
 
 const Item = ({
@@ -51,8 +52,11 @@ const Item = ({
 
 const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
   const f = useMemo(() => getFormat(), [])
-  const allLocate = useMemo(() => [...locatesArr], [])
-  const locateCount = allLocate.length
+  const locs = useMemo(
+    () => locatesArr.filter((loc) => loc.value !== SETTING_LOCATE.OTHER),
+    [locatesArr],
+  )
+  const locateCount = locs.length
   const extraSundayOrder = EXTRA_SUNDAY_ORDER[curLocate]
 
   return (
@@ -77,7 +81,7 @@ const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
       </Item>
 
       {/* Locate Header */}
-      {locatesArr.map((locate) => (
+      {locs.map((locate) => (
         <Item
           key={locate.id}
           className="text-white font-bold bg-[#E64739]"
@@ -97,11 +101,16 @@ const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
             <Item className="text-[#000000] font-semibold">
               {to ? `Từ ${from} - ${to} (đơn)` : `Từ ${from} đơn trở lên`}
             </Item>
-
-            <Item className="text-[#E64739] font-semibold">
+            <Item
+              className="text-[#E64739] font-semibold"
+              fade={curLocate !== SETTING_LOCATE.TPHCM}
+            >
               {curLocate === SETTING_LOCATE.TPHCM ? f(price) : '-'}
             </Item>
-            <Item className="text-[#E64739] font-semibold">
+            <Item
+              className="text-[#E64739] font-semibold"
+              fade={curLocate !== SETTING_LOCATE.HANOI}
+            >
               {curLocate === SETTING_LOCATE.HANOI ? f(price) : '-'}
             </Item>
           </React.Fragment>
