@@ -47,12 +47,6 @@ const HubList = () => {
   }, [type, isOpenDb, rangeTimeStart, rangeTimeEnd])
 
   if (isLoadingMyHub === null) return
-  if (isLoadingMyHub) {
-    /**
-     * LATER: add some loading component here.
-     */
-    return null
-  }
   if (!isLoadingMyHub && !myHubsKeys.length) {
     return <div className="text-center p-4 my-8">Không có ca hub nào.</div>
   }
@@ -70,12 +64,18 @@ const HubList = () => {
       <div className="mb-4">
         <ExpandTotalPrice />
       </div>
-      <Total />
-      <div className="hub-dates">
-        {myHubsKeys.map((date) => (
-          <HubDate key={date} date={date} />
-        ))}
-      </div>
+      {isLoadingMyHub ? null /**
+       * LATER: add some loading component here.
+       */ : (
+        <>
+          <Total />
+          <div className="hub-dates">
+            {myHubsKeys.map((date) => (
+              <HubDate key={date} date={date} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   )
 }
