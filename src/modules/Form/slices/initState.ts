@@ -4,6 +4,10 @@ import {
   INCOME_SETTING,
   FILTER_HUBTYPE_MY_HUB_DEFAULT,
 } from 'modules/Form/constants'
+import {
+  get_Global_ExpandAllHubListSummary,
+  get_Global_ExtraChildJoinOrder,
+} from 'modules/Form/default'
 import { getResetHubFillState } from 'utils/state'
 import { isCalPathName } from 'utils/route-path'
 
@@ -32,7 +36,9 @@ const initialState: HubState = {
     start: 0,
     end: 0,
   },
-  isExpandAllHubListSummary: false,
+  // global switch
+  isExpandAllHubListSummary: get_Global_ExpandAllHubListSummary(), // (ẩn/hiện) tất cả thống kê (list hub)
+  isExtraChildJoinOrder: get_Global_ExtraChildJoinOrder(), // (ẩn/hiện) Thu nhập tăng/giảm do đơn ghép (list hub)
 }
 
 export { initialState }

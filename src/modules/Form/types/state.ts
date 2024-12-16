@@ -27,4 +27,5 @@ export interface HubState {
   rangeTime: RangeTime
   isExpandAllHubListSummary: boolean
   filterHubTypeSetting: FilterHubTypeSetting
+  isExtraChildJoinOrder: boolean
 }

@@ -12,18 +12,7 @@ import {
 } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { generate_HUB_SHIFT } from 'utils/hub'
-
-import { getLocalStorage } from 'utils/storages'
-import {
-  SETTINGS_DEFAULT__LOCATE,
-  SETTINGS_DEFAULT__LOCATE__LS_KEY,
-} from './default'
-
-const get_SettingsDefault_Locate = () => {
-  const locate = getLocalStorage(SETTINGS_DEFAULT__LOCATE__LS_KEY)
-  if (locate && locate in SETTING_LOCATE) return locate as SETTING_LOCATE
-  return SETTINGS_DEFAULT__LOCATE
-}
+import { get_SettingsDefault_Locate } from './default'
 
 export const INCOME_SETTING: IncomeSetting = {
   SHOW_EXTRA_JOIN_ORDER_PRICE: true,

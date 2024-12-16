@@ -142,6 +142,11 @@ export const isExpandAllHubListSummarySelector = createSelector(
   (state) => state.isExpandAllHubListSummary,
 )
 
+export const isExtraChildJoinOrderSelector = createSelector(
+  [selectSlice],
+  (state) => state.isExtraChildJoinOrder,
+)
+
 export const filterHubTypeSelector = createSelector(
   [selectSlice],
   (state) => state.filterHubTypeSetting,

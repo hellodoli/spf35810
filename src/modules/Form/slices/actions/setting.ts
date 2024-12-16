@@ -5,9 +5,11 @@ import {
   IncomeSetting,
   SETTING_LOCATE,
 } from 'modules/Form/types'
-import { SETTINGS_DEFAULT__LOCATE__LS_KEY } from 'modules/Form/default'
+import { settingsDefault_Locate } from 'modules/Form/default'
 import { getResetHubFillState } from 'utils/state'
 import { setLocalStorage } from 'utils/storages'
+
+const SETTINGS_DEFAULT__LOCATE__LS_KEY = settingsDefault_Locate.lsKey
 
 const changeResetHubFillState = (state: HubState) => {
   const { hubShift, hubTime, hubType, joins, isHubWellDone } =

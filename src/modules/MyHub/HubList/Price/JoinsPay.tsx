@@ -1,12 +1,19 @@
 import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Hub } from 'modules/Form/types'
-import { orderPriceDefaultSelector } from 'modules/Form/selectors'
+import {
+  orderPriceDefaultSelector,
+  isExtraChildJoinOrderSelector,
+} from 'modules/Form/selectors'
 
 import { getFormat } from 'utils/price'
 import { getDiffJoinsPrice_Hubs, getColorPrice } from 'utils/income'
 
-const JoinsPay = ({ hubs }: { hubs: Hub[] }) => {
+interface Props {
+  hubs: Hub[]
+}
+
+const Price = ({ hubs }: Props) => {
   const f = useMemo(() => getFormat(), [])
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const diffPrice = getDiffJoinsPrice_Hubs(hubs, orderPrice)
@@ -25,5 +32,12 @@ const JoinsPay = ({ hubs }: { hubs: Hub[] }) => {
     </li>
   )
 }
+const PriceMemo = memo(Price)
 
-export default memo(JoinsPay)
+const JoinsPay = (props: Props) => {
+  const isExtraChildJoinOrder = useSelector(isExtraChildJoinOrderSelector)
+  if (!isExtraChildJoinOrder) return null
+  return <PriceMemo {...props} />
+}
+
+export default JoinsPay

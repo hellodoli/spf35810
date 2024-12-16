@@ -1,5 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { HubState, HUB_DISPLAY, RangeTime } from 'modules/Form/types'
+import { setLocalStorage } from 'utils/storages'
+import {
+  global_ExpandAllHubListSummary,
+  global_ExtraChildJoinOrder,
+} from 'modules/Form/default'
 
 export const hubActions = {
   changeDisplayMyHubType: (
@@ -30,8 +35,18 @@ export const hubActions = {
   },
   showIsExpandAllHubListSummary: (state: HubState) => {
     state.isExpandAllHubListSummary = true
+    setLocalStorage(global_ExpandAllHubListSummary.lsKey, 'true')
   },
   hideIsExpandAllHubListSummary: (state: HubState) => {
     state.isExpandAllHubListSummary = false
+    setLocalStorage(global_ExpandAllHubListSummary.lsKey, 'false')
+  },
+  showIsExtraChildJoinOrder: (state: HubState) => {
+    state.isExtraChildJoinOrder = true
+    setLocalStorage(global_ExtraChildJoinOrder.lsKey, 'true')
+  },
+  hideIsExtraChildJoinOrder: (state: HubState) => {
+    state.isExtraChildJoinOrder = false
+    setLocalStorage(global_ExtraChildJoinOrder.lsKey, 'false')
   },
 }
