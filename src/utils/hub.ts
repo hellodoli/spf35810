@@ -66,11 +66,12 @@ export function getHubTime(start: string, end: string) {
   return hubTime
 }
 
-export const generateHubShiftId = (start: string, end: string) => {
+//== 2. HUB Shift
+//==== START
+const generateHubShiftId = (start: string, end: string) => {
   return `${start}_${end}`
 }
-
-export const getStartEndFromHubShiftId = (hubShiftId: string) => {
+const getStartEndFromHubShiftId = (hubShiftId: string) => {
   const [start, end] = hubShiftId.split('_')
   return { start, end }
 }
@@ -133,10 +134,6 @@ export const generate_HUB_SHIFT = () => {
   return hubShift
 }
 
-export const isEnhanceHub = (hubType: HUB_TYPE) => {
-  return hubType === HUB_TYPE.HUB_1
-}
-
 export const isDisabledHubShift = (
   hubs: Hub[],
   hubShiftStart: string,
@@ -164,6 +161,15 @@ export const isDisabledHubShift = (
     }*/
   }
   return isDisabled
+}
+//==== END
+
+export const isEnhanceHub = (hubType: HUB_TYPE) => {
+  return hubType === HUB_TYPE.HUB_1
+}
+
+export const isSuperHub = (hubType: HUB_TYPE) => {
+  return hubType === HUB_TYPE.HUB_10 || hubType === HUB_TYPE.HUB_8
 }
 
 export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
