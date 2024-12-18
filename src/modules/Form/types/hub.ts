@@ -30,6 +30,7 @@ export interface HubGenaral {
   order: number
   joins: JoinOrder[]
   isHubWellDone?: boolean
+  isAutoCompensate?: boolean
 }
 
 export interface Hub extends HubGenaral {

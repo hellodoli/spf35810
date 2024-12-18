@@ -18,6 +18,7 @@ import HubSelect from './HubSelect'
 import HubTime from './HubTime'
 import Meta from './Meta'
 import Kpi from './Kpi'
+import AutoCompensate from './AutoCompensate'
 
 interface FillProps {
   type?: FORM_ACTION
@@ -64,6 +65,8 @@ const Fill = ({
             <Kpi />
             {/* Loại hub */}
             <HubType type={type} />
+            {/* Chế độ bù đơn */}
+            <AutoCompensate />
             {/* Số lượng đơn */}
             <Order type={type} />
             {!isCalMode && (

@@ -1,4 +1,5 @@
 import React, { useMemo, memo } from 'react'
+import clsx from 'clsx'
 import { useSelector } from 'react-redux'
 import {
   orderSelector,
@@ -7,9 +8,13 @@ import {
   hubTypeSelector,
   isShowExtraJoinOrderPriceSelector,
   isHubWellDoneSelector,
+  orderCompensateSelector,
 } from 'modules/Form/selectors'
 import { getFormat } from 'utils/price'
-import { getPrice_Hub } from 'utils/income'
+import { getPrice_Hub, getPriceCompensate_Hub } from 'utils/income'
+import { canCompensate } from 'utils/hub'
+
+import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
@@ -21,6 +26,16 @@ const Total = () => {
   const isShowExtraJoinOrderPrice = useSelector(
     isShowExtraJoinOrderPriceSelector,
   )
+  const orderCompensate = useSelector((state) =>
+    orderCompensateSelector(state, hubType),
+  )
+
+  const isAutoCompensate = canCompensate({
+    hubType,
+    isHubWellDone,
+    order,
+    orderCompensate,
+  })
 
   const totalPrice = getPrice_Hub({
     hubType,
@@ -31,10 +46,49 @@ const Total = () => {
     isShowExtraJoinOrderPrice,
   })
 
+  const renderAutoCompensate = () => {
+    if (!isAutoCompensate) return null
+
+    const price = getPriceCompensate_Hub({
+      orderPrice,
+      orderCompensate,
+    })
+
+    return (
+      <div className="flex items-center">
+        <Shield
+          width={18}
+          height={18}
+          fill="var(--nc-primary)"
+          className="inline-flex my-auto mr-1"
+        />
+        <span className="mr-1">Thu nhập đảm bảo:</span>
+        <strong className="text-color-primary">{f(price)}</strong>
+      </div>
+    )
+  }
+
   return (
     <div className="p-2 border-line -mt-[1px] text-xl">
-      <span>Tổng thu nhập:</span>
-      <strong className="ml-1 text-color-success">{f(totalPrice)}</strong>
+      {renderAutoCompensate()}
+      <div className="flex items-center">
+        {isAutoCompensate && (
+          <Shield
+            width={18}
+            height={18}
+            fill="var(--nc-primary)"
+            className="inline-flex my-auto mr-1 select-none pointer-events-none opacity-0 invisible"
+          />
+        )}
+        <span
+          className={clsx('mr-1', {
+            'text-lg': isAutoCompensate,
+          })}
+        >
+          Tổng thu nhập:
+        </span>
+        <strong className="text-color-success">{f(totalPrice)}</strong>
+      </div>
     </div>
   )
 }

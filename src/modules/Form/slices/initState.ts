@@ -37,8 +37,10 @@ const initialState: HubState = {
     end: 0,
   },
   // global switch
-  isExpandAllHubListSummary: get_Global_ExpandAllHubListSummary(), // (ẩn/hiện) tất cả thống kê (list hub)
-  isExtraChildJoinOrder: get_Global_ExtraChildJoinOrder(), // (ẩn/hiện) Thu nhập tăng/giảm do đơn ghép (list hub)
+  // (ẩn/hiện) tất cả thống kê (list hub)
+  isExpandAllHubListSummary: get_Global_ExpandAllHubListSummary(),
+  // (ẩn/hiện) Thu nhập tăng/giảm do đơn ghép (list hub)
+  isExtraChildJoinOrder: get_Global_ExtraChildJoinOrder(),
 }
 
 export { initialState }

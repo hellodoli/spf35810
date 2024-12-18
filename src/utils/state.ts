@@ -17,7 +17,7 @@ export const getResetHubFillState = () => {
     hubType: HUB_TYPE.HUB_5,
     hubShift: '',
     hubTime: getUnixTime(new Date()),
-    order: SETTINGS_DEFAULT.ORDER_QUANTITY.INIT,
+    order: SETTINGS_DEFAULT.ORDER_QUANTITY.INIT, // LATER: custom by user
     joins: {
       [join.key]: join,
     },

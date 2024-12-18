@@ -137,6 +137,8 @@ const HubDate = ({ date = '' }: Props) => {
                   onClick={onClickHubItem}
                   onHandleDeleteHub={onHandleDeleteHub}
                   isHubWellDone={hub.isHubWellDone}
+                  isAutoCompensate={hub.isAutoCompensate}
+                  joins={hub.joins}
                 />
               )
             })}

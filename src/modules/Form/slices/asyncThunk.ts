@@ -12,7 +12,7 @@ import { RootState } from 'types'
 import * as db from 'db'
 import { actions } from './'
 
-import { getRangeTimeMyHubs } from 'utils/hub'
+import { getRangeTimeMyHubs, canCompensate } from 'utils/hub'
 import { getNoEmptyJoins } from 'utils/join'
 
 function showLogToast({
@@ -51,8 +51,15 @@ const modifyHub = createAsyncThunk(
   ) => {
     const state = getState() as RootState
     if (state?.form) {
-      const { hubType, hubShift, hubTime, order, isHubWellDone } = state.form
+      const { hubType, hubShift, hubTime, order, isHubWellDone, settings } =
+        state.form
       const joins = getNoEmptyJoins([...Object.values(state.form.joins)])
+      const isAutoCompensate = canCompensate({
+        hubType,
+        isHubWellDone,
+        order,
+        orderCompensate: settings['ORDER_COMPENSATE_NUMBER'][hubType],
+      })
       const hub: Hub = {
         id: hubId,
         hubType,
@@ -61,6 +68,7 @@ const modifyHub = createAsyncThunk(
         order,
         isHubWellDone,
         joins,
+        isAutoCompensate,
       }
       console.log('modifyHub: ', { form: state.form, hub, type, joins })
       const response =

@@ -51,6 +51,13 @@ export const SETTINGS_DEFAULT: Settings = {
     PRICE: 50000,
   },
   LOCATE: get_SettingsDefault_Locate(),
+  ORDER_COMPENSATE_NUMBER: {
+    [HUB_TYPE.HUB_10]: 30,
+    [HUB_TYPE.HUB_8]: 25,
+    [HUB_TYPE.HUB_1]: 0,
+    [HUB_TYPE.HUB_3]: 0,
+    [HUB_TYPE.HUB_5]: 0,
+  },
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
   key: `order_join_2_default_key_${uuidv4()}`,

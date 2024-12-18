@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import {
   orderPriceDefaultSelector,
   locateSettingSelector,
+  orderCompensateNumberSelector,
 } from 'modules/Form/selectors'
 
 import { Hub } from 'modules/Form/types'
@@ -25,13 +26,19 @@ interface Props {
 const Price = ({ hubs, unixDate }: Props) => {
   const f = useMemo(() => getFormat(), [])
   const orderPrice = useSelector(orderPriceDefaultSelector)
-  const locate = useSelector(locateSettingSelector)
+  const loc = useSelector(locateSettingSelector)
+  const orderCompensateNumber = useSelector(orderCompensateNumberSelector)
 
   const orderHubs = getOrder_Hubs(hubs)
-  const extraSundayPrice = getExtraSundayPrice_Hubs(hubs, locate)
+  const extraSundayPrice = getExtraSundayPrice_Hubs(hubs, loc)
 
   const isSunday = isApplyForExtraSunday(unixDate)
-  const priceHubs = getPrice_Hubs(hubs, orderPrice, true, locate)
+  const priceHubs = getPrice_Hubs({
+    hubs,
+    orderPrice,
+    loc,
+    orderCompensateNumber,
+  })
 
   return (
     <ul className="p-2 border-line">

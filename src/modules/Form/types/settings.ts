@@ -1,5 +1,9 @@
 import { HUB_TYPE, SETTING_LOCATE } from './enum'
 
+export type HubOrderCompensateNumber = {
+  [key in HUB_TYPE]: number
+}
+
 export interface Settings {
   ORDER_PRICE: {
     MIN: number
@@ -25,6 +29,7 @@ export interface Settings {
     PRICE: number
   }
   LOCATE: SETTING_LOCATE
+  ORDER_COMPENSATE_NUMBER: HubOrderCompensateNumber
 }
 
 export interface IncomeSetting {

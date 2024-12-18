@@ -6,30 +6,42 @@ interface SwitchOnlyProps {
   onChangeChecked?: (isChecked: boolean) => void
   checked?: boolean
   disabled?: boolean
+  isOutsideHandle?: boolean
 }
 
 interface SwitchProps extends SwitchOnlyProps {
   text?: string
+  labelStyle?: React.CSSProperties
+  labelClassName?: string
 }
 
 const SwitchOnly = ({
   onChangeChecked,
   disabled = false,
   checked = false,
+  isOutsideHandle = false,
 }: SwitchOnlyProps) => {
-  const defaultChecked = checked ? checked : false
-  const [isChecked, setIsChecked] = useState(defaultChecked)
+  const [isChecked, setIsChecked] = useState(checked)
+  const checkedValue = isOutsideHandle ? checked : isChecked
+
+  const onChange = () => {
+    if (!isOutsideHandle) {
+      setIsChecked((checked) => !checked)
+    } else {
+      onChangeChecked?.(!checkedValue)
+    }
+  }
 
   useEffect(() => {
-    onChangeChecked?.(isChecked)
-  }, [isChecked])
+    if (!isOutsideHandle) onChangeChecked?.(isChecked)
+  }, [isOutsideHandle, isChecked])
 
   return (
     <label className="switch">
       <input
         type="checkbox"
-        checked={isChecked}
-        onChange={() => setIsChecked((checked) => !checked)}
+        checked={checkedValue}
+        onChange={onChange}
         disabled={disabled}
       />
       <span className="slider round" />
@@ -38,7 +50,7 @@ const SwitchOnly = ({
 }
 
 const Switch = (props: SwitchProps) => {
-  const { text, ...rest } = props
+  const { text, labelStyle, labelClassName = '', ...rest } = props
 
   const renderSwitch = () => {
     return <SwitchOnly {...rest} />
@@ -47,7 +59,9 @@ const Switch = (props: SwitchProps) => {
   if (text) {
     return (
       <div className="flex items-center justify-between w-full">
-        <span>{text}</span>
+        <span style={labelStyle} className={labelClassName}>
+          {text}
+        </span>
         {renderSwitch()}
       </div>
     )

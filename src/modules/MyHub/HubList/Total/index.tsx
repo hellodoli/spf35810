@@ -8,6 +8,7 @@ import {
   filterHubTypeSelector,
   locateSettingSelector,
   displayMyHubTypeSelector,
+  orderCompensateNumberSelector,
 } from 'modules/Form/selectors'
 
 import { getFormat } from 'utils/price'
@@ -33,6 +34,7 @@ const Total = () => {
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const filters = useSelector(filterHubTypeSelector)
   const loc = useSelector(locateSettingSelector)
+  const orderCompensateNumber = useSelector(orderCompensateNumberSelector)
 
   const hubs = useMemo(
     () =>
@@ -43,8 +45,14 @@ const Total = () => {
     [allHubs, filters],
   )
   const price = useMemo(
-    () => getPrice_Hubs(hubs, orderPrice, true, loc),
-    [hubs, orderPrice, loc],
+    () =>
+      getPrice_Hubs({
+        hubs,
+        orderPrice,
+        loc,
+        orderCompensateNumber,
+      }),
+    [hubs, orderPrice, loc, orderCompensateNumber],
   )
 
   const renderShowPrice = () => {

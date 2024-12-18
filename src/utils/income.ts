@@ -4,6 +4,7 @@ import {
   HUB_TYPE,
   JoinOrder,
   SETTING_LOCATE,
+  HubOrderCompensateNumber,
 } from 'modules/Form/types'
 import {
   IS_HUB_WELL_DONE_DEFAULT,
@@ -85,6 +86,15 @@ export const getOrder_Hubs = (hubs: Hub[]) => {
   return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
 }
 
+export const getPriceCompensate_Hub = ({
+  orderCompensate,
+  orderPrice,
+}: {
+  orderCompensate: number
+  orderPrice: number
+}) => {
+  return orderCompensate * orderPrice
+}
 export const getPrice_Hub = ({
   order,
   joins,
@@ -129,27 +139,39 @@ export const getPrice_Hub = ({
 
   return price
 }
-export const getPrice_Hubs = (
-  hubs: Hub[],
-  orderPrice: number,
-  isShowExtraJoinOrderPrice: boolean = true,
-  loc: SETTING_LOCATE = SETTING_LOCATE.TPHCM,
-) => {
+export const getPrice_Hubs = ({
+  hubs,
+  orderPrice,
+  isShowExtraJoinOrderPrice = true,
+  loc = SETTING_LOCATE.TPHCM,
+  orderCompensateNumber,
+}: {
+  hubs: Hub[]
+  orderPrice: number
+  isShowExtraJoinOrderPrice?: boolean
+  loc?: SETTING_LOCATE
+  orderCompensateNumber: HubOrderCompensateNumber
+}) => {
   const sdList: {
     [key: string]: Hub[]
   } = {}
   let total = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType, isHubWellDone } = hub
-    const price = getPrice_Hub({
-      order,
-      joins,
-      hubType,
-      orderPrice,
-      isHubWellDone,
-      isShowExtraJoinOrderPrice,
-    })
+    const { order, joins, hubType, isHubWellDone, isAutoCompensate } = hub
+    const price = isAutoCompensate
+      ? getPriceCompensate_Hub({
+          orderPrice,
+          orderCompensate: orderCompensateNumber[hubType],
+        })
+      : getPrice_Hub({
+          order,
+          joins,
+          hubType,
+          orderPrice,
+          isHubWellDone,
+          isShowExtraJoinOrderPrice,
+        })
     total += price
 
     // extra sunday (split logic LATER)
@@ -203,14 +225,16 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
   let measure = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType, isHubWellDone } = hub
-    const diff = getDiffJoinsPrice_Hub({
-      order,
-      joins,
-      hubType,
-      orderPrice,
-      isHubWellDone,
-    })
+    const { order, joins, hubType, isHubWellDone, isAutoCompensate } = hub
+    const diff = isAutoCompensate
+      ? 0
+      : getDiffJoinsPrice_Hub({
+          order,
+          joins,
+          hubType,
+          orderPrice,
+          isHubWellDone,
+        })
     measure += diff
   }
   return measure
