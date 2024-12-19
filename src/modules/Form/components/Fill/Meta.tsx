@@ -13,8 +13,6 @@ import {
 import { actions } from 'modules/Form/slices'
 import * as thunk from 'modules/Form/slices/asyncThunk'
 
-import { routes } from 'utils/route-path'
-
 import FormItem from 'components/FormItem'
 
 import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
@@ -44,11 +42,7 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
   }
 
   const onCancel = () => {
-    if (!isCalMode && type === FORM_ACTION.EDIT) {
-      history.push(routes.myHub)
-      return
-    }
-    history.push(routes.home)
+    history.goBack()
   }
 
   return (
