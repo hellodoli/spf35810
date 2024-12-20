@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { HubState, HUB_TYPE, Hub } from 'modules/Form/types'
+
+import { Hub, HUB_TYPE, HubState } from 'modules/Form/types'
 import { getIsHubWellDone } from 'utils/hub'
 import { convertFromJoinsOb } from 'utils/join'
 

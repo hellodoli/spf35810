@@ -1,19 +1,18 @@
-import React, { memo, useCallback, useState, useMemo } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
-import { IncomeSetting } from 'modules/Form/types'
+
+import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
+import { ReactComponent as SettingIcon } from 'assets/icons/sliders.svg'
+import { CheckBox } from 'modules/Form/components/Input'
 import {
   isShowDetailWithOrderSelector,
   isShowExtraJoinOrderPriceSelector,
   isShowIncomeDropByJoinOrderSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
-
-import { CheckBox } from 'modules/Form/components/Input'
+import { IncomeSetting } from 'modules/Form/types'
 import Main from './Main'
-
-import { ReactComponent as SettingIcon } from 'assets/icons/sliders.svg'
-import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
 interface CheckBoxSetting {
   id: string
   label: string

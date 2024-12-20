@@ -1,13 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { RootState } from 'types/RootState'
-import { JoinOrder, HUB_TYPE } from 'modules/Form/types'
-import { initialState } from 'modules/Form/slices/initState'
 
+import { initialState } from 'modules/Form/slices/initState'
+import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
+import { RootState } from 'types/RootState'
 import { getMaxJoinOrder } from 'utils/join'
 
-export * from './settings'
 export * from './income-setting'
 export * from './my-hub'
+export * from './settings'
 
 const selectSlice = (state: RootState) => state.form || initialState
 

@@ -115,4 +115,4 @@ export function updateHub({ hub, blob }) {
   })
 }
 
-export { DB_NAME, DB_VERSION, DB_STORE_NAME }
+export { DB_NAME, DB_STORE_NAME, DB_VERSION }

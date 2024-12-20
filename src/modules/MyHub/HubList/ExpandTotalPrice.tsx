@@ -1,16 +1,14 @@
 import React, { useCallback, useState } from 'react'
-import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
+import clsx from 'clsx'
 
+import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
+import Switch from 'components/Switch'
 import {
   isExpandAllHubListSummarySelector,
   isExtraChildJoinOrderSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
-
-import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
-
-import Switch from 'components/Switch'
 
 const Switches = () => {
   const dispatch = useDispatch()

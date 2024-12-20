@@ -1,6 +1,7 @@
-import React, { useEffect, useState, memo, useCallback } from 'react'
-import { ReactComponent as UpIcon } from 'assets/icons/caret-up.svg'
+import React, { memo, useCallback, useEffect, useState } from 'react'
+
 import { ReactComponent as DownIcon } from 'assets/icons/caret-down.svg'
+import { ReactComponent as UpIcon } from 'assets/icons/caret-up.svg'
 import InputWrapper from './InputWrapper'
 interface Props {
   min?: number

@@ -1,7 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { RootState } from 'types/RootState'
-import { HUB_TYPE } from 'modules/Form/types'
+
 import { initialState } from 'modules/Form/slices/initState'
+import { HUB_TYPE } from 'modules/Form/types'
+import { RootState } from 'types/RootState'
 
 const selectSlice = (state: RootState) => state.form || initialState
 

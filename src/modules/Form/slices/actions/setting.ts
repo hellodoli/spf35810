@@ -1,11 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+
+import { settingsDefault_Locate } from 'modules/Form/default'
 import {
   HUB_TYPE,
   HubState,
   IncomeSetting,
   SETTING_LOCATE,
 } from 'modules/Form/types'
-import { settingsDefault_Locate } from 'modules/Form/default'
 import { getResetHubFillState } from 'utils/state'
 import { setLocalStorage } from 'utils/storages'
 

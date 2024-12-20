@@ -1,21 +1,20 @@
 import React from 'react'
-import clsx from 'clsx'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import clsx from 'clsx'
 import { AppDispatch } from 'configStore'
-import { FORM_ACTION } from 'modules/Form/types'
+
+import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
+import FormItem from 'components/FormItem'
 import {
   hubShiftSelector,
-  isLoadingSelector,
   isCalModeSelector,
+  isLoadingSelector,
   isOpenPreviewSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import * as thunk from 'modules/Form/slices/asyncThunk'
-
-import FormItem from 'components/FormItem'
-
-import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
+import { FORM_ACTION } from 'modules/Form/types'
 
 interface Props {
   type?: FORM_ACTION

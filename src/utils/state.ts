@@ -1,10 +1,11 @@
-import { HUB_TYPE } from 'modules/Form/types'
 import { v4 as uuidv4 } from 'uuid'
+
 import {
+  IS_HUB_WELL_DONE_DEFAULT,
   JOIN_2_DEFAULT,
   SETTINGS_DEFAULT,
-  IS_HUB_WELL_DONE_DEFAULT,
 } from 'modules/Form/constants'
+import { HUB_TYPE } from 'modules/Form/types'
 import { getUnixTime } from './time'
 
 export const getResetHubFillState = () => {

@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
 import clsx from 'clsx'
 
-import { getFormat } from 'utils/price'
-
-import { SETTING_LOCATE } from 'modules/Form/types'
 import { EXTRA_SUNDAY_ORDER } from 'modules/Form/constants'
+import { SETTING_LOCATE } from 'modules/Form/types'
+import { getFormat } from 'utils/price'
 
 const headerClassName = 'text-white font-bold uppercase bg-[#35AB99]'
 

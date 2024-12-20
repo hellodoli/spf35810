@@ -1,14 +1,14 @@
 import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  orderPriceDefaultSelector,
-  isShowDetailWithOrderSelector,
-  orderSelector,
-  joinsSelector,
-} from 'modules/Form/selectors'
-import { getFormat } from 'utils/price'
-import { getPreviewOrder } from 'utils/preview'
 
+import {
+  isShowDetailWithOrderSelector,
+  joinsSelector,
+  orderPriceDefaultSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { getPreviewOrder } from 'utils/preview'
+import { getFormat } from 'utils/price'
 import Operator from './Operator'
 
 const f = getFormat()

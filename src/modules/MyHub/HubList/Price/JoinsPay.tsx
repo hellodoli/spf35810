@@ -1,13 +1,13 @@
 import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { Hub } from 'modules/Form/types'
-import {
-  orderPriceDefaultSelector,
-  isExtraChildJoinOrderSelector,
-} from 'modules/Form/selectors'
 
+import {
+  isExtraChildJoinOrderSelector,
+  orderPriceDefaultSelector,
+} from 'modules/Form/selectors'
+import { Hub } from 'modules/Form/types'
+import { getColorPrice, getDiffJoinsPrice_Hubs } from 'utils/income'
 import { getFormat } from 'utils/price'
-import { getDiffJoinsPrice_Hubs, getColorPrice } from 'utils/income'
 
 interface Props {
   hubs: Hub[]

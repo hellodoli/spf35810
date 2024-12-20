@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
-import type { ItemLayout } from './type'
+
 import Layout from './Layout'
+import type { ItemLayout } from './type'
 
 interface Props extends ItemLayout {
   children: React.ReactNode

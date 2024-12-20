@@ -1,7 +1,6 @@
 import React from 'react'
-// import history from 'utils/history'
-import { HashRouter as Router } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { HashRouter as Router } from 'react-router-dom'
 
 import Container from 'modules/Container'
 

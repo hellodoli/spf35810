@@ -1,16 +1,16 @@
 import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  orderPriceDefaultSelector,
-  joinsSelector,
-  isHubWellDoneSelector,
-  hubTypeSelector,
-  orderSelector,
-  isShowIncomeDropByJoinOrderSelector,
-} from 'modules/Form/selectors'
 
+import {
+  hubTypeSelector,
+  isHubWellDoneSelector,
+  isShowIncomeDropByJoinOrderSelector,
+  joinsSelector,
+  orderPriceDefaultSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { getColorPrice, getDiffJoinsPrice_Hub } from 'utils/income'
 import { getFormat } from 'utils/price'
-import { getDiffJoinsPrice_Hub, getColorPrice } from 'utils/income'
 
 const JoinsPay = () => {
   const f = useMemo(() => getFormat(), [])

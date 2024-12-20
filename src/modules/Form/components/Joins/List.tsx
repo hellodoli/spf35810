@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
+
 import { joinsSelector } from 'modules/Form/selectors'
 
 import Join from '../Join'

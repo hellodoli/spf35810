@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+
 import baseReducer from './base'
 
 const rootState = {

@@ -1,15 +1,14 @@
 import React, { useCallback, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { actions } from 'modules/Form/slices'
-import { routes } from 'utils/route-path'
-
-import { SETTING_LOCATE } from 'modules/Form/types'
-import { locateSettingSelector } from 'modules/Form/selectors'
 
 import FormItem from 'components/FormItem'
-import LocateInfoView, { locatesArr as locates } from './LocateInfoView'
+import { locateSettingSelector } from 'modules/Form/selectors'
+import { actions } from 'modules/Form/slices'
+import { SETTING_LOCATE } from 'modules/Form/types'
+import { routes } from 'utils/route-path'
 import ChooseHubBtn from './ChooseHubBtn'
+import LocateInfoView, { locatesArr as locates } from './LocateInfoView'
 
 const Setting = () => {
   const history = useHistory()

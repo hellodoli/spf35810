@@ -1,7 +1,7 @@
-import { HUB_TYPE, HUB_DISPLAY } from './enum'
-import { Settings, IncomeSetting, FilterHubTypeSetting } from './settings'
-import { JoinOrder } from './join'
+import { HUB_DISPLAY, HUB_TYPE } from './enum'
 import { Hub, MyHubs, RangeTime } from './hub'
+import { JoinOrder } from './join'
+import { FilterHubTypeSetting, IncomeSetting, Settings } from './settings'
 
 export interface HubState {
   settings: Settings

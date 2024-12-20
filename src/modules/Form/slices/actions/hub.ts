@@ -1,10 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { HubState, HUB_DISPLAY, RangeTime } from 'modules/Form/types'
-import { setLocalStorage } from 'utils/storages'
+
 import {
   global_ExpandAllHubListSummary,
   global_ExtraChildJoinOrder,
 } from 'modules/Form/default'
+import { HUB_DISPLAY, HubState, RangeTime } from 'modules/Form/types'
+import { setLocalStorage } from 'utils/storages'
 
 export const hubActions = {
   changeDisplayMyHubType: (

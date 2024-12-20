@@ -1,7 +1,7 @@
 import React from 'react'
 
-import LeftSidebar from './LeftSidebar'
 import HubList from './HubList'
+import LeftSidebar from './LeftSidebar'
 
 const MyHub = () => {
   return (

@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { actions } from 'modules/Form/slices'
-import { orderSelector } from 'modules/Form/selectors'
-import { useSettings } from 'modules/Form/hooks/useSettings'
-import { FORM_ACTION } from 'modules/Form/types/enum'
 
 import FormItem from 'components/FormItem'
 import { InputNumber } from 'modules/Form/components/Input'
+import { useSettings } from 'modules/Form/hooks/useSettings'
+import { orderSelector } from 'modules/Form/selectors'
+import { actions } from 'modules/Form/slices'
+import { FORM_ACTION } from 'modules/Form/types/enum'
 
 interface Props {
   type?: FORM_ACTION

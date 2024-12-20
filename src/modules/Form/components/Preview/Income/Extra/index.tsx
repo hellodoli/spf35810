@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react'
-import clsx from 'clsx'
 import { useSelector } from 'react-redux'
-import {
-  orderSelector,
-  joinsSelector,
-  isShowExtraJoinOrderPriceSelector,
-  isHubWellDoneSelector,
-} from 'modules/Form/selectors'
-import { getTotalOrderOfJoins } from 'utils/join'
+import clsx from 'clsx'
 
 import { ReactComponent as CircleExclamation } from 'assets/icons/circle-exclamation.svg'
-
+import {
+  isHubWellDoneSelector,
+  isShowExtraJoinOrderPriceSelector,
+  joinsSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { getTotalOrderOfJoins } from 'utils/join'
 import ExtraPrice from './ExtraPrice'
 
 const ExtraOrderPrice = () => {
@@ -63,4 +62,4 @@ const ExtraContainer = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export { ExtraOrderPrice, ExtraJoinOrderPrice, ExtraContainer }
+export { ExtraContainer, ExtraJoinOrderPrice, ExtraOrderPrice }

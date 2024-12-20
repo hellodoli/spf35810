@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavLink, useLocation, useHistory } from 'react-router-dom'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
+
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
 import { isAddHubPathName } from 'utils/route-path'

@@ -1,5 +1,5 @@
+import { DB_STORE_NAME, getDb, getObjectStore } from './db'
 import { wrapDataFailed, wrapDataSuccess } from './helper'
-import { getObjectStore, getDb, DB_STORE_NAME } from './db'
 
 function hubsByHubTime(key, range) {
   const store = getObjectStore(DB_STORE_NAME, 'readonly')

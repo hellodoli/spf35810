@@ -1,19 +1,20 @@
 import dayjs from 'dayjs'
-import {
-  HUB_TYPE,
-  HubShiftRawArr,
-  HubShiftList,
-  Hub,
-  HUB_DISPLAY,
-} from 'modules/Form/types'
-import { IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
-import { getDateHourTime, getUnixTime } from './time'
-
 import isoWeek from 'dayjs/plugin/isoWeek'
 import weekday from 'dayjs/plugin/weekday'
 
+import {
+  Hub,
+  HUB_DISPLAY,
+  HUB_TYPE,
+  HubShiftList,
+  HubShiftRawArr,
+} from 'modules/Form/types'
+import * as timeUtil from './time'
+
 dayjs.extend(isoWeek)
 dayjs.extend(weekday)
+
+const IS_HUB_WELL_DONE_DEFAULT = true
 
 const EXTRA_MINUTE_UT = 1000 * 60
 const EXTRA_HOUR_UT = 1000 * 60 * 60
@@ -29,8 +30,8 @@ export function getExtraMinuteUnixTime(minute: number) {
  * @returns {number} duration between end time and start time
  */
 export function getDurationHubTime(start: string, end: string) {
-  const timeStart = getDateHourTime(start)
-  const timeEnd = getDateHourTime(end)
+  const timeStart = timeUtil.getDateHourTime(start)
+  const timeEnd = timeUtil.getDateHourTime(end)
   return timeEnd.getTime() - timeStart.getTime()
 }
 
@@ -68,15 +69,14 @@ export function getHubTime(start: string, end: string) {
 
 //== 2. HUB Shift
 //==== START
-const generateHubShiftId = (start: string, end: string) => {
+function generateHubShiftId(start: string, end: string) {
   return `${start}_${end}`
 }
-const getStartEndFromHubShiftId = (hubShiftId: string) => {
+function getStartEndFromHubShiftId(hubShiftId: string) {
   const [start, end] = hubShiftId.split('_')
   return { start, end }
 }
-
-export const generate_HUB_SHIFT = () => {
+export function generate_HUB_SHIFT() {
   const hubShift: HubShiftList = {
     [HUB_TYPE.HUB_10]: [],
     [HUB_TYPE.HUB_8]: [],
@@ -134,19 +134,19 @@ export const generate_HUB_SHIFT = () => {
   return hubShift
 }
 
-export const isDisabledHubShift = (
+export function isDisabledHubShift(
   hubs: Hub[],
   hubShiftStart: string,
   hubShiftEnd: string,
-) => {
+) {
   let isDisabled = false
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
     const hubShift = getStartEndFromHubShiftId(hub.hubShift)
-    const start = getDateHourTime(hubShift.start).getTime()
-    const end = getDateHourTime(hubShift.end).getTime()
-    const curHubTimeStart = getDateHourTime(hubShiftStart).getTime()
-    const curHubTimeEnd = getDateHourTime(hubShiftEnd).getTime()
+    const start = timeUtil.getDateHourTime(hubShift.start).getTime()
+    const end = timeUtil.getDateHourTime(hubShift.end).getTime()
+    const curHubTimeStart = timeUtil.getDateHourTime(hubShiftStart).getTime()
+    const curHubTimeEnd = timeUtil.getDateHourTime(hubShiftEnd).getTime()
     if (curHubTimeStart < end && start < curHubTimeEnd) {
       isDisabled = true
       break
@@ -189,7 +189,7 @@ export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
     case HUB_DISPLAY.D_3DAYS: {
       return {
         start: getVal(td.subtract(2, 'day')),
-        end: getUnixTime(today),
+        end: timeUtil.getUnixTime(today),
       }
     }
     case HUB_DISPLAY.D_WEEK: {

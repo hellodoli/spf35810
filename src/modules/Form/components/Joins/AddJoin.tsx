@@ -1,18 +1,17 @@
-import React, { useState, useRef, useCallback, useEffect, memo } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
+import { v4 as uuidv4 } from 'uuid'
 
-import type { JoinOrder } from 'modules/Form/types'
+import FormItem from 'components/FormItem'
 import { JOIN_3_DEFAULT } from 'modules/Form/constants'
+import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
+import { useSettings } from 'modules/Form/hooks/useSettings'
 import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
+import type { JoinOrder } from 'modules/Form/types'
 
-import { useSettings } from 'modules/Form/hooks/useSettings'
-import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
-
-import { MaxLabel, InputNumber } from '../Input'
-import FormItem from 'components/FormItem'
+import { InputNumber, MaxLabel } from '../Input'
 
 interface Props {
   closeAdv: () => void

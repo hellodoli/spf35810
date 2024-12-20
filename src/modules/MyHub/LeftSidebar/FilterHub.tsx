@@ -1,10 +1,11 @@
-import React, { useMemo, memo, useCallback } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'configStore'
-import { HUB_TYPE } from 'modules/Form/types/enum'
+
 import { HUB_COLORS } from 'modules/Form/constants'
 import { makeFilterHubType } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
+import { HUB_TYPE } from 'modules/Form/types/enum'
 
 const FilterItem = ({
   color = '',

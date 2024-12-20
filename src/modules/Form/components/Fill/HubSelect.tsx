@@ -1,23 +1,23 @@
 import React, {
+  memo,
   useCallback,
   useLayoutEffect,
-  useState,
   useMemo,
-  memo,
+  useState,
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  hubTypeSelector,
-  hubsExistSelector,
-  hubShiftSelector,
-} from 'modules/Form/selectors'
-import { HUB_SHIFT } from 'modules/Form/constants'
-import { HubShift, FORM_ACTION } from 'modules/Form/types'
-import { actions } from 'modules/Form/slices'
-import { isDisabledHubShift } from 'utils/hub'
 
 import FormItem from 'components/FormItem'
 import { InputWrapper } from 'modules/Form/components/Input'
+import { HUB_SHIFT } from 'modules/Form/constants'
+import {
+  hubsExistSelector,
+  hubShiftSelector,
+  hubTypeSelector,
+} from 'modules/Form/selectors'
+import { actions } from 'modules/Form/slices'
+import { FORM_ACTION, HubShift } from 'modules/Form/types'
+import { isDisabledHubShift } from 'utils/hub'
 
 interface Props {
   type?: FORM_ACTION

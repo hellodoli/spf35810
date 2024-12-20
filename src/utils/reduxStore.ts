@@ -1,8 +1,8 @@
-import store from '../configStore'
-import { RootState } from '../types'
-
 import { actions } from 'modules/Form/slices'
 import { getHubsByHubTime } from 'modules/Form/slices/asyncThunk'
+
+import store from '../configStore'
+import { RootState } from '../types'
 
 export const getDispatch = () => store.dispatch
 

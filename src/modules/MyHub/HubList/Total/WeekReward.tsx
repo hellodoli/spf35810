@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
 
-import { Hub, HUB_TYPE } from 'modules/Form/types'
 import { WEEK_REWARD } from 'modules/Form/constants'
-
-import { getFormat } from 'utils/price'
+import { Hub, HUB_TYPE } from 'modules/Form/types'
 import { getIsHubWellDone } from 'utils/hub'
+import { getFormat } from 'utils/price'
 
 const isExistEmptyOrderHub = (hubs: Hub[]) => {
   return hubs.some((hub) => hub.order <= 0)

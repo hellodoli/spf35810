@@ -1,10 +1,9 @@
-import React, { useState, useMemo, memo } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { joinsSelector } from 'modules/Form/selectors'
 import { getPriceJoinOrder } from 'utils/price'
 import { getFormat } from 'utils/price'
-
 import JoinOrderList from './JoinOrderList'
 
 const f = getFormat()

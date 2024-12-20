@@ -1,11 +1,11 @@
 import React, { memo, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
-import { getJoinLabel } from 'utils/join'
-import type { JoinOrder } from 'modules/Form/types'
-import { actions } from 'modules/Form/slices'
 
 import FormItem from 'components/FormItem'
+import { actions } from 'modules/Form/slices'
+import type { JoinOrder } from 'modules/Form/types'
+import { getJoinLabel } from 'utils/join'
 import Order from './Order'
 import Price from './Price'
 

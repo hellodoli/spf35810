@@ -1,6 +1,6 @@
+import CheckBox from './CheckBox'
+import InputNumber from './InputNumber'
 import InputWrapper from './InputWrapper'
 import MaxLabel from './MaxLabel'
-import InputNumber from './InputNumber'
-import CheckBox from './CheckBox'
 
-export { InputWrapper, MaxLabel, InputNumber, CheckBox }
+export { CheckBox, InputNumber, InputWrapper, MaxLabel }

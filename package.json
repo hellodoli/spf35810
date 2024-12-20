@@ -24,7 +24,6 @@
     "react-scripts": "^5.0.1",
     "redux-injectors": "^2.1.0",
     "redux-saga": "^1.2.3",
-    "typescript": "^5.2.2",
     "uuid": "9.0.0"
   },
   "devDependencies": {
@@ -38,9 +37,11 @@
     "@typescript-eslint/parser": "^6.7.0",
     "eslint": "^8.49.0",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier": "^3.0.3",
     "sass": "^1.66.1",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

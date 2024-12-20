@@ -1,9 +1,10 @@
 import React from 'react'
-import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { actions } from 'modules/Form/slices'
-import { isHubWellDoneSelector } from 'modules/Form/selectors'
+import clsx from 'clsx'
+
 import FormItem from 'components/FormItem'
+import { isHubWellDoneSelector } from 'modules/Form/selectors'
+import { actions } from 'modules/Form/slices'
 
 const Kpi = () => {
   const dispatch = useDispatch()

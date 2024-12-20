@@ -1,19 +1,17 @@
-import React, { useMemo, memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { HUB_DISPLAY } from 'modules/Form/types'
 import {
-  myHubsSelector,
-  orderPriceDefaultSelector,
+  displayMyHubTypeSelector,
   filterHubTypeSelector,
   locateSettingSelector,
-  displayMyHubTypeSelector,
+  myHubsSelector,
   orderCompensateNumberSelector,
+  orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
-
+import { HUB_DISPLAY } from 'modules/Form/types'
+import { getFilter_Hubs, getPrice_Hubs } from 'utils/income'
 import { getFormat } from 'utils/price'
-import { getPrice_Hubs, getFilter_Hubs } from 'utils/income'
-
 import WeekReward from './WeekReward'
 
 const isShowWeekReward = ({

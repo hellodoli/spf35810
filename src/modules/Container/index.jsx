@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 
 import { openDb } from 'db'
-
-import { useSlice } from 'modules/Form/slices/useSlice'
-import { actions } from 'modules/Form/slices'
-import { isCalPathName, routes } from 'utils/route-path'
-
+import BackToHome from 'modules/BackToHome'
 import { Fill, FillCal } from 'modules/Form/components/Fill'
 import Update from 'modules/Form/components/Update'
-
-import BackToHome from 'modules/BackToHome'
+import { actions } from 'modules/Form/slices'
+import { useSlice } from 'modules/Form/slices/useSlice'
 import Menu from 'modules/Menu'
 import MyHub from 'modules/MyHub'
 import Setting from 'modules/Setting'
+import { isCalPathName, routes } from 'utils/route-path'
 
 openDb()
 

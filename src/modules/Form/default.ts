@@ -1,5 +1,5 @@
-import { SETTING_LOCATE } from './types'
 import { getLocalStorage } from 'utils/storages'
+import { SETTING_LOCATE } from './types'
 
 function generateKey<T>({
   first,
@@ -30,7 +30,7 @@ const get_SettingsDefault_Locate = () => {
   if (locate && locate in SETTING_LOCATE) return locate as SETTING_LOCATE
   return settingsDefault_Locate.defaultValue
 }
-export { settingsDefault_Locate, get_SettingsDefault_Locate }
+export { get_SettingsDefault_Locate, settingsDefault_Locate }
 
 // 2. GLOBAL__EXPAND_ALL_HUBLIST_SUMMARY
 const global_ExpandAllHubListSummary = generateKey({
@@ -45,7 +45,7 @@ const get_Global_ExpandAllHubListSummary = () => {
     return expandAllHublistSummary === 'true' ? true : false
   return defaultValue
 }
-export { global_ExpandAllHubListSummary, get_Global_ExpandAllHubListSummary }
+export { get_Global_ExpandAllHubListSummary, global_ExpandAllHubListSummary }
 
 // 3. GLOBAL__EXTRA_CHILD_JOIN_ORDER
 const global_ExtraChildJoinOrder = generateKey({
@@ -60,4 +60,4 @@ const get_Global_ExtraChildJoinOrder = () => {
     return extraChildJoinOrder === 'true' ? true : false
   return defaultValue
 }
-export { global_ExtraChildJoinOrder, get_Global_ExtraChildJoinOrder }
+export { get_Global_ExtraChildJoinOrder, global_ExtraChildJoinOrder }

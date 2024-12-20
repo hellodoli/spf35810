@@ -1,18 +1,19 @@
-import {
-  HUB_TYPE,
-  SETTING_LOCATE,
-  JoinOrder,
-  Settings,
-  IncomeSetting,
-  ExtraOrderList,
-  FilterHubTypeSetting,
-  HubColorsFilter,
-  ExtraOrderSundayList,
-  WeekRewardList,
-} from './types'
 import { v4 as uuidv4 } from 'uuid'
+
 import { generate_HUB_SHIFT } from 'utils/hub'
 import { get_SettingsDefault_Locate } from './default'
+import {
+  ExtraOrderList,
+  ExtraOrderSundayList,
+  FilterHubTypeSetting,
+  HUB_TYPE,
+  HubColorsFilter,
+  IncomeSetting,
+  JoinOrder,
+  SETTING_LOCATE,
+  Settings,
+  WeekRewardList,
+} from './types'
 
 export const INCOME_SETTING: IncomeSetting = {
   SHOW_EXTRA_JOIN_ORDER_PRICE: true,

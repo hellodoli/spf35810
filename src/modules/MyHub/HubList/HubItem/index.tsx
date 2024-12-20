@@ -1,13 +1,12 @@
 import React, { memo } from 'react'
-import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
-import { HUB_COLORS, IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
 
-import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import { ReactComponent as Envira } from 'assets/icons/envira.svg'
-
-import { getDisplayDate } from 'utils/time'
-import { getPriceExtraOrder } from 'utils/price'
+import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
+import { HUB_COLORS, IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
+import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
 import { getTotalOrderOfJoins } from 'utils/join'
+import { getPriceExtraOrder } from 'utils/price'
+import { getDisplayDate } from 'utils/time'
 
 import './style.scss'
 

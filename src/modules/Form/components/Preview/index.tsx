@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
 
 import { CheckBox } from 'modules/Form/components/Input'
-import Order from './Order'
 import Income from './Income'
+import Order from './Order'
 
 const Preview = () => {
   const [checked, setChecked] = useState({

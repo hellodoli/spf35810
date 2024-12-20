@@ -1,22 +1,22 @@
 import {
-  Hub,
+  EXTRA_SUNDAY_ORDER,
+  IS_HUB_WELL_DONE_DEFAULT,
+} from 'modules/Form/constants'
+import {
   FilterHubTypeSetting,
+  Hub,
   HUB_TYPE,
+  HubOrderCompensateNumber,
   JoinOrder,
   SETTING_LOCATE,
-  HubOrderCompensateNumber,
 } from 'modules/Form/types'
 import {
-  IS_HUB_WELL_DONE_DEFAULT,
-  EXTRA_SUNDAY_ORDER,
-} from 'modules/Form/constants'
-import { getPreviewOrder } from 'utils/preview'
-import { getPriceJoinOrder, getPriceExtraOrder } from 'utils/price'
-import {
-  isEnhanceHub,
-  isApplyForExtraSunday,
   getIsHubWellDone,
+  isApplyForExtraSunday,
+  isEnhanceHub,
 } from 'utils/hub'
+import { getPreviewOrder } from 'utils/preview'
+import { getPriceExtraOrder, getPriceJoinOrder } from 'utils/price'
 
 export const getColorPrice = (price: number) => {
   if (price === 0) return ''

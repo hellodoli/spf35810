@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { routes } from 'utils/route-path'
 
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
+import { routes } from 'utils/route-path'
 
 const menus = [
   {

@@ -1,9 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import store from './configStore'
+
 import App from './App'
+import store from './configStore'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+
 import 'antd/dist/reset.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import './tailwind.css'

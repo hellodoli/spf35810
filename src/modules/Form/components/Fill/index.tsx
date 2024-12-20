@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react'
-import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
+import clsx from 'clsx'
+
+import BackBtnGroup from 'components/BackBtnGroup'
+import Joins from 'modules/Form/components/Joins'
+import Preview from 'modules/Form/components/Preview'
+import PreviewContainer from 'modules/Form/components/Preview/PreviewContainer'
 import {
-  isOpenPreviewSelector,
   isCalModeSelector,
+  isOpenPreviewSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { FORM_ACTION } from 'modules/Form/types'
-
-import Joins from 'modules/Form/components/Joins'
-import PreviewContainer from 'modules/Form/components/Preview/PreviewContainer'
-import Preview from 'modules/Form/components/Preview'
-import BackBtnGroup from 'components/BackBtnGroup'
-import Order from './Order'
-import HubType from './HubType'
+import AutoCompensate from './AutoCompensate'
 import HubSelect from './HubSelect'
 import HubTime from './HubTime'
-import Meta from './Meta'
+import HubType from './HubType'
 import Kpi from './Kpi'
-import AutoCompensate from './AutoCompensate'
+import Meta from './Meta'
+import Order from './Order'
 
 interface FillProps {
   type?: FORM_ACTION

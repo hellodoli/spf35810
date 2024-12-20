@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { HubState, JoinOrder } from 'modules/Form/types'
 
+import { HubState, JoinOrder } from 'modules/Form/types'
 import { getSameJoin } from 'utils/join'
 
 export const joinActions = {

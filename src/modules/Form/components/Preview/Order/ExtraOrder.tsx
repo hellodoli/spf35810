@@ -1,6 +1,6 @@
-import React, { useMemo, memo } from 'react'
-import { HUB_TYPE } from 'modules/Form/types/enum'
+import React, { memo, useMemo } from 'react'
 
+import { HUB_TYPE } from 'modules/Form/types/enum'
 import { getExtraOrderQtt } from 'utils/preview'
 
 interface Props {

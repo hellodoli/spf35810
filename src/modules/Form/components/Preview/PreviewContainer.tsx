@@ -1,6 +1,7 @@
 import React from 'react'
-import clsx from 'clsx'
 import { useSelector } from 'react-redux'
+import clsx from 'clsx'
+
 import { isOpenPreviewSelector } from 'modules/Form/selectors'
 
 interface Props {

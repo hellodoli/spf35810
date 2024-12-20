@@ -1,20 +1,20 @@
-import React, { useMemo, memo } from 'react'
-import clsx from 'clsx'
+import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  orderSelector,
-  orderPriceDefaultSelector,
-  joinsSelector,
-  hubTypeSelector,
-  isShowExtraJoinOrderPriceSelector,
-  isHubWellDoneSelector,
-  orderCompensateSelector,
-} from 'modules/Form/selectors'
-import { getFormat } from 'utils/price'
-import { getPrice_Hub, getPriceCompensate_Hub } from 'utils/income'
-import { canCompensate } from 'utils/hub'
+import clsx from 'clsx'
 
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
+import {
+  hubTypeSelector,
+  isHubWellDoneSelector,
+  isShowExtraJoinOrderPriceSelector,
+  joinsSelector,
+  orderCompensateSelector,
+  orderPriceDefaultSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { canCompensate } from 'utils/hub'
+import { getPrice_Hub, getPriceCompensate_Hub } from 'utils/income'
+import { getFormat } from 'utils/price'
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])

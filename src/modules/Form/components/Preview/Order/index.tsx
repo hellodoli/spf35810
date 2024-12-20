@@ -1,13 +1,13 @@
-import React, { useMemo, memo, useState } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  orderSelector,
-  joinsSelector,
-  hubTypeSelector,
-} from 'modules/Form/selectors'
-import { getJoinLabel, getCombineSameJoin } from 'utils/join'
-import { getPreviewOrder } from 'utils/preview'
 
+import {
+  hubTypeSelector,
+  joinsSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { getCombineSameJoin, getJoinLabel } from 'utils/join'
+import { getPreviewOrder } from 'utils/preview'
 import ExtraOrder from './ExtraOrder'
 
 const OrderPreview = () => {

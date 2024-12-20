@@ -1,8 +1,8 @@
 import React from 'react'
-import { JoinOrder } from 'modules/Form/types'
 import { useSelector } from 'react-redux'
-import { isShowDetailWithOrderSelector } from 'modules/Form/selectors'
 
+import { isShowDetailWithOrderSelector } from 'modules/Form/selectors'
+import { JoinOrder } from 'modules/Form/types'
 import JoinOrderItem from './JoinOrderItem'
 
 const JoinOrderList = ({ joins }: { joins: JoinOrder[] }) => {

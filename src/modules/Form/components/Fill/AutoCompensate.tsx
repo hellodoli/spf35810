@@ -1,15 +1,15 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  hubTypeSelector,
-  orderCompensateSelector,
-  orderSelector,
-  isHubWellDoneSelector,
-} from 'modules/Form/selectors'
-import { isSuperHub, canCompensate } from 'utils/hub'
 
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import FormItem from 'components/FormItem'
+import {
+  hubTypeSelector,
+  isHubWellDoneSelector,
+  orderCompensateSelector,
+  orderSelector,
+} from 'modules/Form/selectors'
+import { canCompensate, isSuperHub } from 'utils/hub'
 
 const Compensate = () => {
   const hubType = useSelector(hubTypeSelector)

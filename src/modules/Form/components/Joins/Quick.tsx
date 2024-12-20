@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { useDispatch } from 'react-redux'
-
-import type { JoinOrder } from 'modules/Form/types'
-
-import { getFormat } from 'utils/price'
-import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
-import { actions } from 'modules/Form/slices'
+import { v4 as uuidv4 } from 'uuid'
 
 import FormItem from 'components/FormItem'
+import { useMaxJoinOrderPreview } from 'modules/Form/hooks/useMaxJoinOrderPreview'
+import { actions } from 'modules/Form/slices'
+import type { JoinOrder } from 'modules/Form/types'
+import { getFormat } from 'utils/price'
 
 const quickAddBtns: JoinOrder[] = [
   { key: `quickAddBtns_2_20900`, type: 2, order: 1, price: 20900 },

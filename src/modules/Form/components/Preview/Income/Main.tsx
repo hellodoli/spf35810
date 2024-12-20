@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 
-import SingleOrder from './SingleOrder'
+import { ExtraContainer, ExtraJoinOrderPrice, ExtraOrderPrice } from './Extra'
 import JoinOrder from './JoinOrder'
-import { ExtraJoinOrderPrice, ExtraOrderPrice, ExtraContainer } from './Extra'
-import Total from './Total'
 import JoinsPay from './JoinsPay'
+import SingleOrder from './SingleOrder'
+import Total from './Total'
 
 const Main = () => {
   return (

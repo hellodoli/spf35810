@@ -1,5 +1,5 @@
-import { JoinOrder, HUB_TYPE } from 'modules/Form/types'
-import { EXTRA_ORDER, EXTRA_CHILD_JOIN_ORDER } from 'modules/Form/constants'
+import { EXTRA_CHILD_JOIN_ORDER, EXTRA_ORDER } from 'modules/Form/constants'
+import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',

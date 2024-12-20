@@ -1,21 +1,20 @@
 import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
+
 import {
-  orderPriceDefaultSelector,
   locateSettingSelector,
   orderCompensateNumberSelector,
+  orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
-
 import { Hub } from 'modules/Form/types'
-import { getFormat } from 'utils/price'
 import { isApplyForExtraSunday } from 'utils/hub'
 import {
+  getColorPrice,
+  getExtraSundayPrice_Hubs,
   getOrder_Hubs,
   getPrice_Hubs,
-  getExtraSundayPrice_Hubs,
-  getColorPrice,
 } from 'utils/income'
-
+import { getFormat } from 'utils/price'
 import JoinsPay from './JoinsPay'
 
 interface Props {
