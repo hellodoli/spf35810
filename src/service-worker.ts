@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
 
