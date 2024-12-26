@@ -15,12 +15,14 @@ export const getJoinLabel = (
   }
 }
 
+// tổng số đơn ghép (tính cả đơn con)
 export const getTotalOrderOfJoins = (joins: JoinOrder[]) => {
   return joins.reduce((accumulator, join) => {
     const order = join.order * join.type
     return accumulator + order
   }, 0)
 }
+// tổng số đơn ghép (không bao gồm đơn con)
 export const getOrderOfJoins = (joins: JoinOrder[]) => {
   return joins.reduce((accumulator, join) => accumulator + join.order, 0)
 }

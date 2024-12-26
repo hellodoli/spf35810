@@ -42,7 +42,7 @@ const Switches = () => {
       </div>
       <div className="mb-2 last:mb-0">
         <Switch
-          text="Thu nhập tăng giảm do đơn ghép"
+          text="Thu nhập tăng/giảm do đơn ghép"
           onChangeChecked={onChangeCheckedShowHideExtraChildJoinOrder}
           checked={isExtraChildJoinOrder}
         />

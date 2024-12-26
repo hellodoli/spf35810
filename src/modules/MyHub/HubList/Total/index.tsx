@@ -9,28 +9,20 @@ import {
   orderCompensateNumberSelector,
   orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
-import { HUB_DISPLAY } from 'modules/Form/types'
 import { getFilter_Hubs, getPrice_Hubs } from 'utils/income'
 import { getFormat } from 'utils/price'
+import { isShowWeekReward } from './utils'
 import WeekReward from './WeekReward'
-
-const isShowWeekReward = ({
-  displayMyHubType,
-}: {
-  displayMyHubType: HUB_DISPLAY
-}) => {
-  return (
-    displayMyHubType === HUB_DISPLAY.D_PREV_WEEK ||
-    displayMyHubType === HUB_DISPLAY.D_WEEK
-  )
-}
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
   const displayMyHubType = useSelector(displayMyHubTypeSelector) // displayMyHubType
+  // hubs data
   const allHubs = useSelector(myHubsSelector)
-  const orderPrice = useSelector(orderPriceDefaultSelector)
+  // filters
   const filters = useSelector(filterHubTypeSelector)
+  // settings
+  const orderPrice = useSelector(orderPriceDefaultSelector)
   const loc = useSelector(locateSettingSelector)
   const orderCompensateNumber = useSelector(orderCompensateNumberSelector)
 

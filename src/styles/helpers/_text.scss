@@ -29,3 +29,15 @@
 .text-bg-error {
   background: var(--nc-error);
 }
+
+.text-color-secondary {
+  color: var(--nc-text-secondary);
+}
+
+.text-color-tertiary {
+  color: var(--nc-text-tertiary);
+}
+
+.text-color-disabled {
+  color: var(--nc-util-disabled);
+}
