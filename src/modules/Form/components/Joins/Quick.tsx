@@ -9,7 +9,7 @@ import type { JoinOrder } from 'modules/Form/types'
 import { getFormat } from 'utils/price'
 
 const quickAddBtns: JoinOrder[] = [
-  { key: `quickAddBtns_2_20900`, type: 2, order: 1, price: 20900 },
+  { key: `quickAddBtns_2_20900`, type: 2, order: 1, price: 20090 },
   { key: `quickAddBtns_3_31200`, type: 3, order: 1, price: 31200 },
   { key: `quickAddBtns_3_32350`, type: 3, order: 1, price: 32350 },
 ]

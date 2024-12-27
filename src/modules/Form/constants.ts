@@ -40,7 +40,7 @@ export const SETTINGS_DEFAULT: Settings = {
     INIT: 0,
   },
   JOIN_2: {
-    PRICE: 20900,
+    PRICE: 20090,
   },
   JOIN_3: {
     PRICE: 31200,
