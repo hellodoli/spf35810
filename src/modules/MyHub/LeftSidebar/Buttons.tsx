@@ -38,12 +38,10 @@ const Buttons = () => {
               'stardust-button-reset stardust-button stardust-button--secondary',
               // '-ml-[1px] first:ml-0',
               'whitespace-nowrap',
+              {
+                'stardust-button--active-primary': active,
+              },
             )}
-            style={{
-              backgroundColor: active ? 'var(--nc-primary)' : '#fff',
-              borderColor: active ? 'transparent' : 'var(--nc-util-line)',
-              color: active ? '#fff' : '#555',
-            }}
             onClick={() => onClick(hubDisplay)}
           >
             {button.text}

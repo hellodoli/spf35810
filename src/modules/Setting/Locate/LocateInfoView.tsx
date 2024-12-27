@@ -13,7 +13,7 @@ interface LocateBtnItem {
   value: SETTING_LOCATE
 }
 const locateText = 'locate-1.1'
-export const locatesArr: LocateBtnItem[] = [
+const locatesArr: LocateBtnItem[] = [
   { id: `${locateText}-1`, text: 'TPHCM', value: SETTING_LOCATE.TPHCM },
   { id: `${locateText}-2`, text: 'Hà Nội', value: SETTING_LOCATE.HANOI },
   { id: `${locateText}-3`, text: 'Khác', value: SETTING_LOCATE.OTHER },
@@ -120,3 +120,4 @@ const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
 }
 
 export default LocateInfoView
+export { LocateInfoView, locatesArr }

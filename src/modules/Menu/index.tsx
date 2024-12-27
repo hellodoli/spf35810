@@ -23,7 +23,7 @@ const menus = [
   {
     id: 5,
     text: '',
-    path: routes.setting,
+    path: routes.settingLocate,
   },
 ]
 
@@ -35,7 +35,7 @@ const Menu = () => {
   }
 
   const renderLabel = (text: string, path: string) => {
-    if (path === routes.setting)
+    if (path === routes.settingLocate)
       return (
         <span>
           <GearIcon width={16} height={16} fill="#fff" />

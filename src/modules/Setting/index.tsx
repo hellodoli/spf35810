@@ -1,25 +1,34 @@
 import React, { useCallback, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { NavLink, Route, Switch } from 'react-router-dom'
+import clsx from 'clsx'
 
-import FormItem from 'components/FormItem'
 import { locateSettingSelector } from 'modules/Form/selectors'
-import { actions } from 'modules/Form/slices'
 import { SETTING_LOCATE } from 'modules/Form/types'
 import { routes } from 'utils/route-path'
-import ChooseHubBtn from './ChooseHubBtn'
-import LocateInfoView, { locatesArr as locates } from './LocateInfoView'
+import Locate from './Locate'
+import Meta from './Meta'
+
+const menus = [
+  {
+    id: 1,
+    text: 'Vị trí',
+    path: routes.settingLocate,
+  },
+  {
+    id: 2,
+    text: 'Đơn',
+    path: routes.settingOrder,
+  },
+]
 
 const Setting = () => {
-  const history = useHistory()
-  const dispatch = useDispatch()
   const curLocate = useSelector(locateSettingSelector)
+
   const [info, setInfo] = useState({
     locate: curLocate,
     isDirty: false,
   })
-
-  const isDisabled = curLocate === info.locate
 
   const onChangeLocate = useCallback((locate: SETTING_LOCATE) => {
     setInfo((prevInfo) => ({
@@ -29,64 +38,47 @@ const Setting = () => {
     }))
   }, [])
 
-  const onCancel = () => {
-    history.push(routes.home)
-  }
-
-  const onSave = () => {
-    dispatch(
-      actions.changeLocateSetting({
-        locate: info.locate,
-      }),
-    )
-  }
-
   return (
     <div className="flex-[0_0_auto] p-4 transition-all w-full">
-      <div className="flex flex-col">
-        <FormItem label="Vị trí:" center={true}>
-          <div className="flex flex-wrap gap-2">
-            {locates.map(({ text, id, value }) => {
+      <div className="lg:flex overflow-hidden">
+        <div className="flex-[0_0_auto] w-full lg:w-[30%] lg:p-4 overflow-hidden">
+          <div className="flex lg:flex-col lg:gap-0 gap-2">
+            {menus.map(({ id, path, text }) => {
               return (
-                <ChooseHubBtn
+                <NavLink
                   key={id}
-                  text={text}
-                  value={value}
-                  isActive={value === info.locate}
-                  onChangeLocate={onChangeLocate}
-                />
+                  to={path}
+                  className={clsx(
+                    'flex items-center justify-center',
+                    'whitespace-nowrap',
+                    'stardust-button-reset stardust-button stardust-button--secondary',
+                    'first:mt-0 lg:mt-4',
+                  )}
+                  activeClassName="stardust-button--active-primary"
+                >
+                  {text}
+                </NavLink>
               )
             })}
           </div>
-        </FormItem>
+        </div>
 
-        <FormItem>
-          <em className="link cursor-pointer select-none !no-underline">
-            *Tiền thưởng sẽ thay đổi tùy vào khu vực
-          </em>
-          <div className="link cursor-pointer select-none !no-underline mt-4 mb-1">
-            (Tiền thưởng chuyên cần chủ nhật)
-          </div>
-          <LocateInfoView curLocate={info.locate} />
-        </FormItem>
+        <div className="flex-[0_0_auto] w-full lg:w-[70%] lg:p-4 ml-auto">
+          <Switch>
+            <Route
+              path={routes.settingLocate}
+              render={(props) => (
+                <Locate
+                  {...props}
+                  locate={info.locate}
+                  onChangeLocate={onChangeLocate}
+                />
+              )}
+            />
+          </Switch>
 
-        <FormItem>
-          <div className="md:flex md:items-center w-full">
-            <button
-              className="stardust-button-reset stardust-button stardust-button--primary stardust-button--wide w-full md:w-auto"
-              onClick={onSave}
-              disabled={isDisabled}
-            >
-              Lưu thay đổi
-            </button>
-            <button
-              className="stardust-button-reset stardust-button stardust-button--secondary stardust-button--wide mt-1 md:mt-0 md:ml-2 w-full md:w-auto"
-              onClick={onCancel}
-            >
-              Hủy
-            </button>
-          </div>
-        </FormItem>
+          <Meta locate={info.locate} />
+        </div>
       </div>
     </div>
   )

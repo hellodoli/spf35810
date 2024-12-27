@@ -53,7 +53,14 @@
       border-color: var(--nc-primary);
       color: var(--nc-primary);
     }
-    &:hover:not(:disabled):not(.disabled):not(.stardust-button--active) {
+    &.stardust-button--active-primary {
+      background-color: var(--nc-primary);
+      border-color: #cd3011;
+      color: #fff;
+    }
+    &:hover:not(:disabled):not(.disabled):not(.stardust-button--active):not(
+        .stardust-button--active-primary
+      ) {
       background-color: rgba(0, 0, 0, 0.02);
       border: 1px solid rgba(0, 0, 0, 0.09);
     }

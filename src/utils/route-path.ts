@@ -7,6 +7,9 @@ export const routes = {
   myHub: '/my-hub',
   notFoundHub: '/notfound-hub',
   setting: '/setting',
+  settingDetail: '/setting/:settingType(locate|order)',
+  settingLocate: '/setting/locate',
+  settingOrder: '/setting/order',
 }
 
 export const isCalPathName = (pathname: string = '') => {
