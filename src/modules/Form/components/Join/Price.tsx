@@ -1,12 +1,11 @@
 import React, { memo, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { InputNumber } from 'components/Input'
 import { useSettings } from 'modules/Form/hooks/useSettings'
 import { orderPriceDefaultSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { JoinOrder } from 'modules/Form/types/join'
-
-import { InputNumber } from '../Input'
 
 interface Props {
   joinId: string

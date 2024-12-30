@@ -1,10 +1,9 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { InputNumber, MaxLabel } from 'components/Input'
 import { makeMaxJoinOrder } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
-
-import { InputNumber, MaxLabel } from '../Input'
 
 interface Props {
   joinId: string

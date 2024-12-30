@@ -41,7 +41,7 @@ const Joins = () => {
             </button>
           </FormItem>
           {isOpenAdv && (
-            <AddJoin closeAdv={closeAdv} isHappyJoin={isHappyJoin} />
+            <AddJoin onCancel={closeAdv} isHappyJoin={isHappyJoin} />
           )}
         </div>
       </div>

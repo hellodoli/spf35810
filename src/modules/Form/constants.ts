@@ -1,7 +1,10 @@
 import { v4 as uuidv4 } from 'uuid'
 
 import { generate_HUB_SHIFT } from 'utils/hub'
-import { get_SettingsDefault_Locate } from './default'
+import {
+  get_SettingsDefault_Locate,
+  get_SettingsDefault_QuickAddJoins,
+} from './default'
 import {
   ExtraOrderList,
   ExtraOrderSundayList,
@@ -43,7 +46,7 @@ export const SETTINGS_DEFAULT: Settings = {
     PRICE: 20090,
   },
   JOIN_3: {
-    PRICE: 31200,
+    PRICE: 31135,
   },
   JOIN_4: {
     PRICE: 40000,
@@ -51,7 +54,6 @@ export const SETTINGS_DEFAULT: Settings = {
   JOIN_5: {
     PRICE: 50000,
   },
-  LOCATE: get_SettingsDefault_Locate(),
   ORDER_COMPENSATE_NUMBER: {
     [HUB_TYPE.HUB_10]: 30,
     [HUB_TYPE.HUB_8]: 25,
@@ -59,6 +61,9 @@ export const SETTINGS_DEFAULT: Settings = {
     [HUB_TYPE.HUB_3]: 0,
     [HUB_TYPE.HUB_5]: 0,
   },
+  // !IMPORTANT: values maybe change by user
+  LOCATE: get_SettingsDefault_Locate(),
+  QUICK_ADD_JOINS: get_SettingsDefault_QuickAddJoins(),
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
   key: `order_join_2_default_key_${uuidv4()}`,

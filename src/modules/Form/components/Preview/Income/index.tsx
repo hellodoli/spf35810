@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
 import { ReactComponent as SettingIcon } from 'assets/icons/sliders.svg'
-import { CheckBox } from 'modules/Form/components/Input'
+import { CheckBox } from 'components/Input'
 import {
   isShowDetailWithOrderSelector,
   isShowExtraJoinOrderPriceSelector,

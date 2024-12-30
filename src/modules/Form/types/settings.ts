@@ -1,4 +1,5 @@
 import { HUB_TYPE, SETTING_LOCATE } from './enum'
+import { JoinOrder } from './join'
 
 export type HubOrderCompensateNumber = {
   [key in HUB_TYPE]: number
@@ -30,6 +31,7 @@ export interface Settings {
   }
   LOCATE: SETTING_LOCATE
   ORDER_COMPENSATE_NUMBER: HubOrderCompensateNumber
+  QUICK_ADD_JOINS: JoinOrder[]
 }
 
 export interface IncomeSetting {

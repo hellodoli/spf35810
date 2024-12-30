@@ -13,7 +13,7 @@ const Locate = ({
   onChangeLocate: (locate: SETTING_LOCATE) => void
 }) => {
   return (
-    <div className="locate-setting mt-4 lg:mt-0">
+    <div className="locate-setting">
       <div className="mt-4 first:mt-0">
         <div className="flex flex-wrap gap-2">
           {locates.map(({ text, id, value }) => {

@@ -1,4 +1,4 @@
-import { SETTING_LOCATE } from 'modules/Form/types'
+import { SETTING_LOCATE, Settings } from 'modules/Form/types'
 
 import { generateKey, getLocalStorage } from '../utils'
 
@@ -14,3 +14,46 @@ const get_SettingsDefault_Locate = () => {
   return settingsDefault_Locate.defaultValue
 }
 export { get_SettingsDefault_Locate, settingsDefault_Locate }
+
+// 2. SETTINGS_DEFAULT__QUICK_ADD_JOINS
+const quickAddJoins_defaultValue: Settings['QUICK_ADD_JOINS'] = [
+  { key: `quickAddBtns_2_20090`, type: 2, order: 1, price: 20090 },
+  { key: `quickAddBtns_3_31135`, type: 3, order: 1, price: 31135 },
+]
+const settingsDefault_QuickAddJoins = generateKey({
+  first: 'SETTINGS_DEFAULT',
+  content: 'QUICK_ADD_JOINS',
+  defaultValue: quickAddJoins_defaultValue,
+})
+const get_SettingsDefault_QuickAddJoins = () => {
+  const isValidQuickAddJoins = (quickAddJoins: unknown) => {
+    if (
+      Array.isArray(quickAddJoins) &&
+      quickAddJoins.length &&
+      quickAddJoins.every((join) => {
+        if (
+          typeof join?.key === 'string' &&
+          typeof join?.type === 'number' &&
+          typeof join?.order === 'number' &&
+          typeof join?.price === 'number'
+        )
+          return true
+        return false
+      })
+    )
+      return true
+    return false
+  }
+  const { lsKey, defaultValue } = settingsDefault_QuickAddJoins
+  const quickAddJoinsStr = getLocalStorage(lsKey) || ''
+  try {
+    const quickAddJoins = JSON.parse(quickAddJoinsStr)
+    if (isValidQuickAddJoins(quickAddJoins))
+      return quickAddJoins as Settings['QUICK_ADD_JOINS']
+    return defaultValue
+  } catch (error) {
+    return defaultValue
+  }
+}
+
+export { get_SettingsDefault_QuickAddJoins, settingsDefault_QuickAddJoins }

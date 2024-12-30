@@ -35,7 +35,7 @@ const Meta = ({ locate }: Props) => {
   }
 
   return (
-    <div className="md:flex md:items-center w-full mt-4">
+    <div className="md:flex md:items-center w-full">
       <button
         className="stardust-button-reset stardust-button stardust-button--primary stardust-button--wide w-full md:w-auto"
         onClick={onSave}

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { CheckBox } from 'modules/Form/components/Input'
+import { CheckBox } from 'components/Input'
 import Income from './Income'
 import Order from './Order'
 

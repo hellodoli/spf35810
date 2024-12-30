@@ -13,12 +13,12 @@ export const settingsSelector = createSelector(
 
 export const orderPriceDefaultSelector = createSelector(
   [settingsSelector],
-  (settings) => settings.ORDER_PRICE.DEFAULT,
+  (settings) => settings['ORDER_PRICE']['DEFAULT'],
 )
 
 export const locateSettingSelector = createSelector(
   [settingsSelector],
-  (settings) => settings.LOCATE,
+  (settings) => settings['LOCATE'],
 )
 
 export const orderCompensateSelector = createSelector(
@@ -31,4 +31,9 @@ export const orderCompensateSelector = createSelector(
 export const orderCompensateNumberSelector = createSelector(
   [settingsSelector],
   (settings) => settings['ORDER_COMPENSATE_NUMBER'],
+)
+
+export const quickAddJoinsSelector = createSelector(
+  [settingsSelector],
+  (settings) => settings['QUICK_ADD_JOINS'],
 )

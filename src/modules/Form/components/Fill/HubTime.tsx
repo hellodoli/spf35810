@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'configStore'
 
 import FormItem from 'components/FormItem'
-import { InputWrapper } from 'modules/Form/components/Input'
+import { InputWrapper } from 'components/Input'
 import { hubTimeSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { getHubsByHubTime } from 'modules/Form/slices/asyncThunk'

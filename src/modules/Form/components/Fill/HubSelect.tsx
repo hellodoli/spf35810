@@ -8,7 +8,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux'
 
 import FormItem from 'components/FormItem'
-import { InputWrapper } from 'modules/Form/components/Input'
+import { InputWrapper } from 'components/Input'
 import { HUB_SHIFT } from 'modules/Form/constants'
 import {
   hubsExistSelector,
