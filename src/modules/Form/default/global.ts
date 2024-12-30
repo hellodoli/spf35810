@@ -1,38 +1,6 @@
-import { getLocalStorage } from 'utils/storages'
-import { SETTING_LOCATE } from './types'
+import { generateKey, getLocalStorage } from './utils'
 
-function generateKey<T>({
-  first,
-  content,
-  defaultValue,
-}: {
-  first: string
-  content: string
-  defaultValue: T
-}) {
-  const key = `${first}__${content}`
-  const lsKey = `${key}__LS_KEY`
-  return {
-    key,
-    lsKey,
-    defaultValue,
-  }
-}
-
-// 1. SETTINGS_DEFAULT__LOCATE
-const settingsDefault_Locate = generateKey({
-  first: 'SETTINGS_DEFAULT',
-  content: 'LOCATE',
-  defaultValue: SETTING_LOCATE.TPHCM,
-})
-const get_SettingsDefault_Locate = () => {
-  const locate = getLocalStorage(settingsDefault_Locate.lsKey)
-  if (locate && locate in SETTING_LOCATE) return locate as SETTING_LOCATE
-  return settingsDefault_Locate.defaultValue
-}
-export { get_SettingsDefault_Locate, settingsDefault_Locate }
-
-// 2. GLOBAL__EXPAND_ALL_HUBLIST_SUMMARY
+// 1. GLOBAL__EXPAND_ALL_HUBLIST_SUMMARY
 const global_ExpandAllHubListSummary = generateKey({
   first: 'GLOBAL',
   content: 'EXPAND_ALL_HUBLIST_SUMMARY',
@@ -47,7 +15,7 @@ const get_Global_ExpandAllHubListSummary = () => {
 }
 export { get_Global_ExpandAllHubListSummary, global_ExpandAllHubListSummary }
 
-// 3. GLOBAL__EXTRA_CHILD_JOIN_ORDER
+// 2. GLOBAL__EXTRA_CHILD_JOIN_ORDER
 const global_ExtraChildJoinOrder = generateKey({
   first: 'GLOBAL',
   content: 'EXTRA_CHILD_JOIN_ORDER',
