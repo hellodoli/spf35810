@@ -5,7 +5,7 @@ import {
   JOIN_2_DEFAULT,
   SETTINGS_DEFAULT,
 } from 'modules/Form/constants'
-import { HUB_TYPE } from 'modules/Form/types'
+import { HUB_TYPE, HubState } from 'modules/Form/types'
 import { getUnixTime } from './time'
 
 export const getResetHubFillState = () => {
@@ -23,4 +23,18 @@ export const getResetHubFillState = () => {
       [join.key]: join,
     },
   }
+}
+
+export const changeResetHubFillState = (state: HubState) => {
+  const { hubShift, hubTime, hubType, joins, isHubWellDone } =
+    getResetHubFillState()
+  state.hubShift = hubShift
+  state.hubTime = hubTime
+  state.hubType = hubType
+  state.joins = joins
+  state.isHubWellDone = isHubWellDone
+
+  state.order = state.settings['ORDER_QUANTITY']['INIT']
+  state.isLoading = false
+  state.isLoadingMyHub = false
 }

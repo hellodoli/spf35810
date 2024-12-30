@@ -16,14 +16,12 @@ const Add = ({ onCancel, isHappyJoin }: Props) => {
   }, [])
 
   return (
-    <>
-      <AddJoin
-        wrapperClassNames="mt-2"
-        onClick={addJoin}
-        onCancel={onCancel}
-        isHappyJoin={isHappyJoin}
-      />
-    </>
+    <AddJoin
+      wrapperClassNames="mt-2"
+      onClick={addJoin}
+      onCancel={onCancel}
+      isHappyJoin={isHappyJoin}
+    />
   )
 }
 

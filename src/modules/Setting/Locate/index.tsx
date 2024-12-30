@@ -30,11 +30,10 @@ const Locate = ({
         </div>
       </div>
       <div className="mt-4 first:mt-0">
-        <em className="link cursor-pointer select-none !no-underline">
-          *Tiền thưởng sẽ thay đổi tùy vào khu vực
-        </em>
-        <div className="link cursor-pointer select-none !no-underline mt-4 mb-1">
-          (Tiền thưởng chuyên cần chủ nhật)
+        <div className="mb-1">
+          <em className="link cursor-pointer select-none !no-underline">
+            *Tiền thưởng chuyên cần chủ nhật (thay đổi tùy vào khu vực)
+          </em>
         </div>
         <LocateInfoView curLocate={locate} />
       </div>

@@ -8,7 +8,7 @@ import { SETTING_LOCATE } from 'modules/Form/types'
 import { routes } from 'utils/route-path'
 import Locate from './Locate'
 import Meta from './Meta'
-// import Order from './Order'
+import Order from './Order'
 
 const menus = [
   {
@@ -65,7 +65,7 @@ const Setting = () => {
         </div>
 
         <div className="flex-[0_0_auto] w-full lg:w-[70%] lg:p-4 ml-auto">
-          <div className="border-line p-4 mt-4 lg:mt-0 mb-4">
+          <div className="border-line py-4 px-2 mt-4 lg:mt-0 mb-4">
             <Switch>
               <Route
                 path={routes.settingLocate}
@@ -77,7 +77,7 @@ const Setting = () => {
                   />
                 )}
               />
-              {/*<Route path={routes.settingOrder} component={Order} />*/}
+              <Route path={routes.settingOrder} component={Order} />
             </Switch>
           </div>
 

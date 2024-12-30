@@ -1,29 +1,24 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { settingsDefault_Locate } from 'modules/Form/default'
+import {
+  settingsDefault_Locate,
+  settingsDefault_QuickAddJoins,
+} from 'modules/Form/default'
 import {
   HUB_TYPE,
   HubState,
   IncomeSetting,
+  JoinOrder,
   SETTING_LOCATE,
 } from 'modules/Form/types'
-import { getResetHubFillState } from 'utils/state'
+import { changeResetHubFillState } from 'utils/state'
 import { setLocalStorage } from 'utils/storages'
 
-const SETTINGS_DEFAULT__LOCATE__LS_KEY = settingsDefault_Locate.lsKey
-
-const changeResetHubFillState = (state: HubState) => {
-  const { hubShift, hubTime, hubType, joins, isHubWellDone } =
-    getResetHubFillState()
-  state.hubShift = hubShift
-  state.hubTime = hubTime
-  state.hubType = hubType
-  state.joins = joins
-  state.isHubWellDone = isHubWellDone
-
-  state.order = state.settings['ORDER_QUANTITY']['INIT']
-  state.isLoading = false
-  state.isLoadingMyHub = false
+const setLs_QuickAddJoins = (quickJoins: JoinOrder[]) => {
+  setLocalStorage(
+    settingsDefault_QuickAddJoins.lsKey,
+    JSON.stringify(quickJoins),
+  )
 }
 
 export const settingActions = {
@@ -61,10 +56,7 @@ export const settingActions = {
   ) => {
     const { locate } = action.payload
     state.settings.LOCATE = locate
-    setLocalStorage(SETTINGS_DEFAULT__LOCATE__LS_KEY, locate)
-  },
-  resetHubFill: (state: HubState) => {
-    changeResetHubFillState(state)
+    setLocalStorage(settingsDefault_Locate.lsKey, locate)
   },
   changeToggleFilterHubType: (
     state: HubState,
@@ -74,5 +66,29 @@ export const settingActions = {
   ) => {
     const { hubType } = action.payload
     state.filterHubTypeSetting[hubType] = !state.filterHubTypeSetting[hubType]
+  },
+  deleteQuickAddJoins: (
+    state: HubState,
+    action: PayloadAction<{
+      id: string
+    }>,
+  ) => {
+    const { id } = action.payload
+    const quickAddJoins = state.settings['QUICK_ADD_JOINS'].filter(
+      (join) => join.key !== id,
+    )
+    state.settings['QUICK_ADD_JOINS'] = quickAddJoins
+    setLs_QuickAddJoins(quickAddJoins)
+  },
+  addQuickAddJoins: (
+    state: HubState,
+    action: PayloadAction<{
+      join: JoinOrder
+    }>,
+  ) => {
+    const { join } = action.payload
+    const quickAddJoins = [...state.settings['QUICK_ADD_JOINS'], join]
+    state.settings['QUICK_ADD_JOINS'] = quickAddJoins
+    setLs_QuickAddJoins(quickAddJoins)
   },
 }

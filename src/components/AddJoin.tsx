@@ -48,6 +48,8 @@ const AddJoin = ({
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const fixedPrice = orderPrice * joinType
 
+  const addBtnDisabled = noMaxMode ? false : order <= 0
+
   const createJoin = useRef<JoinOrder>({
     ...JOIN_DEFAULT,
     order,
@@ -115,18 +117,22 @@ const AddJoin = ({
           })}
         </div>
       </FormItem>
-      <FormItem {...formItemProps} label="Số lượng:" subLabel="đơn">
-        <InputNumber
-          min={0}
-          initValue={0}
-          onChangeInput={onChangeCreateOrder}
-          resetCount={resetCountOrder}
-          isCounterMobile={true}
-          // with `noMaxMode`
-          {...(!noMaxMode ? { max } : {})}
-        />
-        {!noMaxMode && <MaxLabel max={max} />}
-      </FormItem>
+
+      {!noMaxMode && (
+        <FormItem {...formItemProps} label="Số lượng:" subLabel="đơn">
+          <InputNumber
+            min={0}
+            initValue={0}
+            onChangeInput={onChangeCreateOrder}
+            resetCount={resetCountOrder}
+            isCounterMobile={true}
+            // with `noMaxMode`
+            {...(!noMaxMode ? { max } : {})}
+          />
+          {!noMaxMode && <MaxLabel max={max} />}
+        </FormItem>
+      )}
+
       <FormItem {...formItemProps} label="Giá đơn ghép:">
         {isHappyJoin ? (
           <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
@@ -148,7 +154,7 @@ const AddJoin = ({
         <button
           className="stardust-button-reset stardust-button stardust-button--primary"
           onClick={handleOnClick}
-          disabled={order <= 0}
+          disabled={addBtnDisabled}
         >
           Thêm
         </button>{' '}

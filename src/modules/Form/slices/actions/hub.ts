@@ -5,9 +5,21 @@ import {
   global_ExtraChildJoinOrder,
 } from 'modules/Form/default'
 import { HUB_DISPLAY, HubState, RangeTime } from 'modules/Form/types'
+import { changeResetHubFillState } from 'utils/state'
 import { setLocalStorage } from 'utils/storages'
 
+const setLs_IsExtraChildJoinOrder = (value: boolean) => {
+  setLocalStorage(global_ExtraChildJoinOrder.lsKey, `${value}`)
+}
+
+const setLs_IsExpandAllHubListSummary = (value: boolean) => {
+  setLocalStorage(global_ExpandAllHubListSummary.lsKey, `${value}`)
+}
+
 export const hubActions = {
+  resetHubFill: (state: HubState) => {
+    changeResetHubFillState(state)
+  },
   changeDisplayMyHubType: (
     state: HubState,
     action: PayloadAction<{ type: HUB_DISPLAY }>,
@@ -36,18 +48,18 @@ export const hubActions = {
   },
   showIsExpandAllHubListSummary: (state: HubState) => {
     state.isExpandAllHubListSummary = true
-    setLocalStorage(global_ExpandAllHubListSummary.lsKey, 'true')
+    setLs_IsExpandAllHubListSummary(true)
   },
   hideIsExpandAllHubListSummary: (state: HubState) => {
     state.isExpandAllHubListSummary = false
-    setLocalStorage(global_ExpandAllHubListSummary.lsKey, 'false')
+    setLs_IsExpandAllHubListSummary(false)
   },
   showIsExtraChildJoinOrder: (state: HubState) => {
     state.isExtraChildJoinOrder = true
-    setLocalStorage(global_ExtraChildJoinOrder.lsKey, 'true')
+    setLs_IsExtraChildJoinOrder(true)
   },
   hideIsExtraChildJoinOrder: (state: HubState) => {
     state.isExtraChildJoinOrder = false
-    setLocalStorage(global_ExtraChildJoinOrder.lsKey, 'false')
+    setLs_IsExtraChildJoinOrder(false)
   },
 }

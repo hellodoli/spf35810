@@ -8,8 +8,6 @@ import { getTotalOrderOfJoins } from 'utils/join'
 import { getPriceExtraOrder } from 'utils/price'
 import { getDisplayDate } from 'utils/time'
 
-import './style.scss'
-
 interface Props {
   id: string
   hubShift: string
@@ -81,7 +79,7 @@ const HubItem = ({
         )}
         <span className="leading-normal">{label}</span>
         <span
-          className="lg:hidden delete ml-2 lg:ml-auto rounded-full w-[16px] h-[16px] flex items-center justify-center cursor-pointer border-line p-1 text-xs select-none"
+          className="lg:hidden delete-button ml-2 lg:ml-auto rounded-full w-[16px] h-[16px] flex items-center justify-center cursor-pointer border-line p-1 text-xs select-none"
           onClick={onClickDeleteHub}
         >
           x
