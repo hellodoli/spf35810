@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { locateSettingSelector } from 'modules/Form/selectors'
@@ -24,6 +24,8 @@ const menus = [
 ]
 
 const Setting = () => {
+  const history = useHistory()
+  const location = useLocation()
   const curLocate = useSelector(locateSettingSelector)
 
   const [info, setInfo] = useState({
@@ -44,21 +46,24 @@ const Setting = () => {
       <div className="lg:flex overflow-hidden">
         <div className="flex-[0_0_auto] w-full lg:w-[30%] lg:p-4 overflow-hidden">
           <div className="flex lg:flex-col lg:gap-0 gap-2">
-            {menus.map(({ id, path, text }) => {
+            {menus.map(({ id, text, path }) => {
               return (
-                <NavLink
+                <button
                   key={id}
-                  to={path}
                   className={clsx(
                     'flex items-center justify-center',
                     'whitespace-nowrap',
                     'stardust-button-reset stardust-button stardust-button--secondary',
                     'first:mt-0 lg:mt-4',
+                    {
+                      'stardust-button--active-primary':
+                        location.pathname === path,
+                    },
                   )}
-                  activeClassName="stardust-button--active-primary"
+                  onClick={() => history.replace(path)}
                 >
                   {text}
-                </NavLink>
+                </button>
               )
             })}
           </div>
