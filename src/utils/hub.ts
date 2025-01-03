@@ -247,5 +247,10 @@ export const canCompensate = ({
   orderCompensate: number
   isHubWellDone: boolean
 }) => {
-  return isSuperHub(hubType) && isHubWellDone && order < orderCompensate
+  return (
+    isSuperHub(hubType) &&
+    isHubWellDone &&
+    order > 0 &&
+    order <= orderCompensate
+  )
 }

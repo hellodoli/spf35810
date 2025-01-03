@@ -46,6 +46,7 @@ export const hubActions = {
     state.myHubs = {}
     state.isLoadingMyHub = false
   },
+
   showIsExpandAllHubListSummary: (state: HubState) => {
     state.isExpandAllHubListSummary = true
     setLs_IsExpandAllHubListSummary(true)
@@ -54,6 +55,11 @@ export const hubActions = {
     state.isExpandAllHubListSummary = false
     setLs_IsExpandAllHubListSummary(false)
   },
+  toggleIsExpandAllHubListSummary: (state: HubState) => {
+    state.isExpandAllHubListSummary = !state.isExpandAllHubListSummary
+    setLs_IsExpandAllHubListSummary(!state.isExpandAllHubListSummary)
+  },
+
   showIsExtraChildJoinOrder: (state: HubState) => {
     state.isExtraChildJoinOrder = true
     setLs_IsExtraChildJoinOrder(true)
@@ -61,5 +67,9 @@ export const hubActions = {
   hideIsExtraChildJoinOrder: (state: HubState) => {
     state.isExtraChildJoinOrder = false
     setLs_IsExtraChildJoinOrder(false)
+  },
+  toggleIsExtraChildJoinOrder: (state: HubState) => {
+    state.isExtraChildJoinOrder = !state.isExtraChildJoinOrder
+    setLs_IsExtraChildJoinOrder(!state.isExtraChildJoinOrder)
   },
 }

@@ -14,6 +14,7 @@ import {
   getIsHubWellDone,
   isApplyForExtraSunday,
   isEnhanceHub,
+  isSuperHub,
 } from 'utils/hub'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceExtraOrder, getPriceJoinOrder } from 'utils/price'
@@ -95,6 +96,7 @@ export const getPriceCompensate_Hub = ({
 }) => {
   return orderCompensate * orderPrice
 }
+
 export const getPrice_Hub = ({
   order,
   joins,
@@ -238,4 +240,53 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
     measure += diff
   }
   return measure
+}
+
+export const getCompensate_Hub = ({
+  hubType,
+  isHubWellDone,
+  order,
+  orderCompensate,
+  calPrice = true,
+  orderPrice,
+}: {
+  hubType: HUB_TYPE
+  order: number
+  orderCompensate: number
+  orderPrice: number
+  isHubWellDone: boolean
+  calPrice?: boolean
+}) => {
+  const isSoftCompensate = isSuperHub(hubType) && isHubWellDone && order > 0
+  let isCompensate = false
+  let hubPrice = 0
+  let compensatePrice = 0
+  let price = 0
+
+  if (calPrice && isSoftCompensate) {
+    hubPrice = 0
+    compensatePrice = getPriceCompensate_Hub({
+      orderCompensate,
+      orderPrice,
+    })
+    price = hubPrice
+    if (hubPrice < compensatePrice) {
+      /**
+       * khi thu nhập thức tế trong ca Hub không đạt đủ mốc thu nhập tối thiểu
+       * => bật `đảm bảo thu nhập`
+       * thu nhập thức tế: `hubPrice`
+       * thu nhập tối thiểu: `compensatePrice`
+       */
+      isCompensate = true
+      price = compensatePrice
+    }
+  }
+
+  return {
+    isSoftCompensate,
+    isCompensate,
+    calPrice,
+    price,
+    order,
+  }
 }
