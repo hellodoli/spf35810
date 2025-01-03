@@ -120,11 +120,24 @@ const InputNumber = ({
   }, [min, value, onChangeInput])
 
   useEffect(() => {
-    if (resetCount > 0) setValue(initValue)
-  }, [resetCount, initValue])
+    if (resetCount > 0) {
+      setValue(
+        getValue({
+          min,
+          max,
+          value: initValue,
+        }),
+      )
+    }
+  }, [resetCount, initValue, min, max])
 
   useEffect(() => {
-    if (getNumberValue(value, min) > max) handleChangeValue(max)
+    const curVal = getNumberValue(value, min)
+    if (curVal > max) {
+      handleChangeValue(max)
+    } else if (curVal < min) {
+      handleChangeValue(min)
+    }
   }, [value, min, max, handleChangeValue])
 
   return (
