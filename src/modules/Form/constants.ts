@@ -20,6 +20,7 @@ import {
 
 export const INCOME_SETTING: IncomeSetting = {
   SHOW_EXTRA_JOIN_ORDER_PRICE: true,
+  SHOW_EXTRA_ORDER_PRICE: true,
   SHOW_DETAIL_WITH_ORDER: true,
   SHOW_INCOME_DROP_BY_JOIN_ORDER: true,
 }

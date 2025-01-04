@@ -7,6 +7,7 @@ import {
   hubTypeSelector,
   isHubWellDoneSelector,
   isShowExtraJoinOrderPriceSelector,
+  isShowExtraOrderPriceSelector,
   joinsSelector,
   orderCompensateSelector,
   orderPriceDefaultSelector,
@@ -26,6 +27,8 @@ const Total = () => {
   const isShowExtraJoinOrderPrice = useSelector(
     isShowExtraJoinOrderPriceSelector,
   )
+  const isShowExtraOrderPrice = useSelector(isShowExtraOrderPriceSelector)
+
   const orderCompensate = useSelector((state) =>
     orderCompensateSelector(state, hubType),
   )
@@ -44,6 +47,7 @@ const Total = () => {
     orderPrice,
     isHubWellDone,
     isShowExtraJoinOrderPrice,
+    isShowExtraOrderPrice,
   })
 
   const renderAutoCompensate = () => {

@@ -6,6 +6,7 @@ import { ReactComponent as CircleExclamation } from 'assets/icons/circle-exclama
 import {
   isHubWellDoneSelector,
   isShowExtraJoinOrderPriceSelector,
+  isShowExtraOrderPriceSelector,
   joinsSelector,
   orderSelector,
 } from 'modules/Form/selectors'
@@ -14,6 +15,8 @@ import ExtraPrice from './ExtraPrice'
 
 const ExtraOrderPrice = () => {
   const order = useSelector(orderSelector)
+  const isShowExtraOrderPrice = useSelector(isShowExtraOrderPriceSelector)
+  if (!isShowExtraOrderPrice) return null
   return (
     <ExtraPrice order={order} title="Thu nhập đơn vượt mốc:" isJoin={false} />
   )
@@ -39,7 +42,7 @@ const ExtraContainer = ({ children }: { children: React.ReactNode }) => {
   const isHubWellDone = useSelector(isHubWellDoneSelector)
   return (
     <ul
-      className={clsx('p-2 border-line -mt-[1px]', {
+      className={clsx('p-2 border-line -mt-[1px]', 'empty:hidden', {
         'opacity-50': !isHubWellDone,
         'select-none': !isHubWellDone,
       })}

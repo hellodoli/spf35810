@@ -104,6 +104,7 @@ export const getPrice_Hub = ({
   orderPrice,
   isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
   isShowExtraJoinOrderPrice = true,
+  isShowExtraOrderPrice = true,
 }: {
   order: number
   joins: JoinOrder[]
@@ -111,6 +112,7 @@ export const getPrice_Hub = ({
   orderPrice: number
   isHubWellDone?: boolean
   isShowExtraJoinOrderPrice?: boolean
+  isShowExtraOrderPrice?: boolean
 }) => {
   const { singleOrder, totalJoinsOrder } = getPreviewOrder({ order, joins })
 
@@ -135,7 +137,7 @@ export const getPrice_Hub = ({
   let price = singleOrderPrice + totalPriceJoinOrder
 
   if (isHubWellDone) {
-    price += extraOrder.totalPrice
+    if (isShowExtraOrderPrice) price += extraOrder.totalPrice
     if (isShowExtraJoinOrderPrice) price += extraJoinOrder.totalPrice
   }
 
@@ -144,15 +146,18 @@ export const getPrice_Hub = ({
 export const getPrice_Hubs = ({
   hubs,
   orderPrice,
-  isShowExtraJoinOrderPrice = true,
-  loc = SETTING_LOCATE.TPHCM,
   orderCompensateNumber,
+  // optional
+  loc = SETTING_LOCATE.TPHCM,
+  isShowExtraJoinOrderPrice = true,
+  isShowExtraOrderPrice = true,
 }: {
   hubs: Hub[]
   orderPrice: number
-  isShowExtraJoinOrderPrice?: boolean
-  loc?: SETTING_LOCATE
   orderCompensateNumber: HubOrderCompensateNumber
+  loc: SETTING_LOCATE
+  isShowExtraJoinOrderPrice?: boolean
+  isShowExtraOrderPrice?: boolean
 }) => {
   const sdList: {
     [key: string]: Hub[]
@@ -160,11 +165,14 @@ export const getPrice_Hubs = ({
   let total = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType, isHubWellDone, isAutoCompensate } = hub
+    const { order, joins, hubType, isHubWellDone, isAutoCompensate, hubTime } =
+      hub
+    const orderCompensate = orderCompensateNumber[hubType]
+
     const price = isAutoCompensate
       ? getPriceCompensate_Hub({
           orderPrice,
-          orderCompensate: orderCompensateNumber[hubType],
+          orderCompensate,
         })
       : getPrice_Hub({
           order,
@@ -173,14 +181,16 @@ export const getPrice_Hubs = ({
           orderPrice,
           isHubWellDone,
           isShowExtraJoinOrderPrice,
+          isShowExtraOrderPrice,
         })
+
     total += price
 
     // extra sunday (split logic LATER)
-    const isSunday = isApplyForExtraSunday(hub.hubTime)
+    const isSunday = isApplyForExtraSunday(hubTime)
     if (isSunday) {
-      if (!sdList[hub.hubTime]) sdList[hub.hubTime] = [hub]
-      else sdList[hub.hubTime].push(hub)
+      if (!sdList[hubTime]) sdList[hubTime] = [hub]
+      else sdList[hubTime].push(hub)
     }
   }
 
