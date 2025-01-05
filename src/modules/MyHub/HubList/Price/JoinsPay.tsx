@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import {
   isExtraChildJoinOrderSelector,
+  locateSettingSelector,
   orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
 import { Hub } from 'modules/Form/types'
@@ -15,8 +16,15 @@ interface Props {
 
 const Price = ({ hubs }: Props) => {
   const f = useMemo(() => getFormat(), [])
+
   const orderPrice = useSelector(orderPriceDefaultSelector)
-  const diffPrice = getDiffJoinsPrice_Hubs(hubs, orderPrice)
+  const loc = useSelector(locateSettingSelector)
+
+  const diffPrice = getDiffJoinsPrice_Hubs({
+    hubs,
+    orderPrice,
+    loc,
+  })
 
   return (
     <li className="mb-1 last:mb-0">

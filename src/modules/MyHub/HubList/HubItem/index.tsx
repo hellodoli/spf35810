@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { ReactComponent as Envira } from 'assets/icons/envira.svg'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import { HUB_COLORS, IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
-import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
+import { HUB_TYPE, JoinOrder, SETTING_LOCATE } from 'modules/Form/types'
 import { getTotalOrderOfJoins } from 'utils/join'
 import { getPriceExtraOrder } from 'utils/price'
 import { getDisplayDate } from 'utils/time'
@@ -19,6 +19,7 @@ interface Props {
   isHubWellDone?: boolean
   isAutoCompensate?: boolean
   joins: JoinOrder[]
+  loc: SETTING_LOCATE
 }
 
 const HubItem = ({
@@ -32,6 +33,7 @@ const HubItem = ({
   isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
   isAutoCompensate = false,
   joins,
+  loc,
 }: Props) => {
   const [start, end] = hubShift.split('_')
   const label = `${start} - ${end}`
@@ -41,6 +43,7 @@ const HubItem = ({
     hubType,
     order: getTotalOrderOfJoins(joins),
     isJoin: true,
+    loc,
   })
 
   const onHandleClick = () => {

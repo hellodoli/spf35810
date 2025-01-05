@@ -8,6 +8,7 @@ import ExpandBtn from 'components/ExpandBtn'
 import {
   filterHubTypeSelector,
   isExpandAllHubListSummarySelector,
+  locateSettingSelector,
   makeMyHubByHubTime,
 } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
@@ -24,6 +25,8 @@ interface Props {
 const HubDate = ({ date = '' }: Props) => {
   const history = useHistory()
   const dispatch: AppDispatch = useDispatch()
+
+  const loc = useSelector(locateSettingSelector)
 
   const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
   const filters = useSelector(filterHubTypeSelector)
@@ -137,6 +140,7 @@ const HubDate = ({ date = '' }: Props) => {
                   isHubWellDone={hub.isHubWellDone}
                   isAutoCompensate={hub.isAutoCompensate}
                   joins={hub.joins}
+                  loc={loc}
                 />
               )
             })}

@@ -1,8 +1,9 @@
 import React, { memo, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 
+import { locateSettingSelector } from 'modules/Form/selectors'
 import { HUB_TYPE } from 'modules/Form/types/enum'
 import { getExtraOrderQtt } from 'utils/preview'
-
 interface Props {
   order: number
   totalJoinsOrder: number
@@ -10,13 +11,15 @@ interface Props {
 }
 
 const ExtraOrder = ({ order, totalJoinsOrder, hubType }: Props) => {
+  const loc = useSelector(locateSettingSelector)
   const eO = useMemo(
     () =>
       getExtraOrderQtt({
         order,
         hubType,
+        loc,
       }),
-    [order, hubType],
+    [order, hubType, loc],
   )
   const eOJoin = useMemo(
     () =>
@@ -24,8 +27,9 @@ const ExtraOrder = ({ order, totalJoinsOrder, hubType }: Props) => {
         order: totalJoinsOrder,
         hubType,
         isJoin: true,
+        loc,
       }),
-    [totalJoinsOrder, hubType],
+    [totalJoinsOrder, hubType, loc],
   )
 
   const renderExtraOrderFromTo = (

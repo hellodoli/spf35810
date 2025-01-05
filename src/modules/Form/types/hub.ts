@@ -19,10 +19,6 @@ export type HubShiftList = {
   [key in HUB_TYPE]: HubShift[]
 }
 
-export type ExtraOrderList = {
-  [key in HUB_TYPE]: [number, number | null, number][]
-}
-
 export interface HubGenaral {
   hubType: HUB_TYPE
   hubShift: string

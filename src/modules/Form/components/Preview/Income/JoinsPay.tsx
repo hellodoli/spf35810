@@ -6,6 +6,7 @@ import {
   isHubWellDoneSelector,
   isShowIncomeDropByJoinOrderSelector,
   joinsSelector,
+  locateSettingSelector,
   orderPriceDefaultSelector,
   orderSelector,
 } from 'modules/Form/selectors'
@@ -20,6 +21,7 @@ const JoinsPay = () => {
   const hubType = useSelector(hubTypeSelector)
   const order = useSelector(orderSelector)
   const isShow = useSelector(isShowIncomeDropByJoinOrderSelector)
+  const loc = useSelector(locateSettingSelector)
 
   const diffPrice = getDiffJoinsPrice_Hub({
     joins,
@@ -27,6 +29,7 @@ const JoinsPay = () => {
     isHubWellDone,
     hubType,
     order,
+    loc,
   })
 
   if (!isShow) return null

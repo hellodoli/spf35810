@@ -6,6 +6,7 @@ import {
   get_SettingsDefault_QuickAddJoins,
 } from './default'
 import {
+  ExtraJoinOrderList,
   ExtraOrderList,
   ExtraOrderSundayList,
   FilterHubTypeSetting,
@@ -82,29 +83,77 @@ export const JOIN_3_DEFAULT: JoinOrder = {
 
 export const HUB_SHIFT = generate_HUB_SHIFT()
 
+const EXTRA_ORDER_NO_REWARD: OrderExtraRewardArr[] = [
+  [0, 0, 0],
+  [0, 0, 0],
+]
 export const EXTRA_ORDER: ExtraOrderList = {
-  [HUB_TYPE.HUB_10]: [
-    [0, 0, 0],
-    [31, null, 6000],
-  ],
-  [HUB_TYPE.HUB_8]: [
-    [26, 30, 4000],
-    [31, null, 6000],
-  ],
-  [HUB_TYPE.HUB_5]: [
-    [14, 24, 4000],
-    [25, null, 6000],
-  ],
-  [HUB_TYPE.HUB_3]: [
-    [7, 14, 2000],
-    [15, null, 3000],
-  ],
-  [HUB_TYPE.HUB_1]: [
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
+  [SETTING_LOCATE.TPHCM]: {
+    [HUB_TYPE.HUB_10]: [
+      [0, 0, 0],
+      [31, null, 6000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [26, 30, 4000],
+      [31, null, 6000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [14, 24, 4000],
+      [25, null, 6000],
+    ],
+    [HUB_TYPE.HUB_3]: [
+      [7, 14, 2000],
+      [15, null, 3000],
+    ],
+    [HUB_TYPE.HUB_1]: [...EXTRA_ORDER_NO_REWARD],
+  },
+  [SETTING_LOCATE.HANOI]: {
+    [HUB_TYPE.HUB_10]: [
+      [31, 35, 6000],
+      [35, null, 8000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [26, 29, 4000],
+      [30, null, 8000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [14, 24, 4000],
+      [25, null, 6000],
+    ],
+    [HUB_TYPE.HUB_3]: [
+      [7, 14, 2000],
+      [15, null, 3000],
+    ],
+    [HUB_TYPE.HUB_1]: [...EXTRA_ORDER_NO_REWARD],
+  },
+  [SETTING_LOCATE.HAIPHONG]: {
+    [HUB_TYPE.HUB_10]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_3]: [...EXTRA_ORDER_NO_REWARD],
+    [HUB_TYPE.HUB_1]: [...EXTRA_ORDER_NO_REWARD],
+  },
+  [SETTING_LOCATE.OTHER]: {
+    [HUB_TYPE.HUB_10]: [...EXTRA_ORDER_NO_REWARD],
+    [HUB_TYPE.HUB_8]: [...EXTRA_ORDER_NO_REWARD],
+    [HUB_TYPE.HUB_5]: [...EXTRA_ORDER_NO_REWARD],
+    [HUB_TYPE.HUB_3]: [...EXTRA_ORDER_NO_REWARD],
+    [HUB_TYPE.HUB_1]: [...EXTRA_ORDER_NO_REWARD],
+  },
 }
-export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
+export const EXTRA_JOIN_ORDER: ExtraJoinOrderList = {
   [HUB_TYPE.HUB_10]: [
     [18, 22, 4000],
     [23, null, 6000],

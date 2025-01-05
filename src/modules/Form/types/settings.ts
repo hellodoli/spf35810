@@ -47,6 +47,16 @@ export type FilterHubTypeSetting = {
   [key in HUB_TYPE]: boolean
 }
 
+export type ExtraOrderList = {
+  [key in SETTING_LOCATE]: {
+    [key in HUB_TYPE]: OrderExtraRewardArr[]
+  }
+}
+
+export type ExtraJoinOrderList = {
+  [key in HUB_TYPE]: OrderExtraRewardArr[]
+}
+
 export type ExtraOrderSundayList = {
   [key in SETTING_LOCATE]: OrderExtraRewardArr[]
 }

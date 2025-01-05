@@ -5,6 +5,7 @@ import ExpandBtn from 'components/ExpandBtn'
 import {
   hubTypeSelector,
   isShowDetailWithOrderSelector,
+  locateSettingSelector,
 } from 'modules/Form/selectors'
 import { getFormat, getPriceExtraOrder } from 'utils/price'
 
@@ -23,6 +24,8 @@ const ExtraPrice = ({
 }) => {
   const isShowDetailWithOrder = useSelector(isShowDetailWithOrderSelector)
   const hubType = useSelector(hubTypeSelector)
+  const loc = useSelector(locateSettingSelector)
+
   const [isDetail, setIsDetail] = useState(false)
 
   const { extraOrderPriceArr, totalOrderCount, totalPrice } = useMemo(
@@ -31,8 +34,9 @@ const ExtraPrice = ({
         hubType,
         order,
         isJoin,
+        loc,
       }),
-    [hubType, order],
+    [hubType, order, loc, isJoin],
   )
 
   const toggleDetail = useCallback(() => {

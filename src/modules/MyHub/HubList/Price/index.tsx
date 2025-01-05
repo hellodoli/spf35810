@@ -24,8 +24,8 @@ interface Props {
 
 const Price = ({ hubs, unixDate }: Props) => {
   const f = useMemo(() => getFormat(), [])
-  const orderPrice = useSelector(orderPriceDefaultSelector)
   const loc = useSelector(locateSettingSelector)
+  const orderPrice = useSelector(orderPriceDefaultSelector)
   const orderCompensateNumber = useSelector(orderCompensateNumberSelector)
 
   const orderHubs = getOrder_Hubs(hubs)

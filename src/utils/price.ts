@@ -1,5 +1,5 @@
-import { EXTRA_CHILD_JOIN_ORDER, EXTRA_ORDER } from 'modules/Form/constants'
-import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
+import { EXTRA_JOIN_ORDER, EXTRA_ORDER } from 'modules/Form/constants'
+import { HUB_TYPE, JoinOrder, SETTING_LOCATE } from 'modules/Form/types'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -25,14 +25,14 @@ export function getPriceExtraOrder({
   hubType,
   order,
   isJoin = false,
+  loc,
 }: {
   hubType: HUB_TYPE
   order: number
   isJoin?: boolean
+  loc: SETTING_LOCATE
 }) {
-  const rewards = isJoin
-    ? EXTRA_CHILD_JOIN_ORDER[hubType]
-    : EXTRA_ORDER[hubType]
+  const rewards = isJoin ? EXTRA_JOIN_ORDER[hubType] : EXTRA_ORDER[loc][hubType]
   const extraOrderPriceArr: {
     id: string
     start: number

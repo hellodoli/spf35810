@@ -105,6 +105,7 @@ export const getPrice_Hub = ({
   isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
+  loc,
 }: {
   order: number
   joins: JoinOrder[]
@@ -113,6 +114,7 @@ export const getPrice_Hub = ({
   isHubWellDone?: boolean
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
+  loc: SETTING_LOCATE
 }) => {
   const { singleOrder, totalJoinsOrder } = getPreviewOrder({ order, joins })
 
@@ -125,6 +127,7 @@ export const getPrice_Hub = ({
     hubType,
     order,
     isJoin: false,
+    loc,
   })
 
   // thu nhập đơn con (của đơn ghép) vượt mốc
@@ -132,6 +135,7 @@ export const getPrice_Hub = ({
     hubType,
     order: totalJoinsOrder,
     isJoin: true,
+    loc,
   })
 
   let price = singleOrderPrice + totalPriceJoinOrder
@@ -147,8 +151,8 @@ export const getPrice_Hubs = ({
   hubs,
   orderPrice,
   orderCompensateNumber,
+  loc,
   // optional
-  loc = SETTING_LOCATE.TPHCM,
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
 }: {
@@ -182,6 +186,7 @@ export const getPrice_Hubs = ({
           isHubWellDone,
           isShowExtraJoinOrderPrice,
           isShowExtraOrderPrice,
+          loc,
         })
 
     total += price
@@ -210,12 +215,14 @@ export const getDiffJoinsPrice_Hub = ({
   hubType,
   orderPrice,
   isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+  loc,
 }: {
   order: number
   joins: JoinOrder[]
   hubType: HUB_TYPE
   orderPrice: number
   isHubWellDone?: boolean
+  loc: SETTING_LOCATE
 }) => {
   const { totalJoinsOrder } = getPreviewOrder({ order, joins })
 
@@ -227,13 +234,22 @@ export const getDiffJoinsPrice_Hub = ({
       hubType,
       order: totalJoinsOrder,
       isJoin: true,
+      loc,
     })
     crop += extraJoinOrder.totalPrice
   }
   const diff = crop - full
   return diff
 }
-export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
+export const getDiffJoinsPrice_Hubs = ({
+  hubs,
+  loc,
+  orderPrice,
+}: {
+  hubs: Hub[]
+  orderPrice: number
+  loc: SETTING_LOCATE
+}) => {
   let measure = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
@@ -246,6 +262,7 @@ export const getDiffJoinsPrice_Hubs = (hubs: Hub[], orderPrice: number) => {
           hubType,
           orderPrice,
           isHubWellDone,
+          loc,
         })
     measure += diff
   }

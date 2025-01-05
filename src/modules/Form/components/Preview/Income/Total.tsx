@@ -9,6 +9,7 @@ import {
   isShowExtraJoinOrderPriceSelector,
   isShowExtraOrderPriceSelector,
   joinsSelector,
+  locateSettingSelector,
   orderCompensateSelector,
   orderPriceDefaultSelector,
   orderSelector,
@@ -19,6 +20,7 @@ import { getFormat } from 'utils/price'
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
+  const loc = useSelector(locateSettingSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const order = useSelector(orderSelector)
   const joins = useSelector(joinsSelector)
@@ -48,6 +50,7 @@ const Total = () => {
     isHubWellDone,
     isShowExtraJoinOrderPrice,
     isShowExtraOrderPrice,
+    loc,
   })
 
   const renderAutoCompensate = () => {
