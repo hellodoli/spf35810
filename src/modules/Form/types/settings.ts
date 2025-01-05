@@ -5,6 +5,8 @@ export type HubOrderCompensateNumber = {
   [key in HUB_TYPE]: number
 }
 
+export type OrderExtraRewardArr = [number, number | null, number]
+
 export interface Settings {
   ORDER_PRICE: {
     MIN: number
@@ -46,9 +48,9 @@ export type FilterHubTypeSetting = {
 }
 
 export type ExtraOrderSundayList = {
-  [key in SETTING_LOCATE]: [number, number | null, number][]
+  [key in SETTING_LOCATE]: OrderExtraRewardArr[]
 }
 
 export type WeekRewardList = {
-  [key in HUB_TYPE]?: [number, number | null, number][]
+  [key in HUB_TYPE]?: OrderExtraRewardArr[]
 }

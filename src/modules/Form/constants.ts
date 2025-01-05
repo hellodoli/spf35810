@@ -13,6 +13,7 @@ import {
   HubColorsFilter,
   IncomeSetting,
   JoinOrder,
+  OrderExtraRewardArr,
   SETTING_LOCATE,
   Settings,
   WeekRewardList,
@@ -125,6 +126,13 @@ export const EXTRA_CHILD_JOIN_ORDER: ExtraOrderList = {
     [0, 0, 0],
   ],
 }
+
+const EXTRA_SUNDAY_ORDER_NO_REWARD: OrderExtraRewardArr[] = [
+  [20, 29, 0],
+  [30, 39, 0],
+  [40, 49, 0],
+  [50, null, 0],
+]
 export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
   [SETTING_LOCATE.TPHCM]: [
     [20, 29, 25000],
@@ -138,12 +146,8 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
     [40, 49, 70000],
     [50, null, 90000],
   ],
-  [SETTING_LOCATE.OTHER]: [
-    [20, 29, 0],
-    [30, 39, 0],
-    [40, 49, 0],
-    [50, null, 0],
-  ],
+  [SETTING_LOCATE.HAIPHONG]: [...EXTRA_SUNDAY_ORDER_NO_REWARD],
+  [SETTING_LOCATE.OTHER]: [...EXTRA_SUNDAY_ORDER_NO_REWARD],
 }
 
 export const WEEK_REWARD: WeekRewardList = {

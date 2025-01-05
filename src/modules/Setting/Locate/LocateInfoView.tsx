@@ -12,12 +12,20 @@ interface LocateBtnItem {
   text: string
   value: SETTING_LOCATE
 }
-const locateText = 'locate-1.1'
+const locateText = 'locate-1.2'
 const locatesArr: LocateBtnItem[] = [
   { id: `${locateText}-1`, text: 'TPHCM', value: SETTING_LOCATE.TPHCM },
   { id: `${locateText}-2`, text: 'Hà Nội', value: SETTING_LOCATE.HANOI },
-  { id: `${locateText}-3`, text: 'Khác', value: SETTING_LOCATE.OTHER },
+  { id: `${locateText}-3`, text: 'Hải Phòng', value: SETTING_LOCATE.HAIPHONG },
+  { id: `${locateText}-4`, text: 'Khác', value: SETTING_LOCATE.OTHER },
 ]
+
+const getLocInfoView = (locatesArr: LocateBtnItem[]) => {
+  return locatesArr.filter(
+    (loc) =>
+      loc.value === SETTING_LOCATE.TPHCM || loc.value === SETTING_LOCATE.HANOI,
+  )
+}
 
 const Item = ({
   children,
@@ -51,10 +59,7 @@ const Item = ({
 
 const LocateInfoView = ({ curLocate }: { curLocate: SETTING_LOCATE }) => {
   const f = useMemo(() => getFormat(), [])
-  const locs = useMemo(
-    () => locatesArr.filter((loc) => loc.value !== SETTING_LOCATE.OTHER),
-    [locatesArr],
-  )
+  const locs = useMemo(() => getLocInfoView(locatesArr), [locatesArr])
   const locateCount = locs.length
   const extraSundayOrder = EXTRA_SUNDAY_ORDER[curLocate]
 
