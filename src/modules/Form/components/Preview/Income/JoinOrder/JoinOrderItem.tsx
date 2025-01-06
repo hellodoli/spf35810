@@ -10,7 +10,7 @@ const f = getFormat()
 const getJoinLabel = (joinType: JoinOrder['type']) => {
   switch (joinType) {
     case 2:
-      return `Thu nhập đơn ghép đôi `
+      return `Thu nhập đơn ghép 2 `
     default:
       return `Thu nhập đơn ghép ${joinType} `
   }

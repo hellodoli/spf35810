@@ -1,5 +1,10 @@
 import { EXTRA_JOIN_ORDER, EXTRA_ORDER } from 'modules/Form/constants'
-import { HUB_TYPE, JoinOrder, SETTING_LOCATE } from 'modules/Form/types'
+import {
+  HUB_TYPE,
+  JoinOrder,
+  OrderExtraRewardArr,
+  SETTING_LOCATE,
+} from 'modules/Form/types'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -48,9 +53,9 @@ export function getPriceExtraOrder({
     start,
     end,
   }: {
-    price: number
-    start: number
-    end: number | null
+    price: OrderExtraRewardArr[2]
+    start: OrderExtraRewardArr[0]
+    end: OrderExtraRewardArr[1]
   }) => {
     const max = !end ? 0 : end - start + 1
     let orderCount = order - start + 1
@@ -68,14 +73,12 @@ export function getPriceExtraOrder({
 
   for (let i = 0; i < rewards.length; i++) {
     const reward = rewards[i]
-    const start = reward[0]
-    const end = reward[1]
-    const price = reward[2]
+    const [start, end, price] = reward
     if (start && order >= start) {
       plus({
-        price,
-        end,
         start,
+        end,
+        price,
       })
     }
   }

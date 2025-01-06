@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { SETTING_LOCATE } from 'modules/Form/types'
-import LocateInfoView, { locatesArr as locates } from './LocateInfoView'
+import ExtraOrder from './ExtraOrder'
+import { locatesArr as locates } from './Item'
+import SundayReward from './SundayReward'
 
 import ChooseHubBtn from '../ChooseHubBtn'
 
@@ -29,13 +31,25 @@ const Locate = ({
           })}
         </div>
       </div>
-      <div className="mt-4 first:mt-0">
+
+      {/* Sunday reward */}
+      <div className="mt-6 first:mt-0">
         <div className="mb-1">
           <em className="link cursor-pointer select-none !no-underline">
             *Tiền thưởng chuyên cần chủ nhật (thay đổi tùy vào khu vực)
           </em>
         </div>
-        <LocateInfoView curLocate={locate} />
+        <SundayReward curLocate={locate} />
+      </div>
+
+      {/* Extra order */}
+      <div className="mt-6 first:mt-0">
+        <div className="mb-1">
+          <em className="link cursor-pointer select-none !no-underline">
+            *Tiền thưởng vượt mốc đơn (thay đổi tùy vào khu vực)
+          </em>
+        </div>
+        <ExtraOrder curLocate={locate} />
       </div>
     </div>
   )

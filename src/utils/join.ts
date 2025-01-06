@@ -9,7 +9,7 @@ export const getJoinLabel = (
   const text = label || word
   switch (joinType) {
     case 2:
-      return `${text} đơn ghép đôi (ghép 2):`
+      return `${text} đơn ghép ghép 2:`
     default:
       return `${text} đơn ghép ${joinType}:`
   }
