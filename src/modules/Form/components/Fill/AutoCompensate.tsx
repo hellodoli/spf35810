@@ -6,25 +6,38 @@ import FormItem from 'components/FormItem'
 import {
   hubTypeSelector,
   isHubWellDoneSelector,
+  joinsSelector,
+  locateSettingSelector,
   orderCompensateSelector,
+  orderPriceDefaultSelector,
   orderSelector,
 } from 'modules/Form/selectors'
-import { canCompensate, isSuperHub } from 'utils/hub'
+import { isSuperHub } from 'utils/hub'
+import { getCompensate_Hub } from 'utils/income'
 
 const Compensate = () => {
+  const loc = useSelector(locateSettingSelector)
+  const orderPrice = useSelector(orderPriceDefaultSelector)
   const hubType = useSelector(hubTypeSelector)
+  const joins = useSelector(joinsSelector)
   const order = useSelector(orderSelector)
   const orderCompensate = useSelector((state) =>
     orderCompensateSelector(state, hubType),
   )
   const isHubWellDone = useSelector(isHubWellDoneSelector)
 
-  const isAutoCompensate = canCompensate({
+  const compensateHub = getCompensate_Hub({
     hubType,
-    isHubWellDone,
+    joins,
     order,
+    orderPrice,
     orderCompensate,
+    isHubWellDone,
+    loc,
   })
+
+  const isAutoCompensate = compensateHub.isCompensate
+
   const statusColor = isAutoCompensate
     ? 'var(--nc-primary)'
     : 'var(--nc-util-disabled)'

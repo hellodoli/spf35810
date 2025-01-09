@@ -12,9 +12,9 @@ import {
 } from 'modules/Form/types'
 import {
   getIsHubWellDone,
+  getIsSoftCompensate,
   isApplyForExtraSunday,
   isEnhanceHub,
-  isSuperHub,
 } from 'utils/hub'
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceExtraOrder, getPriceJoinOrder } from 'utils/price'
@@ -96,7 +96,6 @@ export const getPriceCompensate_Hub = ({
 }) => {
   return orderCompensate * orderPrice
 }
-
 export const getPrice_Hub = ({
   order,
   joins,
@@ -145,7 +144,85 @@ export const getPrice_Hub = ({
     if (isShowExtraJoinOrderPrice) price += extraJoinOrder.totalPrice
   }
 
-  return price
+  return {
+    price,
+    extraOrderPrice: extraOrder.totalPrice,
+    extraJoinOrderPrice: extraJoinOrder.totalPrice,
+  }
+}
+export const getCompensate_Hub = ({
+  calPrice = true,
+  hubType,
+  isHubWellDone,
+  order,
+  orderCompensate,
+  orderPrice,
+  joins,
+  loc,
+}: {
+  calPrice?: boolean
+  hubType: HUB_TYPE
+  joins: JoinOrder[]
+  order: number
+  orderCompensate: number
+  orderPrice: number
+  isHubWellDone: boolean
+  loc: SETTING_LOCATE
+}) => {
+  const isSoftCompensate = getIsSoftCompensate({
+    hubType,
+    isHubWellDone,
+    order,
+  })
+  const compensatePrice = getPriceCompensate_Hub({
+    orderCompensate,
+    orderPrice,
+  })
+  let isCompensate = false
+  let price = 0
+  let extraOrderPrice = 0
+  let extraJoinOrderPrice = 0
+
+  if (calPrice && isSoftCompensate) {
+    if (order < orderCompensate) {
+      isCompensate = true
+      price = compensatePrice
+    } else {
+      const hub = getPrice_Hub({
+        hubType,
+        joins,
+        order,
+        orderPrice,
+        loc,
+        isHubWellDone,
+        isShowExtraJoinOrderPrice: true,
+        isShowExtraOrderPrice: true,
+      })
+      if (hub.price < compensatePrice) {
+        isCompensate = true
+        price = compensatePrice
+      } else if (hub.price - hub.extraOrderPrice < compensatePrice) {
+        isCompensate = true
+        extraJoinOrderPrice = hub.extraJoinOrderPrice
+        price = compensatePrice - extraJoinOrderPrice
+        extraOrderPrice = hub.extraOrderPrice
+      } else {
+        isCompensate = false
+      }
+    }
+  }
+
+  return {
+    isSoftCompensate,
+    isCompensate,
+    calPrice,
+    order,
+    // prices
+    price,
+    extraOrderPrice,
+    extraJoinOrderPrice,
+    totalPrice: price + extraOrderPrice + extraJoinOrderPrice,
+  }
 }
 export const getPrice_Hubs = ({
   hubs,
@@ -169,25 +246,35 @@ export const getPrice_Hubs = ({
   let total = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType, isHubWellDone, isAutoCompensate, hubTime } =
-      hub
+    const {
+      order,
+      joins,
+      hubType,
+      isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+      isAutoCompensate,
+      hubTime,
+    } = hub
     const orderCompensate = orderCompensateNumber[hubType]
+    const generalParams = {
+      hubType,
+      joins,
+      order,
+      orderPrice,
+      loc,
+    }
 
     const price = isAutoCompensate
-      ? getPriceCompensate_Hub({
-          orderPrice,
+      ? getCompensate_Hub({
+          ...generalParams,
           orderCompensate,
-        })
+          isHubWellDone,
+        }).totalPrice
       : getPrice_Hub({
-          order,
-          joins,
-          hubType,
-          orderPrice,
+          ...generalParams,
           isHubWellDone,
           isShowExtraJoinOrderPrice,
           isShowExtraOrderPrice,
-          loc,
-        })
+        }).price
 
     total += price
 
@@ -267,53 +354,4 @@ export const getDiffJoinsPrice_Hubs = ({
     measure += diff
   }
   return measure
-}
-
-export const getCompensate_Hub = ({
-  hubType,
-  isHubWellDone,
-  order,
-  orderCompensate,
-  calPrice = true,
-  orderPrice,
-}: {
-  hubType: HUB_TYPE
-  order: number
-  orderCompensate: number
-  orderPrice: number
-  isHubWellDone: boolean
-  calPrice?: boolean
-}) => {
-  const isSoftCompensate = isSuperHub(hubType) && isHubWellDone && order > 0
-  let isCompensate = false
-  let hubPrice = 0
-  let compensatePrice = 0
-  let price = 0
-
-  if (calPrice && isSoftCompensate) {
-    hubPrice = 0
-    compensatePrice = getPriceCompensate_Hub({
-      orderCompensate,
-      orderPrice,
-    })
-    price = hubPrice
-    if (hubPrice < compensatePrice) {
-      /**
-       * khi thu nhập thức tế trong ca Hub không đạt đủ mốc thu nhập tối thiểu
-       * => bật `đảm bảo thu nhập`
-       * thu nhập thức tế: `hubPrice`
-       * thu nhập tối thiểu: `compensatePrice`
-       */
-      isCompensate = true
-      price = compensatePrice
-    }
-  }
-
-  return {
-    isSoftCompensate,
-    isCompensate,
-    calPrice,
-    price,
-    order,
-  }
 }

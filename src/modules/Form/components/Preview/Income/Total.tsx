@@ -14,8 +14,7 @@ import {
   orderPriceDefaultSelector,
   orderSelector,
 } from 'modules/Form/selectors'
-import { canCompensate } from 'utils/hub'
-import { getPrice_Hub, getPriceCompensate_Hub } from 'utils/income'
+import { getCompensate_Hub, getPrice_Hub } from 'utils/income'
 import { getFormat } from 'utils/price'
 
 const Total = () => {
@@ -35,14 +34,17 @@ const Total = () => {
     orderCompensateSelector(state, hubType),
   )
 
-  const isAutoCompensate = canCompensate({
+  const compensateHub = getCompensate_Hub({
     hubType,
-    isHubWellDone,
+    joins,
     order,
+    orderPrice,
     orderCompensate,
+    isHubWellDone,
+    loc,
   })
 
-  const totalPrice = getPrice_Hub({
+  const { price: totalPrice } = getPrice_Hub({
     hubType,
     joins,
     order,
@@ -53,24 +55,44 @@ const Total = () => {
     loc,
   })
 
+  const isCompensate = compensateHub.isCompensate
+
   const renderAutoCompensate = () => {
-    if (!isAutoCompensate) return null
-
-    const price = getPriceCompensate_Hub({
-      orderPrice,
-      orderCompensate,
-    })
-
+    if (!isCompensate) return null
+    const { price, extraOrderPrice, extraJoinOrderPrice, totalPrice } =
+      compensateHub
     return (
       <div className="flex items-center">
         <Shield
           width={18}
           height={18}
           fill="var(--nc-primary)"
-          className="inline-flex my-auto mr-1"
+          className="inline-flex mb-auto mt-2 mr-1"
         />
-        <span className="mr-1">Thu nhập đảm bảo:</span>
-        <strong className="text-color-primary">{f(price)}</strong>
+        <ul>
+          <li>
+            <span className="mr-1">Thu nhập đảm bảo:</span>
+            <strong className="text-color-primary">{f(totalPrice)}</strong>
+          </li>
+          <ul className="pl-4 ml-2 list-disc text-base">
+            <li>
+              <span className="mr-1">Phí giao hàng:</span>
+              <strong className="text-color-primary">{f(price)}</strong>
+            </li>
+            <li>
+              <span className="mr-1">Thu nhập đơn vượt mốc:</span>
+              <strong className="text-color-primary">
+                {f(extraOrderPrice)}
+              </strong>
+            </li>
+            <li>
+              <span className="mr-1">Thu nhập đơn ghép vượt mốc:</span>
+              <strong className="text-color-primary">
+                {f(extraJoinOrderPrice)}
+              </strong>
+            </li>
+          </ul>
+        </ul>
       </div>
     )
   }
@@ -79,22 +101,14 @@ const Total = () => {
     <div className="p-2 border-line -mt-[1px] text-xl">
       {renderAutoCompensate()}
       <div className="flex items-center">
-        {isAutoCompensate && (
-          <Shield
-            width={18}
-            height={18}
-            fill="var(--nc-primary)"
-            className="inline-flex my-auto mr-1 select-none pointer-events-none opacity-0 invisible"
-          />
-        )}
         <span
           className={clsx('mr-1', {
-            'text-lg': isAutoCompensate,
+            'text-lg': isCompensate,
           })}
         >
-          Tổng thu nhập:
+          {isCompensate ? 'Tổng thu nhập thực tế:' : 'Tổng thu nhập:'}
         </span>
-        <strong className="text-color-success">{f(totalPrice)}</strong>
+        <strong className={clsx('text-color-success')}>{f(totalPrice)}</strong>
       </div>
     </div>
   )

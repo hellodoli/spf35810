@@ -35,6 +35,7 @@ export function getDurationHubTime(start: string, end: string) {
   return timeEnd.getTime() - timeStart.getTime()
 }
 
+//== 2. HUB Time
 export function getHubTime(start: string, end: string) {
   const duration = getDurationHubTime(start, end)
   const extraMinutesUnixTime = getExtraMinuteUnixTime(59)
@@ -66,6 +67,60 @@ export function getHubTime(start: string, end: string) {
   }
   return hubTime
 }
+
+export function getRangeTimeMyHubs(displayType: HUB_DISPLAY) {
+  const date = new Date()
+  const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  const td = dayjs(today)
+
+  const getVal = (td: dayjs.Dayjs) => td.valueOf()
+
+  switch (displayType) {
+    case HUB_DISPLAY.D_TODAY: {
+      return {
+        start: today.getTime(),
+        end: today.getTime(),
+      }
+    }
+    case HUB_DISPLAY.D_3DAYS: {
+      return {
+        start: getVal(td.subtract(2, 'day')),
+        end: timeUtil.getUnixTime(today),
+      }
+    }
+    case HUB_DISPLAY.D_WEEK: {
+      return {
+        start: getVal(td.startOf('isoWeek')),
+        end: getVal(td.endOf('isoWeek')),
+      }
+    }
+    case HUB_DISPLAY.D_PREV_WEEK: {
+      return {
+        start: getVal(td.startOf('isoWeek').subtract(1, 'week')),
+        end: getVal(td.startOf('isoWeek').subtract(1, 'day')),
+      }
+    }
+    case HUB_DISPLAY.D_MONTH: {
+      return {
+        start: getVal(td.startOf('month')), // First day of the month
+        end: getVal(td.endOf('month')), // Last day of the month
+      }
+    }
+    case HUB_DISPLAY.D_PREV_MONTH: {
+      return {
+        start: getVal(td.subtract(1, 'month').startOf('month')), // First day of the previous month
+        end: getVal(td.subtract(1, 'month').endOf('month')), // Last day of the previous month
+      }
+    }
+    default: {
+      return {
+        start: today.getTime(),
+        end: today.getTime(),
+      }
+    }
+  }
+}
+//==== END
 
 //== 2. HUB Shift
 //==== START
@@ -162,67 +217,16 @@ export function isDisabledHubShift(
   }
   return isDisabled
 }
+
 //==== END
 
-export const isEnhanceHub = (hubType: HUB_TYPE) => {
+//== 3. HUB
+//==== START
+export function isEnhanceHub(hubType: HUB_TYPE) {
   return hubType === HUB_TYPE.HUB_1
 }
-
-export const isSuperHub = (hubType: HUB_TYPE) => {
+export function isSuperHub(hubType: HUB_TYPE) {
   return hubType === HUB_TYPE.HUB_10 || hubType === HUB_TYPE.HUB_8
-}
-
-export const getRangeTimeMyHubs = (displayType: HUB_DISPLAY) => {
-  const date = new Date()
-  const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-  const td = dayjs(today)
-
-  const getVal = (td: dayjs.Dayjs) => td.valueOf()
-
-  switch (displayType) {
-    case HUB_DISPLAY.D_TODAY: {
-      return {
-        start: today.getTime(),
-        end: today.getTime(),
-      }
-    }
-    case HUB_DISPLAY.D_3DAYS: {
-      return {
-        start: getVal(td.subtract(2, 'day')),
-        end: timeUtil.getUnixTime(today),
-      }
-    }
-    case HUB_DISPLAY.D_WEEK: {
-      return {
-        start: getVal(td.startOf('isoWeek')),
-        end: getVal(td.endOf('isoWeek')),
-      }
-    }
-    case HUB_DISPLAY.D_PREV_WEEK: {
-      return {
-        start: getVal(td.startOf('isoWeek').subtract(1, 'week')),
-        end: getVal(td.startOf('isoWeek').subtract(1, 'day')),
-      }
-    }
-    case HUB_DISPLAY.D_MONTH: {
-      return {
-        start: getVal(td.startOf('month')), // First day of the month
-        end: getVal(td.endOf('month')), // Last day of the month
-      }
-    }
-    case HUB_DISPLAY.D_PREV_MONTH: {
-      return {
-        start: getVal(td.subtract(1, 'month').startOf('month')), // First day of the previous month
-        end: getVal(td.subtract(1, 'month').endOf('month')), // Last day of the previous month
-      }
-    }
-    default: {
-      return {
-        start: today.getTime(),
-        end: today.getTime(),
-      }
-    }
-  }
 }
 
 export const isApplyForExtraSunday = (unixDate: number) => {
@@ -236,21 +240,17 @@ export const getIsHubWellDone = (isHubWellDone?: boolean) => {
     : IS_HUB_WELL_DONE_DEFAULT
 }
 
-export const canCompensate = ({
+export const getIsSoftCompensate = ({
   hubType,
-  order,
-  orderCompensate,
   isHubWellDone,
+  order,
 }: {
   hubType: HUB_TYPE
   order: number
-  orderCompensate: number
   isHubWellDone: boolean
 }) => {
-  return (
-    isSuperHub(hubType) &&
-    isHubWellDone &&
-    order > 0 &&
-    order <= orderCompensate
-  )
+  const isSoftCompensate = isSuperHub(hubType) && isHubWellDone && order > 0
+  return isSoftCompensate
 }
+
+//==== END

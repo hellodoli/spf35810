@@ -11,7 +11,8 @@ import {
   ResponseHubsAsyncThunk,
 } from 'modules/Form/types'
 import { RootState } from 'types'
-import { canCompensate, getRangeTimeMyHubs } from 'utils/hub'
+import { getRangeTimeMyHubs } from 'utils/hub'
+import { getCompensate_Hub } from 'utils/income'
 import { getNoEmptyJoins } from 'utils/join'
 
 import { actions } from './'
@@ -55,12 +56,20 @@ const modifyHub = createAsyncThunk(
       const { hubType, hubShift, hubTime, order, isHubWellDone, settings } =
         state.form
       const joins = getNoEmptyJoins([...Object.values(state.form.joins)])
-      const isAutoCompensate = canCompensate({
+      const orderCompensate = settings['ORDER_COMPENSATE_NUMBER'][hubType]
+      const orderPrice = settings['ORDER_PRICE']['DEFAULT']
+      const loc = settings['LOCATE']
+
+      const compensateHub = getCompensate_Hub({
         hubType,
-        isHubWellDone,
+        joins,
         order,
-        orderCompensate: settings['ORDER_COMPENSATE_NUMBER'][hubType],
+        orderPrice,
+        orderCompensate,
+        isHubWellDone,
+        loc,
       })
+      const isAutoCompensate = compensateHub.isCompensate
       const hub: Hub = {
         id: hubId,
         hubType,
