@@ -1,16 +1,25 @@
 import React from 'react'
-import { NavLink, useHistory, useLocation } from 'react-router-dom'
+import { NavLink, useHistory, useRouteMatch } from 'react-router-dom'
+import clsx from 'clsx'
 
+import { ReactComponent as AnglesDownIcon } from 'assets/icons/angles-down.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
-import { isAddHubPathName } from 'utils/route-path'
+import { isAddHubPathName, isFormHubPathName } from 'utils/route-path'
 
 const BackBtnGroup = () => {
-  const location = useLocation()
   const history = useHistory()
+  const { path } = useRouteMatch()
 
   const handleAddHub = () => {
     history.replace('/add')
+  }
+
+  const scrollToView = () => {
+    const hubPreview = document.querySelector('.hub-preview')
+    if (hubPreview) {
+      hubPreview.scrollIntoView()
+    }
   }
 
   return (
@@ -19,9 +28,9 @@ const BackBtnGroup = () => {
         className="stardust-button-reset stardust-button stardust-button--primary"
         to="/"
       >
-        <HomeIcon fill="#fff" width={16} height={16} />
+        <HomeIcon fill="var(--nc-primary-bg)" width={16} height={16} />
       </NavLink>
-      {isAddHubPathName(location.pathname) ? (
+      {isAddHubPathName(path) ? (
         <button
           className="stardust-button-reset stardust-button stardust-button--primary"
           onClick={() => history.replace('/my-hub')}
@@ -33,8 +42,20 @@ const BackBtnGroup = () => {
           className="stardust-button-reset stardust-button stardust-button--primary flex items-center leading-normal"
           onClick={handleAddHub}
         >
-          <PlusIcon fill="#fff" width={16} height={16} />
+          <PlusIcon fill="var(--nc-primary-bg)" width={16} height={16} />
           <span className="ml-2">Thêm ca hub</span>
+        </button>
+      )}
+      {isFormHubPathName(path) && (
+        <button
+          className={clsx(
+            'stardust-button-reset stardust-button stardust-button--secondary',
+            '!ml-auto',
+            'lg:hidden',
+          )}
+          onClick={scrollToView}
+        >
+          <AnglesDownIcon fill="var(--nc-primary)" width={16} height={16} />
         </button>
       )}
     </div>

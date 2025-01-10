@@ -23,7 +23,7 @@ const Kpi = () => {
       <div className={`flex flex-wrap gap-2`}>
         <button
           className={clsx(
-            'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
+            'stardust-button-reset stardust-button stardust-button--secondary',
           )}
           style={{
             color: isHubIsDone ? 'var(--nc-success)' : '',
@@ -35,7 +35,7 @@ const Kpi = () => {
         </button>
         <button
           className={clsx(
-            'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
+            'stardust-button-reset stardust-button stardust-button--secondary',
           )}
           style={{
             color: !isHubIsDone ? 'var(--nc-error)' : '',

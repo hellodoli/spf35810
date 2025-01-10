@@ -27,3 +27,15 @@ export const isAddHubPathName = (pathname: string = '') => {
     pathname === `/${routes.add}`
   )
 }
+
+export const isViewHubPathName = (pathname: string = '') => {
+  return (
+    pathname === routes.detailHub ||
+    pathname === `${routes.detailHub}/` ||
+    pathname === `/${routes.detailHub}`
+  )
+}
+
+export const isFormHubPathName = (pathname: string = '') => {
+  return isAddHubPathName(pathname) || isViewHubPathName(pathname)
+}

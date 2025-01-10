@@ -33,7 +33,7 @@ const Button = ({
   return (
     <button
       className={clsx(
-        'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
+        'stardust-button-reset stardust-button stardust-button--secondary',
         {
           'stardust-button--active': isHubTypeActive,
         },
