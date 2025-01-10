@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/spf35810/static/css/main.800c118d.css",
-    "main.js": "/spf35810/static/js/main.d155b7f6.js",
+    "main.css": "/spf35810/static/css/main.7a8c4f78.css",
+    "main.js": "/spf35810/static/js/main.7f1f7425.js",
     "service-worker.js": "/spf35810/service-worker.js",
     "static/media/gear.svg": "/spf35810/static/media/gear.72079afaf05c5d028023907e4ea3a7b9.svg",
     "static/media/sliders.svg": "/spf35810/static/media/sliders.3bdfb679742078f6b02ccab3d749902e.svg",
@@ -10,16 +10,17 @@
     "static/media/trash-alt.svg": "/spf35810/static/media/trash-alt.766e0c757bd618d68c95043c0813ccb5.svg",
     "static/media/home.svg": "/spf35810/static/media/home.ae8d27efbf90844a569fbc571d021b29.svg",
     "static/media/plus.svg": "/spf35810/static/media/plus.daf82070bd47c6e6bbd1f0246aed49e4.svg",
+    "static/media/angles-down.svg": "/spf35810/static/media/angles-down.adb0cbab485b770239297eaa2e1d0778.svg",
     "static/media/envira.svg": "/spf35810/static/media/envira.de6749de026942f002593e25a5c3bb8b.svg",
     "static/media/shield-halved.svg": "/spf35810/static/media/shield-halved.655587d3c8539d8884cbc13b0b48b382.svg",
     "static/media/circle-exclamation.svg": "/spf35810/static/media/circle-exclamation.b192dfdd77d1facc8782a33a2e28034d.svg",
     "static/media/caret-up.svg": "/spf35810/static/media/caret-up.16a1f6e6e92d2e19beda0ef38f41ea08.svg",
     "static/media/caret-down.svg": "/spf35810/static/media/caret-down.c6768da234ea14c51e954198d037fab2.svg",
-    "main.800c118d.css.map": "/spf35810/static/css/main.800c118d.css.map",
-    "main.d155b7f6.js.map": "/spf35810/static/js/main.d155b7f6.js.map"
+    "main.7a8c4f78.css.map": "/spf35810/static/css/main.7a8c4f78.css.map",
+    "main.7f1f7425.js.map": "/spf35810/static/js/main.7f1f7425.js.map"
   },
   "entrypoints": [
-    "static/css/main.800c118d.css",
-    "static/js/main.d155b7f6.js"
+    "static/css/main.7a8c4f78.css",
+    "static/js/main.7f1f7425.js"
   ]
 }
