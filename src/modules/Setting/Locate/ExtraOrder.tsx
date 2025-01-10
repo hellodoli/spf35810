@@ -48,7 +48,7 @@ const ExtraOrder = ({ curLocate }: Props) => {
         Tổng số đơn hoàn thành
       </Item>
       <Item className={`${headerClassName} col-start-4 col-end-6`}>
-        Nhận thêm
+        Nhận thêm (trên mỗi đơn)
       </Item>
 
       {/* Locate Header */}
