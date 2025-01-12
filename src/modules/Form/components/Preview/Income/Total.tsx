@@ -44,7 +44,7 @@ const Total = () => {
     loc,
   })
 
-  const { price: totalPrice } = getPrice_Hub({
+  const { totalPrice } = getPrice_Hub({
     hubType,
     joins,
     order,
@@ -59,7 +59,7 @@ const Total = () => {
 
   const renderAutoCompensate = () => {
     if (!isCompensate) return null
-    const { price, extraOrderPrice, extraJoinOrderPrice, totalPrice } =
+    const { shipPrice, extraOrderPrice, extraJoinOrderPrice, totalPrice } =
       compensateHub
     return (
       <div className="flex items-center">
@@ -77,7 +77,7 @@ const Total = () => {
           <ul className="pl-4 ml-2 list-disc text-base">
             <li>
               <span className="mr-1">Phí giao hàng:</span>
-              <strong className="text-color-primary">{f(price)}</strong>
+              <strong className="text-color-primary">{f(shipPrice)}</strong>
             </li>
             <li>
               <span className="mr-1">Thu nhập đơn vượt mốc:</span>

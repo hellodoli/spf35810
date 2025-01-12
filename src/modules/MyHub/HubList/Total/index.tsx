@@ -41,7 +41,7 @@ const Total = () => {
         orderPrice,
         loc,
         orderCompensateNumber,
-      }),
+      }).total,
     [hubs, orderPrice, loc, orderCompensateNumber],
   )
 

@@ -19,6 +19,12 @@ import {
 import { getPreviewOrder } from 'utils/preview'
 import { getPriceExtraOrder, getPriceJoinOrder } from 'utils/price'
 
+interface DetailItem {
+  hubShift: string
+  price: number
+  label: string
+}
+
 export const getColorPrice = (price: number) => {
   if (price === 0) return ''
   if (price < 0) return 'var(--nc-error)'
@@ -137,15 +143,17 @@ export const getPrice_Hub = ({
     loc,
   })
 
-  let price = singleOrderPrice + totalPriceJoinOrder
+  const shipPrice = singleOrderPrice + totalPriceJoinOrder
+  let totalPrice = shipPrice
 
   if (isHubWellDone) {
-    if (isShowExtraOrderPrice) price += extraOrder.totalPrice
-    if (isShowExtraJoinOrderPrice) price += extraJoinOrder.totalPrice
+    if (isShowExtraOrderPrice) totalPrice += extraOrder.totalPrice
+    if (isShowExtraJoinOrderPrice) totalPrice += extraJoinOrder.totalPrice
   }
 
   return {
-    price,
+    totalPrice,
+    shipPrice,
     extraOrderPrice: extraOrder.totalPrice,
     extraJoinOrderPrice: extraJoinOrder.totalPrice,
   }
@@ -179,14 +187,14 @@ export const getCompensate_Hub = ({
     orderPrice,
   })
   let isCompensate = false
-  let price = 0
+  let shipPrice = 0
   let extraOrderPrice = 0
   let extraJoinOrderPrice = 0
 
   if (calPrice && isSoftCompensate) {
     if (order < orderCompensate) {
       isCompensate = true
-      price = compensatePrice
+      shipPrice = compensatePrice
     } else {
       const hub = getPrice_Hub({
         hubType,
@@ -198,14 +206,16 @@ export const getCompensate_Hub = ({
         isShowExtraJoinOrderPrice: true,
         isShowExtraOrderPrice: true,
       })
-      if (hub.price < compensatePrice) {
+      const hubTotalPrice = hub.totalPrice
+      const hubExtraOrderPrice = hub.extraOrderPrice
+      if (hubTotalPrice < compensatePrice) {
         isCompensate = true
-        price = compensatePrice
-      } else if (hub.price - hub.extraOrderPrice < compensatePrice) {
+        shipPrice = compensatePrice
+      } else if (hubTotalPrice - hubExtraOrderPrice < compensatePrice) {
         isCompensate = true
         extraJoinOrderPrice = hub.extraJoinOrderPrice
-        price = compensatePrice - extraJoinOrderPrice
-        extraOrderPrice = hub.extraOrderPrice
+        shipPrice = compensatePrice - extraJoinOrderPrice
+        extraOrderPrice = hubExtraOrderPrice
       } else {
         isCompensate = false
       }
@@ -218,10 +228,10 @@ export const getCompensate_Hub = ({
     calPrice,
     order,
     // prices
-    price,
+    shipPrice,
     extraOrderPrice,
     extraJoinOrderPrice,
-    totalPrice: price + extraOrderPrice + extraJoinOrderPrice,
+    totalPrice: shipPrice + extraOrderPrice + extraJoinOrderPrice,
   }
 }
 export const getPrice_Hubs = ({
@@ -232,6 +242,7 @@ export const getPrice_Hubs = ({
   // optional
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
+  isShowExtraSundayPrice = true,
 }: {
   hubs: Hub[]
   orderPrice: number
@@ -239,11 +250,16 @@ export const getPrice_Hubs = ({
   loc: SETTING_LOCATE
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
+  isShowExtraSundayPrice?: boolean
 }) => {
   const sdList: {
     [key: string]: Hub[]
   } = {}
+  const shipArr: DetailItem[] = []
+  const extraOrderArr: DetailItem[] = []
+  const extraJoinOrderArr: DetailItem[] = []
   let total = 0
+
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
     const {
@@ -253,6 +269,7 @@ export const getPrice_Hubs = ({
       isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
       isAutoCompensate,
       hubTime,
+      hubShift,
     } = hub
     const orderCompensate = orderCompensateNumber[hubType]
     const generalParams = {
@@ -261,22 +278,47 @@ export const getPrice_Hubs = ({
       order,
       orderPrice,
       loc,
+      isHubWellDone,
     }
 
-    const price = isAutoCompensate
-      ? getCompensate_Hub({
-          ...generalParams,
-          orderCompensate,
-          isHubWellDone,
-        }).totalPrice
-      : getPrice_Hub({
-          ...generalParams,
-          isHubWellDone,
-          isShowExtraJoinOrderPrice,
-          isShowExtraOrderPrice,
-        }).price
+    const { totalPrice, shipPrice, extraOrderPrice, extraJoinOrderPrice } =
+      isAutoCompensate
+        ? getCompensate_Hub({
+            ...generalParams,
+            orderCompensate,
+          })
+        : getPrice_Hub({
+            ...generalParams,
+            isShowExtraJoinOrderPrice,
+            isShowExtraOrderPrice,
+          })
 
-    total += price
+    // tổng phí
+    total += totalPrice
+
+    const [start, end] = hubShift.split('_')
+    const label = `${start} - ${end}`
+
+    // phí giao hàng
+    shipArr.push({ hubShift, price: shipPrice, label })
+
+    // phí đơn vượt mốc
+    if (extraOrderPrice) {
+      extraOrderArr.push({
+        hubShift,
+        price: extraOrderPrice,
+        label,
+      })
+    }
+
+    // phí đơn ghép vượt mốc
+    if (extraJoinOrderPrice) {
+      extraJoinOrderArr.push({
+        hubShift,
+        price: extraJoinOrderPrice,
+        label,
+      })
+    }
 
     // extra sunday (split logic LATER)
     const isSunday = isApplyForExtraSunday(hubTime)
@@ -287,13 +329,20 @@ export const getPrice_Hubs = ({
   }
 
   // extra sunday (split logic LATER)
-  const hubsSunday = Object.values(sdList)
-  for (let j = 0; j < hubsSunday.length; j++) {
-    const extraSundayPrice = getExtraSundayPrice_Hubs(hubsSunday[j], loc)
-    total += extraSundayPrice
+  if (isShowExtraSundayPrice) {
+    const hubsSunday = Object.values(sdList)
+    for (let j = 0; j < hubsSunday.length; j++) {
+      const extraSundayPrice = getExtraSundayPrice_Hubs(hubsSunday[j], loc)
+      total += extraSundayPrice
+    }
   }
 
-  return total
+  return {
+    total,
+    shipArr,
+    extraOrderArr,
+    extraJoinOrderArr,
+  }
 }
 
 export const getDiffJoinsPrice_Hub = ({
