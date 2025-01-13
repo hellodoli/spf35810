@@ -1,11 +1,35 @@
 import React from 'react'
 
 import { SETTING_LOCATE } from 'modules/Form/types'
+import ExtraJoinsOrder from './ExtraJoinsOrder'
 import ExtraOrder from './ExtraOrder'
 import { locatesArr as locates } from './Item'
 import SundayReward from './SundayReward'
 
 import ChooseHubBtn from '../ChooseHubBtn'
+
+const Container = ({
+  children,
+  text = '',
+  renderTitle: renderTitleProp,
+}: {
+  children: React.ReactNode
+  text?: string
+  renderTitle?: () => React.ReactNode
+}) => {
+  const renderTitle = () => {
+    if (renderTitleProp) return renderTitleProp()
+    return (
+      <em className="link cursor-pointer select-none !no-underline">{text}</em>
+    )
+  }
+  return (
+    <div className="mt-6 first:mt-0">
+      <div className="mb-1">{renderTitle()}</div>
+      {children}
+    </div>
+  )
+}
 
 const Locate = ({
   locate,
@@ -33,24 +57,18 @@ const Locate = ({
       </div>
 
       {/* Sunday reward */}
-      <div className="mt-6 first:mt-0">
-        <div className="mb-1">
-          <em className="link cursor-pointer select-none !no-underline">
-            *Tiền thưởng chuyên cần chủ nhật (thay đổi tùy vào khu vực)
-          </em>
-        </div>
+      <Container text="*Tiền thưởng chuyên cần chủ nhật (thay đổi tùy vào khu vực)">
         <SundayReward curLocate={locate} />
-      </div>
+      </Container>
 
       {/* Extra order */}
-      <div className="mt-6 first:mt-0">
-        <div className="mb-1">
-          <em className="link cursor-pointer select-none !no-underline">
-            *Tiền thưởng vượt mốc đơn (thay đổi tùy vào khu vực)
-          </em>
-        </div>
+      <Container text="*Tiền thưởng đơn vượt mốc (thay đổi tùy vào khu vực)">
         <ExtraOrder curLocate={locate} />
-      </div>
+      </Container>
+
+      <Container text="*Tiền thưởng đơn ghép vượt mốc">
+        <ExtraJoinsOrder curLocate={locate} />
+      </Container>
     </div>
   )
 }

@@ -163,10 +163,7 @@ export const EXTRA_JOIN_ORDER: ExtraJoinOrderList = {
     [5, 8, 2000],
     [9, null, 4000],
   ],
-  [HUB_TYPE.HUB_1]: [
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
+  [HUB_TYPE.HUB_1]: [],
 }
 
 const EXTRA_SUNDAY_ORDER_NO_REWARD: OrderExtraRewardArr[] = [
