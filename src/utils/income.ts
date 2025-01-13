@@ -195,6 +195,8 @@ export const getCompensate_Hub = ({
     if (order < orderCompensate) {
       isCompensate = true
       shipPrice = compensatePrice
+      extraOrderPrice = 0
+      extraJoinOrderPrice = 0
     } else {
       const hub = getPrice_Hub({
         hubType,
@@ -207,17 +209,22 @@ export const getCompensate_Hub = ({
         isShowExtraOrderPrice: true,
       })
       const hubTotalPrice = hub.totalPrice
-      const hubExtraOrderPrice = hub.extraOrderPrice
+      const hubExtraJoinOrderPrice = hub.extraJoinOrderPrice
       if (hubTotalPrice < compensatePrice) {
         isCompensate = true
         shipPrice = compensatePrice
-      } else if (hubTotalPrice - hubExtraOrderPrice < compensatePrice) {
+        extraOrderPrice = 0
+        extraJoinOrderPrice = 0
+      } else if (hubTotalPrice - hubExtraJoinOrderPrice < compensatePrice) {
         isCompensate = true
-        extraJoinOrderPrice = hub.extraJoinOrderPrice
-        shipPrice = compensatePrice - extraJoinOrderPrice
-        extraOrderPrice = hubExtraOrderPrice
+        shipPrice = compensatePrice
+        extraJoinOrderPrice = hubExtraJoinOrderPrice
+        extraOrderPrice = 0
       } else {
         isCompensate = false
+        shipPrice = hub.shipPrice
+        extraJoinOrderPrice = hubExtraJoinOrderPrice
+        extraOrderPrice = hub.extraOrderPrice
       }
     }
   }
@@ -227,7 +234,12 @@ export const getCompensate_Hub = ({
     isCompensate,
     calPrice,
     order,
-    // prices
+    /**
+     * price when `isSoftCompensate = true` && `isCompensate = true`
+     * !Note:
+     * if `isCompensate = false` all prop below should not to use
+     * but if you want to use is still ok
+     */
     shipPrice,
     extraOrderPrice,
     extraJoinOrderPrice,
