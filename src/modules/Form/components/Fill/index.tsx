@@ -56,7 +56,7 @@ const Fill = ({
   return (
     <>
       <div className="flex-none w-full p-4 pb-0">
-        <BackBtnGroup />
+        <BackBtnGroup type={type} hubId={hubId} />
       </div>
       <div className={`hub-form lg:flex overflow-hidden ${type}`}>
         <ContainerLayout>

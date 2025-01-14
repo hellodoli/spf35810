@@ -6,14 +6,12 @@ import { AppDispatch } from 'configStore'
 
 import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
 import FormItem from 'components/FormItem'
+import ModifyHubBtn from 'components/ModifyHubBtn'
 import {
-  hubShiftSelector,
   isCalModeSelector,
-  isLoadingSelector,
   isOpenPreviewSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
-import * as thunk from 'modules/Form/slices/asyncThunk'
 import { FORM_ACTION } from 'modules/Form/types'
 
 interface Props {
@@ -25,19 +23,11 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
   const dispatch: AppDispatch = useDispatch()
   const history = useHistory()
 
-  const hubShift = useSelector(hubShiftSelector)
-  const isLoading = useSelector(isLoadingSelector)
   const isCalMode = useSelector(isCalModeSelector)
   const isOpenPreview = useSelector(isOpenPreviewSelector)
 
-  const disabled = !hubShift || isLoading
-
   const toggle = () => {
     dispatch(actions.toggleIsOpenPreview())
-  }
-
-  const modify = () => {
-    dispatch(thunk.modifyHub({ type, hubId }))
   }
 
   const onCancel = () => {
@@ -48,13 +38,11 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
     <FormItem label="">
       <div className="md:flex md:items-center w-full">
         {!isCalMode && (
-          <button
-            className="stardust-button-reset stardust-button stardust-button--primary stardust-button--wide w-full md:w-auto"
-            disabled={disabled}
-            onClick={modify}
-          >
-            {type === FORM_ACTION.ADD ? 'thêm ca' : 'cập nhật ca'}
-          </button>
+          <ModifyHubBtn
+            hubId={hubId}
+            formType={type}
+            className="stardust-button--wide w-full md:w-auto"
+          />
         )}
         <button
           className="stardust-button-reset stardust-button stardust-button--secondary stardust-button--wide mt-1 md:mt-0 md:ml-2 w-full md:w-auto"

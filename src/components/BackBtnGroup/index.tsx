@@ -5,9 +5,17 @@ import clsx from 'clsx'
 import { ReactComponent as AnglesDownIcon } from 'assets/icons/angles-down.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
+import ModifyHubBtn from 'components/ModifyHubBtn'
+import { FORM_ACTION } from 'modules/Form/types/enum'
 import { isAddHubPathName, isFormHubPathName } from 'utils/route-path'
 
-const BackBtnGroup = () => {
+const BackBtnGroup = ({
+  type = FORM_ACTION.ADD,
+  hubId = '',
+}: {
+  type?: FORM_ACTION
+  hubId?: string
+}) => {
   const history = useHistory()
   const { path } = useRouteMatch()
 
@@ -47,16 +55,23 @@ const BackBtnGroup = () => {
         </button>
       )}
       {isFormHubPathName(path) && (
-        <button
-          className={clsx(
-            'stardust-button-reset stardust-button stardust-button--secondary',
-            '!ml-auto',
-            'lg:hidden',
-          )}
-          onClick={scrollToView}
-        >
-          <AnglesDownIcon fill="var(--nc-primary)" width={16} height={16} />
-        </button>
+        <>
+          <ModifyHubBtn
+            formType={type}
+            hubId={hubId}
+            iconMode={true}
+            className="!ml-auto lg:hidden"
+          />
+          <button
+            className={clsx(
+              'stardust-button-reset stardust-button stardust-button--secondary',
+              'lg:hidden',
+            )}
+            onClick={scrollToView}
+          >
+            <AnglesDownIcon fill="var(--nc-primary)" width={16} height={16} />
+          </button>
+        </>
       )}
     </div>
   )
