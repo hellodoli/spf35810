@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
 import { WEEK_REWARD } from 'modules/Form/constants'
-import { Hub, HUB_DISPLAY, HUB_TYPE } from 'modules/Form/types'
+import { Hub, HUB_DISPLAY, HUB_TYPE, SETTING_LOCATE } from 'modules/Form/types'
 import { getIsHubWellDone } from 'utils/hub'
 import { getDisplayDate } from 'utils/time'
 
@@ -68,7 +68,7 @@ const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
   return hubTypes
 }
 
-export const getWeekReward = (hubs: Hub[]) => {
+export const getWeekReward = (hubs: Hub[], loc: SETTING_LOCATE) => {
   if (hubs.some((hub) => hub.order <= 0)) {
     /**
      * Not valid with shopeefood KPI, return 0
@@ -99,7 +99,7 @@ export const getWeekReward = (hubs: Hub[]) => {
 
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i]
-    const rewards = WEEK_REWARD[key]
+    const rewards = WEEK_REWARD[loc][key]
     hubTypesArr.push({ type: key, price: 0, count: 0 })
 
     if (rewards) {
@@ -144,7 +144,9 @@ interface GetHubsInRangeWeek {
   isAcceptFullWeekOnly?: boolean
 }
 
-interface GetHubsInRangeWeekDisplayList extends GetHubsInRangeWeek {}
+interface GetHubsInRangeWeekDisplayList extends GetHubsInRangeWeek {
+  loc: SETTING_LOCATE
+}
 
 export function getMondayAndSundayInRange(fromUnix: number, toUnix: number) {
   const from = dayjs.unix(fromUnix / 1000) // Convert 'from' to a dayjs object
@@ -219,6 +221,7 @@ export function getHubsInRangeWeekDisplayList({
   dates,
   hubs,
   isAcceptFullWeekOnly = false,
+  loc,
 }: GetHubsInRangeWeekDisplayList) {
   const hubsInRangeWeek = getHubsInRangeWeek({
     hubs,
@@ -227,7 +230,7 @@ export function getHubsInRangeWeekDisplayList({
   })
   const hubsInRangeWeekArr = Object.values(hubsInRangeWeek)
   const hubsResult = hubsInRangeWeekArr.map((weekR) => {
-    const { hubTypesArr } = getWeekReward(weekR.hubs)
+    const { hubTypesArr } = getWeekReward(weekR.hubs, loc)
     const [monFrom, sunEnd] = weekR.id.split('-')
     return {
       id: weekR.id,

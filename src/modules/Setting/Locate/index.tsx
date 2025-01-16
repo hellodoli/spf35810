@@ -5,6 +5,7 @@ import ExtraJoinsOrder from './ExtraJoinsOrder'
 import ExtraOrder from './ExtraOrder'
 import { locatesArr as locates } from './Item'
 import SundayReward from './SundayReward'
+import WeekReward from './WeekReward'
 
 import ChooseHubBtn from '../ChooseHubBtn'
 
@@ -56,16 +57,22 @@ const Locate = ({
         </div>
       </div>
 
-      {/* Sunday reward */}
+      {/* Week Reward */}
+      <Container text="*Tiền thưởng tuần (thay đổi tùy vào khu vực)">
+        <WeekReward curLocate={locate} />
+      </Container>
+
+      {/* Sunday Reward */}
       <Container text="*Tiền thưởng chuyên cần chủ nhật (thay đổi tùy vào khu vực)">
         <SundayReward curLocate={locate} />
       </Container>
 
-      {/* Extra order */}
+      {/* Extra Order */}
       <Container text="*Tiền thưởng đơn vượt mốc (thay đổi tùy vào khu vực)">
         <ExtraOrder curLocate={locate} />
       </Container>
 
+      {/* Extra Join Order */}
       <Container text="*Tiền thưởng đơn ghép vượt mốc">
         <ExtraJoinsOrder curLocate={locate} />
       </Container>

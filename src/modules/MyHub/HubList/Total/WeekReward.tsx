@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 
 import ExpandBtn from 'components/ExpandBtn'
-import { HUB_COLORS, WEEK_REWARD } from 'modules/Form/constants'
+import { HUB_COLORS } from 'modules/Form/constants'
 import {
   displayMyHubTypeSelector,
   rangeTimeEndSelector,
   rangeTimeStartSelector,
 } from 'modules/Form/selectors'
-import { Hub, HUB_DISPLAY } from 'modules/Form/types'
+import { Hub, HUB_DISPLAY, SETTING_LOCATE } from 'modules/Form/types'
 import { getRangeTimeMyHubs } from 'utils/hub'
 import { getFormat } from 'utils/price'
 import {
@@ -18,13 +17,13 @@ import {
   getMondayAndSundayInRange,
 } from './utils'
 
-const WeekReward = ({
-  hubs,
-  totalPrice = 0,
-}: {
+interface Props {
   hubs: Hub[]
+  loc: SETTING_LOCATE
   totalPrice?: number
-}) => {
+}
+
+const WeekReward = ({ hubs, loc, totalPrice = 0 }: Props) => {
   const [toggle, setToggle] = useState(false)
   const f = useMemo(() => getFormat(), [])
   const displayMyHubType = useSelector(displayMyHubTypeSelector)
@@ -52,9 +51,10 @@ const WeekReward = ({
       getHubsInRangeWeekDisplayList({
         dates,
         hubs,
+        loc,
         isAcceptFullWeekOnly: false,
       }),
-    [dates, hubs],
+    [dates, hubs, loc],
   )
   const weekRewardPrice = useMemo(() => {
     return hubsInRangeWeek.reduce((acc, weekR) => {

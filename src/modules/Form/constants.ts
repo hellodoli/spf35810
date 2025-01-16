@@ -6,18 +6,17 @@ import {
   get_SettingsDefault_QuickAddJoins,
 } from './default'
 import {
-  ExtraJoinOrderList,
-  ExtraOrderList,
   ExtraOrderSundayList,
+  ExtraRewardList,
   FilterHubTypeSetting,
   HUB_TYPE,
   HubColorsFilter,
   IncomeSetting,
   JoinOrder,
   OrderExtraRewardArr,
+  RewardList,
   SETTING_LOCATE,
   Settings,
-  WeekRewardList,
 } from './types'
 
 export const INCOME_SETTING: IncomeSetting = {
@@ -83,7 +82,7 @@ export const JOIN_3_DEFAULT: JoinOrder = {
 
 export const HUB_SHIFT = generate_HUB_SHIFT()
 
-export const EXTRA_ORDER: ExtraOrderList = {
+export const EXTRA_ORDER: ExtraRewardList = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [[31, null, 6000]],
     [HUB_TYPE.HUB_8]: [
@@ -146,7 +145,7 @@ export const EXTRA_ORDER: ExtraOrderList = {
     [HUB_TYPE.HUB_1]: [],
   },
 }
-export const EXTRA_JOIN_ORDER: ExtraJoinOrderList = {
+export const EXTRA_JOIN_ORDER: RewardList = {
   [HUB_TYPE.HUB_10]: [
     [18, 22, 4000],
     [23, null, 6000],
@@ -189,22 +188,68 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
   [SETTING_LOCATE.OTHER]: [...EXTRA_SUNDAY_ORDER_NO_REWARD],
 }
 
-export const WEEK_REWARD: WeekRewardList = {
-  [HUB_TYPE.HUB_10]: [
-    [4, 4, 100000],
-    [5, 5, 150000],
-    [6, null, 300000],
-  ],
-  [HUB_TYPE.HUB_8]: [
-    [4, 4, 100000],
-    [5, 5, 150000],
-    [6, null, 300000],
-  ],
-  [HUB_TYPE.HUB_5]: [
-    [6, 6, 150000],
-    [9, 9, 300000],
-    [12, null, 500000],
-  ],
+export const WEEK_REWARD: ExtraRewardList = {
+  [SETTING_LOCATE.TPHCM]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [6, 6, 150000],
+      [9, 9, 300000],
+      [12, null, 500000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HANOI]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [6, 6, 150000],
+      [9, 9, 300000],
+      [12, null, 500000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HAIPHONG]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 80000],
+      [6, null, 200000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 80000],
+      [6, null, 200000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [6, 6, 80000],
+      [9, null, 200000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.OTHER]: {
+    [HUB_TYPE.HUB_10]: [],
+    [HUB_TYPE.HUB_8]: [],
+    [HUB_TYPE.HUB_5]: [],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
 }
 
 export const HUB_COLORS: HubColorsFilter = {
