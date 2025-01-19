@@ -215,12 +215,12 @@ export const getCompensate_Hub = ({
         shipPrice = compensatePrice
         extraOrderPrice = 0
         extraJoinOrderPrice = 0
-      } else if (hubTotalPrice - hubExtraJoinOrderPrice < compensatePrice) {
+      } /*else if (hubTotalPrice - hubExtraJoinOrderPrice < compensatePrice) {
         isCompensate = true
         shipPrice = compensatePrice
         extraJoinOrderPrice = hubExtraJoinOrderPrice
         extraOrderPrice = 0
-      } else {
+      }*/ else {
         isCompensate = false
         shipPrice = hub.shipPrice
         extraJoinOrderPrice = hubExtraJoinOrderPrice
