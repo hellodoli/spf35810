@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import {
   displayMyHubTypeSelector,
   filterHubTypeSelector,
+  isExpandWeekRewardSelector,
   locateSettingSelector,
   myHubsSelector,
   orderCompensateNumberSelector,
@@ -16,7 +17,8 @@ import WeekReward from './WeekReward'
 
 const Total = () => {
   const f = useMemo(() => getFormat(), [])
-  const displayMyHubType = useSelector(displayMyHubTypeSelector) // displayMyHubType
+  const displayMyHubType = useSelector(displayMyHubTypeSelector)
+  const isExpandWeekReward = useSelector(isExpandWeekRewardSelector)
   // hubs data
   const allHubs = useSelector(myHubsSelector)
   // filters
@@ -46,7 +48,10 @@ const Total = () => {
   )
 
   const renderShowPrice = () => {
-    const showWeekReward = isShowWeekReward({ displayMyHubType })
+    const showWeekReward = isShowWeekReward({
+      displayMyHubType,
+      isExpandWeekReward,
+    })
     if (showWeekReward) {
       return <WeekReward hubs={hubs} totalPrice={price} loc={loc} />
     }

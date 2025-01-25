@@ -25,7 +25,10 @@ export interface HubState {
   isOpenDb: boolean
   displayMyHubType: HUB_DISPLAY
   rangeTime: RangeTime
-  isExpandAllHubListSummary: boolean
+
   filterHubTypeSetting: FilterHubTypeSetting
-  isExtraChildJoinOrder: boolean
+
+  isExpandAllHub: boolean
+  isExpandExtraChildJoinOrder: boolean
+  isExpandWeekReward: boolean
 }

@@ -6,7 +6,7 @@ import { ReactComponent as BookIcon } from 'assets/icons/book.svg'
 import { ReactComponent as BookOpenIcon } from 'assets/icons/book-open.svg'
 import { ReactComponent as TrashIcon } from 'assets/icons/trash-alt.svg'
 import ExpandBtn from 'components/ExpandBtn'
-import { isExpandAllHubListSummarySelector } from 'modules/Form/selectors'
+import { isExpandAllHubSelector } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
 import { getDisplayDate } from 'utils/time'
 
@@ -27,7 +27,7 @@ const Meta = ({
 }: Props) => {
   const dispatch: AppDispatch = useDispatch()
 
-  const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
+  const isExpandAllHub = useSelector(isExpandAllHubSelector)
 
   const displayDate = useMemo(
     () => getDisplayDate(new Date(+date), true),

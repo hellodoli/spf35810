@@ -34,15 +34,18 @@ const defaultGetWeekReward: GetWeekReward = {
 
 export const isShowWeekReward = ({
   displayMyHubType,
+  isExpandWeekReward,
 }: {
   displayMyHubType: HUB_DISPLAY
+  isExpandWeekReward: boolean
 }) => {
   return (
-    displayMyHubType === HUB_DISPLAY.D_PREV_WEEK ||
-    displayMyHubType === HUB_DISPLAY.D_WEEK ||
-    displayMyHubType === HUB_DISPLAY.D_MONTH ||
-    displayMyHubType === HUB_DISPLAY.D_PREV_MONTH ||
-    displayMyHubType === HUB_DISPLAY.D_CUSTOM
+    isExpandWeekReward &&
+    (displayMyHubType === HUB_DISPLAY.D_PREV_WEEK ||
+      displayMyHubType === HUB_DISPLAY.D_WEEK ||
+      displayMyHubType === HUB_DISPLAY.D_MONTH ||
+      displayMyHubType === HUB_DISPLAY.D_PREV_MONTH ||
+      displayMyHubType === HUB_DISPLAY.D_CUSTOM)
   )
 }
 

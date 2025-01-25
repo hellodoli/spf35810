@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 import {
-  isExtraChildJoinOrderSelector,
+  isExpandExtraChildJoinOrderSelector,
   locateSettingSelector,
   orderPriceDefaultSelector,
 } from 'modules/Form/selectors'
@@ -43,7 +43,7 @@ const Price = ({ hubs }: Props) => {
 const PriceMemo = memo(Price)
 
 const JoinsPay = (props: Props) => {
-  const isExtraChildJoinOrder = useSelector(isExtraChildJoinOrderSelector)
+  const isExtraChildJoinOrder = useSelector(isExpandExtraChildJoinOrderSelector)
   if (!isExtraChildJoinOrder) return null
   return <PriceMemo {...props} />
 }

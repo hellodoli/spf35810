@@ -18,4 +18,11 @@ function generateKey<T>({
   }
 }
 
-export { generateKey, getLocalStorage }
+function getLSBoolValue(lsKey: string, defaultValue: boolean) {
+  const lsValue = getLocalStorage(lsKey)
+  if (lsValue === 'true' || lsValue === 'false')
+    return lsValue === 'true' ? true : false
+  return defaultValue
+}
+
+export { generateKey, getLocalStorage, getLSBoolValue }

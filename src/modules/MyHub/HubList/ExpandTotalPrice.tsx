@@ -1,50 +1,68 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 
 import { ReactComponent as CaretIcon } from 'assets/icons/caret-down.svg'
 import Switch from 'components/Switch'
 import {
-  isExpandAllHubListSummarySelector,
-  isExtraChildJoinOrderSelector,
+  isExpandAllHubSelector,
+  isExpandExtraChildJoinOrderSelector,
+  isExpandWeekRewardSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 
 const Switches = () => {
   const dispatch = useDispatch()
 
-  const isExpandAllHubListSummary = useSelector(
-    isExpandAllHubListSummarySelector,
-  )
-  const isExtraChildJoinOrder = useSelector(isExtraChildJoinOrderSelector)
+  const isExpandAllHub = useSelector(isExpandAllHubSelector)
+  const isExtraChildJoinOrder = useSelector(isExpandExtraChildJoinOrderSelector)
+  const isExpandWeekReward = useSelector(isExpandWeekRewardSelector)
 
-  const onChangeCheckedShowHideDetail = useCallback((isChecked: boolean) => {
-    if (isChecked) dispatch(actions.showIsExpandAllHubListSummary())
-    else dispatch(actions.hideIsExpandAllHubListSummary())
+  const expandData = useMemo(
+    () => ({
+      allHub: isExpandAllHub,
+      childJoinOrder: isExtraChildJoinOrder,
+      weekReward: isExpandWeekReward,
+    }),
+    [isExpandAllHub, isExtraChildJoinOrder, isExpandWeekReward],
+  )
+
+  const expandAllHub = useCallback((isChecked: boolean) => {
+    if (isChecked) dispatch(actions.showIsExpandAllHub())
+    else dispatch(actions.hideIsExpandAllHub())
   }, [])
 
-  const onChangeCheckedShowHideExtraChildJoinOrder = useCallback(
-    (isChecked: boolean) => {
-      if (isChecked) dispatch(actions.showIsExtraChildJoinOrder())
-      else dispatch(actions.hideIsExtraChildJoinOrder())
-    },
-    [],
-  )
+  const expandExtraChildJoinOrder = useCallback((isChecked: boolean) => {
+    if (isChecked) dispatch(actions.showIsExtraChildJoinOrder())
+    else dispatch(actions.hideIsExtraChildJoinOrder())
+  }, [])
+
+  const expandWeekReward = useCallback((isChecked: boolean) => {
+    if (isChecked) dispatch(actions.showIsExpandWeekReward())
+    else dispatch(actions.hideIsExpandWeekReward())
+  }, [])
 
   return (
     <>
       <div className="mb-2 last:mb-0">
         <Switch
           text="Ẩn/hiện tất cả thống kê"
-          onChangeChecked={onChangeCheckedShowHideDetail}
-          checked={isExpandAllHubListSummary}
+          onChangeChecked={expandAllHub}
+          checked={expandData.allHub}
+        />
+      </div>
+      <div className="mb-2 last:mb-0">
+        <Switch
+          text="Thưởng tuần"
+          onChangeChecked={expandWeekReward}
+          checked={expandData.weekReward}
         />
       </div>
       <div className="mb-2 last:mb-0">
         <Switch
           text="Thu nhập tăng/giảm do đơn ghép"
-          onChangeChecked={onChangeCheckedShowHideExtraChildJoinOrder}
-          checked={isExtraChildJoinOrder}
+          onChangeChecked={expandExtraChildJoinOrder}
+          checked={expandData.childJoinOrder}
         />
       </div>
     </>

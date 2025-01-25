@@ -5,6 +5,7 @@ import {
 } from 'modules/Form/constants'
 import {
   get_Global_ExpandAllHubListSummary,
+  get_Global_ExpandWeekReward,
   get_Global_ExtraChildJoinOrder,
 } from 'modules/Form/default'
 import { HUB_DISPLAY, HubState } from 'modules/Form/types'
@@ -37,10 +38,9 @@ const initialState: HubState = {
     end: 0,
   },
   // global switch
-  // (ẩn/hiện) tất cả thống kê (list hub)
-  isExpandAllHubListSummary: get_Global_ExpandAllHubListSummary(),
-  // (ẩn/hiện) Thu nhập tăng/giảm do đơn ghép (list hub)
-  isExtraChildJoinOrder: get_Global_ExtraChildJoinOrder(),
+  isExpandAllHub: get_Global_ExpandAllHubListSummary(),
+  isExpandExtraChildJoinOrder: get_Global_ExtraChildJoinOrder(),
+  isExpandWeekReward: get_Global_ExpandWeekReward(),
 }
 
 export { initialState }

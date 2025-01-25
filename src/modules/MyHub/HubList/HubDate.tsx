@@ -5,7 +5,7 @@ import { AppDispatch } from 'configStore'
 
 import {
   filterHubTypeSelector,
-  isExpandAllHubListSummarySelector,
+  isExpandAllHubSelector,
   locateSettingSelector,
   makeMyHubByHubTime,
 } from 'modules/Form/selectors'
@@ -29,7 +29,7 @@ const HubDate = ({ date = '' }: Props) => {
   const filters = useSelector(filterHubTypeSelector)
   const myHubByHubTime = useMemo(makeMyHubByHubTime, [])
   const hubsByDate = useSelector((state) => myHubByHubTime(state, +date))
-  const isExpandAllHub = useSelector(isExpandAllHubListSummarySelector)
+  const isExpandAllHub = useSelector(isExpandAllHubSelector)
 
   const [toggle, setToggle] = useState(isExpandAllHub)
   const [isOpenViewDetailIncome, setIsOpenViewDetailIncome] = useState(false)

@@ -137,14 +137,19 @@ export const rangeTimeSelector = createSelector(
   (state) => state.rangeTime,
 )
 
-export const isExpandAllHubListSummarySelector = createSelector(
+export const isExpandAllHubSelector = createSelector(
   [selectSlice],
-  (state) => state.isExpandAllHubListSummary,
+  (state) => state.isExpandAllHub,
 )
 
-export const isExtraChildJoinOrderSelector = createSelector(
+export const isExpandExtraChildJoinOrderSelector = createSelector(
   [selectSlice],
-  (state) => state.isExtraChildJoinOrder,
+  (state) => state.isExpandExtraChildJoinOrder,
+)
+
+export const isExpandWeekRewardSelector = createSelector(
+  [selectSlice],
+  (state) => state.isExpandWeekReward,
 )
 
 export const filterHubTypeSelector = createSelector(

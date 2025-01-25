@@ -2,6 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 import {
   global_ExpandAllHubListSummary,
+  global_ExpandWeekReward,
   global_ExtraChildJoinOrder,
 } from 'modules/Form/default'
 import { HUB_DISPLAY, HubState, RangeTime } from 'modules/Form/types'
@@ -11,9 +12,11 @@ import { setLocalStorage } from 'utils/storages'
 const setLs_IsExtraChildJoinOrder = (value: boolean) => {
   setLocalStorage(global_ExtraChildJoinOrder.lsKey, `${value}`)
 }
-
-const setLs_IsExpandAllHubListSummary = (value: boolean) => {
+const setLs_IsExpandAllHub = (value: boolean) => {
   setLocalStorage(global_ExpandAllHubListSummary.lsKey, `${value}`)
+}
+const setLs_IsExpandWeekReward = (value: boolean) => {
+  setLocalStorage(global_ExpandWeekReward.lsKey, `${value}`)
 }
 
 export const hubActions = {
@@ -47,29 +50,38 @@ export const hubActions = {
     state.isLoadingMyHub = false
   },
 
-  showIsExpandAllHubListSummary: (state: HubState) => {
-    state.isExpandAllHubListSummary = true
-    setLs_IsExpandAllHubListSummary(true)
+  showIsExpandAllHub: (state: HubState) => {
+    state.isExpandAllHub = true
+    setLs_IsExpandAllHub(true)
   },
-  hideIsExpandAllHubListSummary: (state: HubState) => {
-    state.isExpandAllHubListSummary = false
-    setLs_IsExpandAllHubListSummary(false)
+  hideIsExpandAllHub: (state: HubState) => {
+    state.isExpandAllHub = false
+    setLs_IsExpandAllHub(false)
   },
-  toggleIsExpandAllHubListSummary: (state: HubState) => {
-    state.isExpandAllHubListSummary = !state.isExpandAllHubListSummary
-    setLs_IsExpandAllHubListSummary(!state.isExpandAllHubListSummary)
+  toggleIsExpandAllHub: (state: HubState) => {
+    state.isExpandAllHub = !state.isExpandAllHub
+    setLs_IsExpandAllHub(!state.isExpandAllHub)
   },
 
   showIsExtraChildJoinOrder: (state: HubState) => {
-    state.isExtraChildJoinOrder = true
+    state.isExpandExtraChildJoinOrder = true
     setLs_IsExtraChildJoinOrder(true)
   },
   hideIsExtraChildJoinOrder: (state: HubState) => {
-    state.isExtraChildJoinOrder = false
+    state.isExpandExtraChildJoinOrder = false
     setLs_IsExtraChildJoinOrder(false)
   },
   toggleIsExtraChildJoinOrder: (state: HubState) => {
-    state.isExtraChildJoinOrder = !state.isExtraChildJoinOrder
-    setLs_IsExtraChildJoinOrder(!state.isExtraChildJoinOrder)
+    state.isExpandExtraChildJoinOrder = !state.isExpandExtraChildJoinOrder
+    setLs_IsExtraChildJoinOrder(!state.isExpandExtraChildJoinOrder)
+  },
+
+  showIsExpandWeekReward: (state: HubState) => {
+    state.isExpandWeekReward = true
+    setLs_IsExpandWeekReward(true)
+  },
+  hideIsExpandWeekReward: (state: HubState) => {
+    state.isExpandWeekReward = false
+    setLs_IsExpandWeekReward(false)
   },
 }
