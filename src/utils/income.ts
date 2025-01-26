@@ -127,35 +127,42 @@ export const getPrice_Hub = ({
 
   const singleOrderPrice = singleOrder * orderPrice
 
-  // thu nhập đơn ghép vượt mốc
-  const extraOrder = getPriceExtraOrder({
-    hubType,
-    order,
-    isJoin: false,
-    loc,
-  })
-
-  // thu nhập đơn con (của đơn ghép) vượt mốc
-  const extraJoinOrder = getPriceExtraOrder({
-    hubType,
-    order: totalJoinsOrder,
-    isJoin: true,
-    loc,
-  })
-
   const shipPrice = singleOrderPrice + totalPriceJoinOrder
   let totalPrice = shipPrice
+  let extraOrderPrice = 0
+  let extraJoinOrderPrice = 0
 
   if (isHubWellDone) {
-    if (isShowExtraOrderPrice) totalPrice += extraOrder.totalPrice
-    if (isShowExtraJoinOrderPrice) totalPrice += extraJoinOrder.totalPrice
+    // thu nhập đơn ghép vượt mốc
+    if (isShowExtraOrderPrice) {
+      const extraOrder = getPriceExtraOrder({
+        hubType,
+        order,
+        isJoin: false,
+        loc,
+      })
+      extraOrderPrice = extraOrder.totalPrice
+      totalPrice += extraOrderPrice
+    }
+
+    // thu nhập đơn con (của đơn ghép) vượt mốc
+    if (isShowExtraJoinOrderPrice) {
+      const extraJoinOrder = getPriceExtraOrder({
+        hubType,
+        order: totalJoinsOrder,
+        isJoin: true,
+        loc,
+      })
+      extraJoinOrderPrice = extraJoinOrder.totalPrice
+      totalPrice += extraJoinOrderPrice
+    }
   }
 
   return {
     totalPrice,
     shipPrice,
-    extraOrderPrice: extraOrder.totalPrice,
-    extraJoinOrderPrice: extraJoinOrder.totalPrice,
+    extraOrderPrice,
+    extraJoinOrderPrice,
   }
 }
 export const getCompensate_Hub = ({
