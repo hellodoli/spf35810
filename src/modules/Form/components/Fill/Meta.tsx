@@ -7,6 +7,7 @@ import { AppDispatch } from 'configStore'
 import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
 import FormItem from 'components/FormItem'
 import ModifyHubBtn from 'components/ModifyHubBtn'
+import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import {
   isCalModeSelector,
   isOpenPreviewSelector,
@@ -55,6 +56,7 @@ const Meta = ({ type = FORM_ACTION.ADD, hubId = '' }: Props) => {
             'stardust-button-reset stardust-button stardust-button--primary stardust-button--wide',
             'mt-4 md:mt-0 w-full md:w-auto md:ml-auto',
             'flex items-center text-center justify-center',
+            ELE_CLASSNAMES.TOGGLE_HUB_PREVIEW_BUTTON,
           )}
           onClick={toggle}
         >

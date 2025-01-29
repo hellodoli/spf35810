@@ -1,6 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
-
-import { generate_HUB_SHIFT } from 'utils/hub'
+import { combineWithUniqId, generate_HUB_SHIFT } from 'utils/hub'
 import {
   get_SettingsDefault_Locate,
   get_SettingsDefault_QuickAddJoins,
@@ -68,13 +66,13 @@ export const SETTINGS_DEFAULT: Settings = {
   QUICK_ADD_JOINS: get_SettingsDefault_QuickAddJoins(),
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
-  key: `order_join_2_default_key_${uuidv4()}`,
+  key: combineWithUniqId('order_join_2_default_key'),
   type: 2,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_2.PRICE,
 }
 export const JOIN_3_DEFAULT: JoinOrder = {
-  key: `order_join_3_default_key_${uuidv4()}`,
+  key: combineWithUniqId('order_join_3_default_key'),
   type: 3,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_3.PRICE,
@@ -261,3 +259,8 @@ export const HUB_COLORS: HubColorsFilter = {
 }
 
 export const IS_HUB_WELL_DONE_DEFAULT = true
+
+export const ELE_CLASSNAMES = {
+  HUB_PREVIEW: combineWithUniqId('hub-preview'),
+  TOGGLE_HUB_PREVIEW_BUTTON: combineWithUniqId('toggle_hub_preview_button'),
+}

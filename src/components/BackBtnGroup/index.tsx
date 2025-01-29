@@ -6,6 +6,7 @@ import { ReactComponent as AnglesDownIcon } from 'assets/icons/angles-down.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
 import ModifyHubBtn from 'components/ModifyHubBtn'
+import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import { FORM_ACTION } from 'modules/Form/types/enum'
 import { isAddHubPathName, isFormHubPathName } from 'utils/route-path'
 
@@ -24,10 +25,13 @@ const BackBtnGroup = ({
   }
 
   const scrollToView = () => {
-    const hubPreview = document.querySelector('.hub-preview')
-    if (hubPreview) {
-      hubPreview.scrollIntoView()
-    }
+    const hubPreview = document.querySelector(`.${ELE_CLASSNAMES.HUB_PREVIEW}`)
+    if (!hubPreview) {
+      const toggleHubPreviewBtn = document.querySelector(
+        `.${ELE_CLASSNAMES.TOGGLE_HUB_PREVIEW_BUTTON}`,
+      )
+      if (toggleHubPreviewBtn) toggleHubPreviewBtn.scrollIntoView()
+    } else hubPreview.scrollIntoView()
   }
 
   return (

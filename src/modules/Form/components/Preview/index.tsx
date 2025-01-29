@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 
 import { CheckBox } from 'components/Input'
+import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import Income from './Income'
 import Order from './Order'
 
@@ -32,7 +33,7 @@ const Preview = () => {
   )
 
   return (
-    <div className="hub-preview p-4">
+    <div className={`${ELE_CLASSNAMES.HUB_PREVIEW} p-4`}>
       <div className="checkbox-choose-preview p-2">
         <div className="flex items-center gap-3">
           <CheckBox

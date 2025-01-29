@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import weekday from 'dayjs/plugin/weekday'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   Hub,
@@ -35,7 +36,11 @@ export function getDurationHubTime(start: string, end: string) {
   return timeEnd.getTime() - timeStart.getTime()
 }
 
-//== 2. HUB Time
+export function combineWithUniqId(name: string) {
+  return `${name}__${uuidv4()}`
+}
+
+//== 1. HUB Time
 export function getHubTime(start: string, end: string) {
   const duration = getDurationHubTime(start, end)
   const extraMinutesUnixTime = getExtraMinuteUnixTime(59)
