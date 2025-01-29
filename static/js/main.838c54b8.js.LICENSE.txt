@@ -1,8 +1,26 @@
 /*!
+  Copyright (c) 2015 Jed Watson.
+  Based on code that is Copyright 2013-2015, Facebook, Inc.
+  All rights reserved.
+*/
+
+/*!
   react-datepicker v7.3.0
   https://github.com/Hacker0x01/react-datepicker
   Released under the MIT License.
 */
+
+/*!
+ * Adapted from jQuery UI core
+ *
+ * http://jqueryui.com
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/ui-core/
+ */
 
 /*!
 * tabbable 6.2.0
