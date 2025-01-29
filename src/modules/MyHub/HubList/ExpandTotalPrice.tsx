@@ -10,6 +10,7 @@ import {
   isExpandWeekRewardSelector,
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
+import InfoModal from './InfoModal'
 
 const Switches = () => {
   const dispatch = useDispatch()
@@ -96,6 +97,9 @@ const ExpandOtherSetting = () => {
           })}
         />
       </button>
+
+      <InfoModal />
+
       {toggleSetting && (
         <div
           className={clsx('p-2 w-full', 'border-line')}
