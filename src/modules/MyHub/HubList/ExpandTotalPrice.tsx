@@ -70,11 +70,11 @@ const Switches = () => {
   )
 }
 
-const ExpandOtherSetting = () => {
+const ExpandTotalPrice = () => {
   const [toggleSetting, setToggleSetting] = useState(false)
 
   return (
-    <>
+    <div className="button-group flex items-stretch flex-wrap no-margin-x">
       <button
         className={clsx(
           'flex items-center',
@@ -113,14 +113,6 @@ const ExpandOtherSetting = () => {
           <Switches />
         </div>
       )}
-    </>
-  )
-}
-
-const ExpandTotalPrice = () => {
-  return (
-    <div className="button-group flex items-stretch flex-wrap no-margin-x">
-      <ExpandOtherSetting />
     </div>
   )
 }
