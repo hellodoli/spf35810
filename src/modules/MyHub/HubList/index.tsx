@@ -45,11 +45,6 @@ const HubList = () => {
     }
   }, [type, isOpenDb, rangeTimeStart, rangeTimeEnd])
 
-  if (isLoadingMyHub === null) return
-  if (!isLoadingMyHub && !myHubsKeys.length) {
-    return <div className="text-center p-4 my-8">Không có ca hub nào.</div>
-  }
-
   console.log({
     displayMyHubType: type,
     rangeTimeStart,
@@ -58,9 +53,14 @@ const HubList = () => {
     myHubsKeys,
   })
 
+  if (isLoadingMyHub === null || isLoadingMyHub) return null
+  if (!isLoadingMyHub && !myHubsKeys.length) {
+    return <div className="text-center p-4 my-8">Không có ca hub nào.</div>
+  }
+
   return (
     <div className="hub-list">
-      <div className="mb-4">
+      <div className="mb-4 empty:hidden">
         <ExpandTotalPrice />
       </div>
       {isLoadingMyHub ? null /**
