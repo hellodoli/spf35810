@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/spf35810/static/css/main.8098eb3b.css",
-    "main.js": "/spf35810/static/js/main.f1f64336.js",
+    "main.css": "/spf35810/static/css/main.1196e241.css",
+    "main.js": "/spf35810/static/js/main.c1a466a4.js",
     "service-worker.js": "/spf35810/service-worker.js",
     "static/media/gear.svg": "/spf35810/static/media/gear.72079afaf05c5d028023907e4ea3a7b9.svg",
+    "index.html": "/spf35810/index.html",
+    "static/media/sun.svg": "/spf35810/static/media/sun.f8b22bb778a8a0630bb1910849ea0256.svg",
     "static/media/sliders.svg": "/spf35810/static/media/sliders.3bdfb679742078f6b02ccab3d749902e.svg",
+    "static/media/trash-can.svg": "/spf35810/static/media/trash-can.cf412128a81be93068478eca5b9ae8f4.svg",
     "static/media/book-open.svg": "/spf35810/static/media/book-open.7243a37d1e4b73bc77bd3b2ddf0a50bb.svg",
     "static/media/floppy-disk.svg": "/spf35810/static/media/floppy-disk.584c7684994e337271bac2c540531d21.svg",
     "static/media/right-to-bracket.svg": "/spf35810/static/media/right-to-bracket.e8625aa9de758d7be046400b68f15f68.svg",
     "static/media/cart-shopping.svg": "/spf35810/static/media/cart-shopping.edf023f7baacf5b5ddca8335d53fc316.svg",
     "static/media/book.svg": "/spf35810/static/media/book.887880488833c15d2bf68ee7c20b8961.svg",
-    "index.html": "/spf35810/index.html",
-    "static/media/trash-alt.svg": "/spf35810/static/media/trash-alt.766e0c757bd618d68c95043c0813ccb5.svg",
     "static/media/home.svg": "/spf35810/static/media/home.ae8d27efbf90844a569fbc571d021b29.svg",
+    "static/media/moon.svg": "/spf35810/static/media/moon.8e881ad8337aee23be3f7cddd6b6d3f0.svg",
     "static/media/circle-info.svg": "/spf35810/static/media/circle-info.71b4c40403faa8778f80a69eaaff3a76.svg",
     "static/media/plus.svg": "/spf35810/static/media/plus.daf82070bd47c6e6bbd1f0246aed49e4.svg",
     "static/media/angles-down.svg": "/spf35810/static/media/angles-down.adb0cbab485b770239297eaa2e1d0778.svg",
@@ -21,11 +23,11 @@
     "static/media/circle-exclamation.svg": "/spf35810/static/media/circle-exclamation.b192dfdd77d1facc8782a33a2e28034d.svg",
     "static/media/caret-up.svg": "/spf35810/static/media/caret-up.16a1f6e6e92d2e19beda0ef38f41ea08.svg",
     "static/media/caret-down.svg": "/spf35810/static/media/caret-down.c6768da234ea14c51e954198d037fab2.svg",
-    "main.8098eb3b.css.map": "/spf35810/static/css/main.8098eb3b.css.map",
-    "main.f1f64336.js.map": "/spf35810/static/js/main.f1f64336.js.map"
+    "main.1196e241.css.map": "/spf35810/static/css/main.1196e241.css.map",
+    "main.c1a466a4.js.map": "/spf35810/static/js/main.c1a466a4.js.map"
   },
   "entrypoints": [
-    "static/css/main.8098eb3b.css",
-    "static/js/main.f1f64336.js"
+    "static/css/main.1196e241.css",
+    "static/js/main.c1a466a4.js"
   ]
 }
