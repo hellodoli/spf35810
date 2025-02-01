@@ -54,7 +54,7 @@ const InfoModal = () => {
         <InfoIcon width={14} height={14} fill="var(--nc-primary)" />
       </button>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <div className="modal-content">
+        <>
           <div className="modal-header text-base">
             <strong>Chú thích biểu tượng</strong>
           </div>
@@ -78,7 +78,7 @@ const InfoModal = () => {
               OK
             </button>
           </div>
-        </div>
+        </>
       </Modal>
     </>
   )

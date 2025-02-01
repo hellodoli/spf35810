@@ -14,7 +14,7 @@
 }
 
 .stardust-button {
-  background-color: #fff;
+  background-color: var(--spf-btn-bg);
   border: 1px solid rgba(0, 0, 0, 0.26);
   border-radius: 4px;
   color: var(--nc-text-primary);
@@ -48,7 +48,7 @@
   }
   &--secondary {
     border: 1px solid rgba(0, 0, 0, 0.09);
-    color: #555;
+    color: var(--spf-btn-color-secondary);
     &.stardust-button--active {
       border-color: var(--nc-primary);
       color: var(--nc-primary);
@@ -61,8 +61,7 @@
     &:hover:not(:disabled):not(.disabled):not(.stardust-button--active):not(
         .stardust-button--active-primary
       ) {
-      background-color: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.09);
+      background-color: var(--spf-btn-hover-color-secondary);
     }
   }
   &--ghost {

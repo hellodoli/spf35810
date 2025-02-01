@@ -20,13 +20,7 @@ const CheckBox = ({
 
   return (
     <div className="flex flex-wrap justify-start items-start">
-      <label
-        className="overflow-hidden flex items-start cursor-pointer select-none py-1"
-        style={{
-          color: 'rgba(0,0,0,.8)',
-          fontSize: '.875rem',
-        }}
-      >
+      <label className="overflow-hidden flex items-start cursor-pointer select-none py-1 text-sm">
         <div
           className="relative"
           style={{

@@ -35,7 +35,13 @@ const Join = (props: Props) => {
     <div className="join-item border-line p-1 pt-6 relative">
       {/* Delete this join */}
       <span
-        className="delete-join-button absolute right-2 top-2 rounded-full w-[18px] h-[18px] flex items-center justify-center cursor-pointer"
+        className={clsx(
+          'dark:text-white',
+          'delete-join-button',
+          'absolute right-2 top-2',
+          'rounded-full w-[18px] h-[18px] flex items-center justify-center',
+          'cursor-pointer',
+        )}
         style={{ border: '1px solid rgba(85, 85, 85, 0.65)' }}
         onClick={deleteJoin}
       >

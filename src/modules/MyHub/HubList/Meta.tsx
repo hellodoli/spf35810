@@ -4,7 +4,7 @@ import { AppDispatch } from 'configStore'
 
 import { ReactComponent as BookIcon } from 'assets/icons/book.svg'
 import { ReactComponent as BookOpenIcon } from 'assets/icons/book-open.svg'
-import { ReactComponent as TrashIcon } from 'assets/icons/trash-alt.svg'
+import { ReactComponent as TrashIcon } from 'assets/icons/trash-can.svg'
 import ExpandBtn from 'components/ExpandBtn'
 import { isExpandAllHubSelector } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
@@ -90,7 +90,7 @@ const Meta = ({
           className="stardust-button-reset stardust-button stardust-button--secondary"
           onClick={deleteHubDate}
         >
-          <TrashIcon fill="rgba(0, 0, 0, 0.8)" width={14} height={14} />
+          <TrashIcon fill="var(--nc-error)" width={14} height={14} />
         </button>
       </div>
     </>

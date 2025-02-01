@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
+import ToggleDarkLightBtn from 'components/ToggleDarkLightBtn'
 import { routes } from 'utils/route-path'
 
 const menus = [
@@ -58,6 +59,9 @@ const Menu = () => {
             </button>
           )
         })}
+      </div>
+      <div className="absolute bottom-12 left-auto right-auto">
+        <ToggleDarkLightBtn />
       </div>
     </div>
   )

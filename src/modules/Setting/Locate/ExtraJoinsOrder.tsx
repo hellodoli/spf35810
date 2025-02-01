@@ -68,7 +68,7 @@ const ExtraJoinsOrder = ({ curLocate }: Props) => {
           <React.Fragment key={parentKey}>
             {/* Title */}
             <Item
-              className="text-[#000000] font-semibold col-start-1 col-end-2"
+              className="font-semibold col-start-1 col-end-2"
               style={{ gridRow: `span ${order.length}` }}
             >
               {hubType}
@@ -77,7 +77,7 @@ const ExtraJoinsOrder = ({ curLocate }: Props) => {
             {!order.length && (
               <>
                 <Item
-                  className="text-[#000000] font-semibold col-start-2 col-end-4"
+                  className="font-semibold col-start-2 col-end-4"
                   fade={true}
                 >
                   Không áp dụng
@@ -100,7 +100,7 @@ const ExtraJoinsOrder = ({ curLocate }: Props) => {
                 <React.Fragment key={`${parentKey}-${id}`}>
                   {/* Title */}
                   <Item
-                    className="text-[#000000] font-semibold col-start-2 col-end-4"
+                    className="font-semibold col-start-2 col-end-4"
                     fade={label === '-'}
                   >
                     {label}

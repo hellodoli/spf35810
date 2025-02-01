@@ -39,6 +39,7 @@ const Layout = ({
     >
       <div
         className={clsx(
+          'prose-spf prose-slate dark:prose-dark',
           `overflow-hidden lg:text-right`,
           // default mobile
           'pb-1',
@@ -49,7 +50,6 @@ const Layout = ({
           },
         )}
         style={{
-          color: 'rgba(85,85,85,0.8)',
           width: applyPxStyleValue(labelWidth),
         }}
       >
@@ -64,6 +64,7 @@ const Layout = ({
           `lg:pb-[${applyPxStyleValue(pb)}]`,
         )}
         style={{
+          color: 'var(--nc-text-primary)',
           width: contentWidth,
         }}
       >

@@ -34,3 +34,8 @@ export enum SETTING_LOCATE {
   HAIPHONG = 'HAIPHONG',
   OTHER = 'OTHER',
 }
+
+export enum COLOR_THEME {
+  LIGHT = 'light',
+  DARK = 'dark',
+}

@@ -6,10 +6,7 @@ interface Props {
 
 const MaxLabel = ({ max }: Props) => {
   return (
-    <div
-      className="mt-1 text-xs"
-      style={{ color: 'color: rgba(85, 85, 85, 0.8)' }}
-    >
+    <div className="mt-1 text-xs prose-spf prose-slate dark:prose-dark">
       (Số lượng tối đa: {max} đơn)
     </div>
   )

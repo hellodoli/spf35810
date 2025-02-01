@@ -93,7 +93,7 @@ const AddJoin = ({
 
   return (
     <div
-      className={clsx('border p-2 border-black', {
+      className={clsx('border p-2', 'border-black dark:border-white', {
         [wrapperClassNames]: !!wrapperClassNames,
       })}
     >

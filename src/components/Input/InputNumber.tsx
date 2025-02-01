@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
+import clsx from 'clsx'
 
 import { ReactComponent as DownIcon } from 'assets/icons/caret-down.svg'
 import { ReactComponent as UpIcon } from 'assets/icons/caret-up.svg'
@@ -35,7 +36,17 @@ const getNumberValue = (value: number | string, min: number) => {
 
 const counterBtnStyles = {
   padding: '4px 0',
-  border: 'none',
+  border: 0,
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0,
+}
+
+const counterBtnStyles_Top = {
+  borderBottomRightRadius: 0,
+}
+
+const counterBtnStyles_Bottom = {
+  borderTopRightRadius: 0,
 }
 
 const CounterMobile = ({
@@ -60,20 +71,28 @@ const CounterMobile = ({
     <div className="lg:hidden w-6 h-full">
       <div className="w-full h-1/2 flex items-stretch">
         <button
-          className="w-full stardust-button-reset stardust-button flex items-center justify-center"
-          style={counterBtnStyles}
+          className={clsx(
+            'w-full',
+            'stardust-button-reset stardust-button',
+            'flex items-center justify-center',
+          )}
+          style={{ ...counterBtnStyles, ...counterBtnStyles_Top }}
           onClick={() => onCount('up')}
         >
-          <UpIcon width={12} height={14} />
+          <UpIcon width={12} height={14} fill="var(--spf-textPrimary)" />
         </button>
       </div>
       <div className="w-full h-1/2 flex items-stretch">
         <button
-          className="w-full stardust-button-reset stardust-button flex items-center justify-center"
-          style={counterBtnStyles}
+          className={clsx(
+            'w-full',
+            'stardust-button-reset stardust-button',
+            'flex items-center justify-center',
+          )}
+          style={{ ...counterBtnStyles, ...counterBtnStyles_Bottom }}
           onClick={() => onCount('down')}
         >
-          <DownIcon width={12} height={14} />
+          <DownIcon width={12} height={14} fill="var(--spf-textPrimary)" />
         </button>
       </div>
     </div>

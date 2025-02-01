@@ -40,7 +40,7 @@ const SundayReward = ({ curLocate }: Props) => {
         return (
           <React.Fragment key={id}>
             {/* Title */}
-            <Item className="text-[#000000] font-semibold">
+            <Item className="font-semibold">
               {to ? `Từ ${from} - ${to} (đơn)` : `Từ ${from} đơn trở lên`}
             </Item>
             {/* Value */}

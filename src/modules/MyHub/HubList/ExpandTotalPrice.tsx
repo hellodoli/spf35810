@@ -74,19 +74,23 @@ const ExpandTotalPrice = () => {
   const [toggleSetting, setToggleSetting] = useState(false)
 
   return (
-    <div className="button-group flex items-stretch flex-wrap no-margin-x">
+    <div
+      className={clsx(
+        'button-group',
+        'flex items-stretch flex-wrap',
+        'no-margin-x',
+      )}
+    >
       <button
         className={clsx(
           'flex items-center',
           'stardust-button-reset stardust-button',
+          'stardust-button--secondary',
           {
             '!border-b-transparent': toggleSetting,
           },
         )}
         onClick={() => setToggleSetting(!toggleSetting)}
-        style={{
-          background: toggleSetting ? 'var(--nc-primary-bg)' : '#fff',
-        }}
       >
         <span className="mr-2">Tùy chọn</span>
         <CaretIcon
@@ -95,6 +99,7 @@ const ExpandTotalPrice = () => {
           className={clsx('transform', {
             'rotate-180': toggleSetting,
           })}
+          fill="var(--spf-textPrimary)"
         />
       </button>
 
@@ -102,12 +107,14 @@ const ExpandTotalPrice = () => {
 
       {toggleSetting && (
         <div
-          className={clsx('p-2 w-full', 'border-line')}
+          className={clsx(
+            'p-2 w-full',
+            'border-line',
+            'dark:bg-slate-800 dark:shadow-none bg-white',
+          )}
           style={{
             marginTop: '-1px',
             padding: '8px 10px',
-            borderColor: 'var(--nc-util-disabled)',
-            background: 'var(--nc-primary-bg)',
           }}
         >
           <Switches />

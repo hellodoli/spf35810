@@ -106,9 +106,7 @@ const WeekReward = ({ hubs, loc, totalPrice = 0 }: Props) => {
                     <li className="text-sm">{weekR.displayDate}</li>
                     <ul className="pl-4 ml-2 list-disc">
                       {!hubTypesArr.length && (
-                        <li className="text-sm italic text-color-disabled">
-                          Không đủ ca.
-                        </li>
+                        <li className="text-sm italic">Không đủ ca.</li>
                       )}
                       {hubTypesArr.map((hub) => {
                         return (
