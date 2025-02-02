@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import FormItem from 'components/FormItem'
@@ -38,10 +39,6 @@ const Compensate = () => {
 
   const isAutoCompensate = compensateHub.isCompensate
 
-  const statusColor = isAutoCompensate
-    ? 'var(--nc-primary)'
-    : 'var(--nc-util-disabled)'
-
   const cache = useRef({
     remind: false,
     prevIsAutoCompensate: isAutoCompensate,
@@ -69,11 +66,30 @@ const Compensate = () => {
   return (
     <FormItem center={true} label="Chế độ bù đơn:">
       <button
-        className="flex items-center stardust-button-reset stardust-button stardust-button--ghost select-none !p-0"
-        style={{ color: statusColor }}
+        className={clsx(
+          'stardust-button-reset stardust-button stardust-button--ghost',
+          'flex items-center',
+          'select-none !p-0',
+        )}
       >
-        <span className="mr-1">{isAutoCompensate ? 'ON' : 'OFF'}:</span>
-        <Shield width={14} height={14} fill={statusColor} />
+        <span
+          className={clsx(
+            'prose-spf prose-slate dark:prose-dark',
+            'flex items-center',
+          )}
+        >
+          <span
+            className="mr-1"
+            style={{ color: isAutoCompensate ? 'var(--nc-primary)' : '' }}
+          >
+            {isAutoCompensate ? 'ON' : 'OFF'}:
+          </span>
+          <Shield
+            width={14}
+            height={14}
+            fill={isAutoCompensate ? 'var(--nc-primary)' : 'currentColor'}
+          />
+        </span>
       </button>
     </FormItem>
   )
