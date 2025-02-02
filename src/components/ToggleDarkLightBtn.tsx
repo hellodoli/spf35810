@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 
 import { ReactComponent as MoonIcon } from 'assets/icons/moon.svg'
@@ -9,11 +9,23 @@ import { getTheme, toggleTheme } from 'utils/theme'
 const ToggleDarkLightBtn = () => {
   const [theme, setTheme] = useState(() => getTheme())
 
-  const toggle = () => {
-    toggleTheme((nextTheme) => {
-      setTheme(nextTheme)
-    })
+  const t = useMemo(() => {
+    const isDark = theme === COLOR_THEME.DARK
+    return {
+      icon: isDark ? MoonIcon : SunIcon,
+      text: isDark ? 'Dark' : 'Light',
+    }
+  }, [theme])
+
+  const afterToggleCallback = (nextTheme: COLOR_THEME) => {
+    setTheme(nextTheme)
   }
+
+  const toggle = () => {
+    toggleTheme(afterToggleCallback)
+  }
+
+  const Icon = t.icon
 
   return (
     <button
@@ -24,14 +36,8 @@ const ToggleDarkLightBtn = () => {
       )}
       onClick={toggle}
     >
-      {theme === COLOR_THEME.LIGHT ? (
-        <SunIcon width={12} height={12} fill="currentColor" />
-      ) : (
-        <MoonIcon width={12} height={12} fill="currentColor" />
-      )}
-      <span className="ml-1">
-        {theme === COLOR_THEME.LIGHT ? 'Light' : 'Dark'}
-      </span>
+      <Icon width={12} height={12} fill="currentColor" />
+      <span className="ml-1">{t.text}</span>
     </button>
   )
 }

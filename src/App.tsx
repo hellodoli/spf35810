@@ -13,7 +13,7 @@ function App() {
       <div
         className={clsx(
           'App main',
-          'min-h-[100vh] min-w-[100vw]',
+          'min-h-[100vh]',
           'bg-white dark:bg-slate-900 dark:text-slate-200',
         )}
       >

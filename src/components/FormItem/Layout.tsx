@@ -40,7 +40,7 @@ const Layout = ({
       <div
         className={clsx(
           'prose-spf prose-slate dark:prose-dark',
-          `overflow-hidden lg:text-right`,
+          'overflow-hidden lg:text-right',
           // default mobile
           'pb-1',
           `lg:pb-[${applyPxStyleValue(pb)}]`,
@@ -74,12 +74,12 @@ const Layout = ({
       {!!subLabel && (
         <div
           className={clsx(
+            'prose-spf prose-slate dark:prose-dark',
             'flex-none overflow-hidden whitespace-nowrap',
             'lg:pl-[20px]',
             'hidden lg:flex',
           )}
           style={{
-            color: 'rgba(85,85,85,0.8)',
             width: subLabelWidth,
           }}
         >
