@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/spf35810/static/css/main.5d04484f.css",
-    "main.js": "/spf35810/static/js/main.bc7fa94e.js",
+    "main.css": "/spf35810/static/css/main.5710da09.css",
+    "main.js": "/spf35810/static/js/main.81cbd3c2.js",
     "service-worker.js": "/spf35810/service-worker.js",
     "static/media/gear.svg": "/spf35810/static/media/gear.72079afaf05c5d028023907e4ea3a7b9.svg",
     "index.html": "/spf35810/index.html",
     "static/media/sun.svg": "/spf35810/static/media/sun.f8b22bb778a8a0630bb1910849ea0256.svg",
     "static/media/sliders.svg": "/spf35810/static/media/sliders.3bdfb679742078f6b02ccab3d749902e.svg",
+    "static/media/calendar-xmark.svg": "/spf35810/static/media/calendar-xmark.3d97293635e0f57fad137bb40c124fdf.svg",
     "static/media/trash-can.svg": "/spf35810/static/media/trash-can.cf412128a81be93068478eca5b9ae8f4.svg",
     "static/media/book-open.svg": "/spf35810/static/media/book-open.7243a37d1e4b73bc77bd3b2ddf0a50bb.svg",
     "static/media/floppy-disk.svg": "/spf35810/static/media/floppy-disk.584c7684994e337271bac2c540531d21.svg",
@@ -23,11 +24,11 @@
     "static/media/circle-exclamation.svg": "/spf35810/static/media/circle-exclamation.b192dfdd77d1facc8782a33a2e28034d.svg",
     "static/media/caret-up.svg": "/spf35810/static/media/caret-up.16a1f6e6e92d2e19beda0ef38f41ea08.svg",
     "static/media/caret-down.svg": "/spf35810/static/media/caret-down.c6768da234ea14c51e954198d037fab2.svg",
-    "main.5d04484f.css.map": "/spf35810/static/css/main.5d04484f.css.map",
-    "main.bc7fa94e.js.map": "/spf35810/static/js/main.bc7fa94e.js.map"
+    "main.5710da09.css.map": "/spf35810/static/css/main.5710da09.css.map",
+    "main.81cbd3c2.js.map": "/spf35810/static/js/main.81cbd3c2.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d04484f.css",
-    "static/js/main.bc7fa94e.js"
+    "static/css/main.5710da09.css",
+    "static/js/main.81cbd3c2.js"
   ]
 }
