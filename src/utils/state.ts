@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 
 import {
+  HUB_ADVANCED_OPT,
   IS_HUB_WELL_DONE_DEFAULT,
   JOIN_2_DEFAULT,
   SETTINGS_DEFAULT,
@@ -19,22 +20,21 @@ export const getResetHubFillState = () => {
     hubShift: '',
     hubTime: getUnixTime(new Date()),
     order: SETTINGS_DEFAULT.ORDER_QUANTITY.INIT, // LATER: custom by user
-    joins: {
-      [join.key]: join,
-    },
+    joins: { [join.key]: join },
+    hubAdvancedOpt: HUB_ADVANCED_OPT,
   }
 }
 
 export const changeResetHubFillState = (state: HubState) => {
-  const { hubShift, hubTime, hubType, joins, isHubWellDone } =
+  const { hubShift, hubTime, hubType, joins, isHubWellDone, hubAdvancedOpt } =
     getResetHubFillState()
   state.hubShift = hubShift
   state.hubTime = hubTime
   state.hubType = hubType
   state.joins = joins
   state.isHubWellDone = isHubWellDone
-
   state.order = state.settings['ORDER_QUANTITY']['INIT']
+  state.hubAdvancedOpt = hubAdvancedOpt
   state.isLoading = false
   state.isLoadingMyHub = false
 }

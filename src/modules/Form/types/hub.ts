@@ -19,6 +19,11 @@ export type HubShiftList = {
   [key in HUB_TYPE]: HubShift[]
 }
 
+export type HubAdvancedOpt = {
+  includeWeekReward: boolean
+  includeSundayReward: boolean
+}
+
 export interface HubGenaral {
   hubType: HUB_TYPE
   hubShift: string
@@ -27,6 +32,7 @@ export interface HubGenaral {
   joins: JoinOrder[]
   isHubWellDone?: boolean
   isAutoCompensate?: boolean
+  hubAdvancedOpt?: HubAdvancedOpt
 }
 
 export interface Hub extends HubGenaral {

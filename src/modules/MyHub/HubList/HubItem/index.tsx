@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 
+import { ReactComponent as CalendarXmark } from 'assets/icons/calendar-xmark.svg'
 import { ReactComponent as Envira } from 'assets/icons/envira.svg'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
-import { HUB_COLORS, IS_HUB_WELL_DONE_DEFAULT } from 'modules/Form/constants'
+import { HUB_COLORS } from 'modules/Form/constants'
 import { HUB_TYPE, JoinOrder, SETTING_LOCATE } from 'modules/Form/types'
 import { getTotalOrderOfJoins } from 'utils/join'
 import { getPriceExtraOrder } from 'utils/price'
@@ -16,10 +17,11 @@ interface Props {
   isDisabledClicked?: boolean
   onClick?: (hubId: string) => void
   onHandleDeleteHub?: (hubId: string) => void
-  isHubWellDone?: boolean
+  isHubWellDone: boolean
   isAutoCompensate?: boolean
   joins: JoinOrder[]
   loc: SETTING_LOCATE
+  isIncludeWeekReward: boolean
 }
 
 const HubItem = ({
@@ -30,14 +32,22 @@ const HubItem = ({
   isDisabledClicked = false,
   onClick,
   onHandleDeleteHub,
-  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+  isHubWellDone,
   isAutoCompensate = false,
   joins,
   loc,
+  isIncludeWeekReward,
 }: Props) => {
   const [start, end] = hubShift.split('_')
   const label = `${start} - ${end}`
   const statusColor = HUB_COLORS[hubType]
+
+  const iconProps = {
+    width: 14,
+    height: 14,
+    fill: statusColor,
+    className: 'mr-2',
+  }
 
   const extraJoinOrder = getPriceExtraOrder({
     hubType,
@@ -75,11 +85,10 @@ const HubItem = ({
         onClick={onHandleClick}
       >
         {extraJoinOrder.totalOrderCount > 0 && !isAutoCompensate && (
-          <Envira width={14} height={14} fill={statusColor} className="mr-2" />
+          <Envira {...iconProps} />
         )}
-        {isAutoCompensate && (
-          <Shield width={14} height={14} fill={statusColor} className="mr-2" />
-        )}
+        {isAutoCompensate && <Shield {...iconProps} />}
+        {!isIncludeWeekReward && <CalendarXmark {...iconProps} />}
         <span className="leading-normal">{label}</span>
         <span
           className="lg:hidden delete-button ml-2 lg:ml-auto rounded-full w-[16px] h-[16px] flex items-center justify-center cursor-pointer border-line p-1 text-xs select-none"

@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 
 import { WEEK_REWARD } from 'modules/Form/constants'
 import { Hub, HUB_DISPLAY, HUB_TYPE, SETTING_LOCATE } from 'modules/Form/types'
-import { getIsHubWellDone } from 'utils/hub'
+import { getIncludeWeekReward, getIsHubWellDone } from 'utils/hub'
 import { getDisplayDate } from 'utils/time'
 
 // week reward
@@ -61,7 +61,8 @@ const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
     const hubType = hub.hubType
     if (
       hubTypesCheckArr.includes(hubType) &&
-      getIsHubWellDone(hub.isHubWellDone)
+      getIsHubWellDone(hub.isHubWellDone) &&
+      getIncludeWeekReward(hub.hubAdvancedOpt?.includeWeekReward)
     ) {
       const validHubType = hubType as HubTypeValidForReward
       hubTypes[validHubType] += 1

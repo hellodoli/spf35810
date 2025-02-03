@@ -12,6 +12,7 @@ import {
 } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { FORM_ACTION } from 'modules/Form/types'
+import AdvancedOpt from './AdvancedOpt'
 import AutoCompensate from './AutoCompensate'
 import HubSelect from './HubSelect'
 import HubTime from './HubTime'
@@ -79,6 +80,8 @@ const Fill = ({
             )}
             {/* Đơn ghép */}
             <Joins />
+            {/* Tùy chỉnh nâng cao */}
+            {!isCalMode && <AdvancedOpt />}
             {/* Meta zone */}
             <Meta type={type} hubId={hubId} />
           </>

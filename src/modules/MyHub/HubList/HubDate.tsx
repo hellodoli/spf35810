@@ -10,6 +10,7 @@ import {
   makeMyHubByHubTime,
 } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
+import { getIncludeWeekReward, getIsHubWellDone } from 'utils/hub'
 import { getFilter_Hubs } from 'utils/income'
 import { routes } from 'utils/route-path'
 import { getDisplayDate } from 'utils/time'
@@ -106,8 +107,11 @@ const HubDate = ({ date = '' }: Props) => {
                   hubTime={hub.hubTime}
                   onClick={onClickHubItem}
                   onHandleDeleteHub={onHandleDeleteHub}
-                  isHubWellDone={hub.isHubWellDone}
+                  isHubWellDone={getIsHubWellDone(hub.isHubWellDone)}
                   isAutoCompensate={hub.isAutoCompensate}
+                  isIncludeWeekReward={getIncludeWeekReward(
+                    hub.hubAdvancedOpt?.includeWeekReward,
+                  )}
                   joins={hub.joins}
                   loc={loc}
                 />

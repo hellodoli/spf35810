@@ -4,6 +4,8 @@ export interface ItemLayout {
   isWrapLabel?: boolean
 
   contentWidth?: string
+  contentColor?: string
+  contentClassName?: string
 
   subLabel?: string
   subLabelWidth?: number | string

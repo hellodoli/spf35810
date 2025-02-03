@@ -13,6 +13,7 @@ interface SwitchProps extends SwitchOnlyProps {
   text?: string
   labelStyle?: React.CSSProperties
   labelClassName?: string
+  children?: React.ReactNode
 }
 
 const SwitchOnly = ({
@@ -37,7 +38,7 @@ const SwitchOnly = ({
   }, [isOutsideHandle, isChecked])
 
   return (
-    <label className="switch">
+    <label className="switch flex-none">
       <input
         type="checkbox"
         checked={checkedValue}
@@ -50,18 +51,23 @@ const SwitchOnly = ({
 }
 
 const Switch = (props: SwitchProps) => {
-  const { text, labelStyle, labelClassName = '', ...rest } = props
+  const { text, labelStyle, labelClassName = '', children, ...rest } = props
 
-  const renderSwitch = () => {
-    return <SwitchOnly {...rest} />
-  }
+  const renderSwitch = () => <SwitchOnly {...rest} />
 
-  if (text) {
+  if (text || children) {
+    const renderLabel = () => {
+      if (text)
+        return (
+          <span style={labelStyle} className={labelClassName}>
+            {text}
+          </span>
+        )
+      return children
+    }
     return (
       <div className="flex items-center justify-between w-full">
-        <span style={labelStyle} className={labelClassName}>
-          {text}
-        </span>
+        {renderLabel()}
         {renderSwitch()}
       </div>
     )

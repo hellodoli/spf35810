@@ -11,6 +11,7 @@ import {
   SETTING_LOCATE,
 } from 'modules/Form/types'
 import {
+  getIncludeSundayReward,
   getIsHubWellDone,
   getIsSoftCompensate,
   isApplyForExtraSunday,
@@ -82,7 +83,13 @@ export const getExtraSundayPrice_Hubs = (
 ) => {
   const sumOrder = hubsByDate.reduce((accumulator, hub) => {
     const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
-    const count = !isEnhanceHub(hub.hubType) && isHubWellDone ? hub.order : 0
+    const includeSundayReward = getIncludeSundayReward(
+      hub.hubAdvancedOpt?.includeSundayReward,
+    )
+    const count =
+      !isEnhanceHub(hub.hubType) && isHubWellDone && includeSundayReward
+        ? hub.order
+        : 0
     return accumulator + count
   }, 0)
 

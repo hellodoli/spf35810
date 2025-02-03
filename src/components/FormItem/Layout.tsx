@@ -19,6 +19,8 @@ const Layout = ({
   pl = 20,
   labelWidth = '20%',
   contentWidth = 'auto',
+  contentColor = 'var(--nc-text-primary)',
+  contentClassName = '',
   subLabelWidth = 'auto',
   isWrapLabel = true,
   subLabel = '',
@@ -62,9 +64,12 @@ const Layout = ({
           'pl-0', // default mobile
           `lg:pl-[${applyPxStyleValue(pl)}]`,
           `lg:pb-[${applyPxStyleValue(pb)}]`,
+          {
+            [contentClassName]: !!contentClassName,
+          },
         )}
         style={{
-          color: 'var(--nc-text-primary)',
+          color: contentColor,
           width: contentWidth,
         }}
       >

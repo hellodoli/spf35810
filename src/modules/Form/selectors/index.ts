@@ -45,6 +45,21 @@ export const hubShiftSelector = createSelector(
   (state) => state.hubShift,
 )
 
+export const hubAdvancedOptSelector = createSelector(
+  [selectSlice],
+  (state) => state.hubAdvancedOpt,
+)
+
+export const includeSundayRewardOptSelector = createSelector(
+  [selectSlice],
+  (state) => state.hubAdvancedOpt.includeSundayReward,
+)
+
+export const includeWeekRewardOptSelector = createSelector(
+  [selectSlice],
+  (state) => state.hubAdvancedOpt.includeWeekReward,
+)
+
 export const isOpenPreviewSelector = createSelector(
   [selectSlice],
   (state) => state.isOpenPreview,

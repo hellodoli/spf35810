@@ -2,6 +2,7 @@ import React, { memo, useCallback, useState } from 'react'
 
 import { ReactComponent as BookIcon } from 'assets/icons/book.svg'
 import { ReactComponent as BookOpenIcon } from 'assets/icons/book-open.svg'
+import { ReactComponent as CalendarXmark } from 'assets/icons/calendar-xmark.svg'
 import { ReactComponent as CartShoppingIcon } from 'assets/icons/cart-shopping.svg'
 import { ReactComponent as InfoIcon } from 'assets/icons/circle-info.svg'
 import { ReactComponent as EnviraIcon } from 'assets/icons/envira.svg'
@@ -12,33 +13,41 @@ import { HUB_COLORS } from 'modules/Form/constants'
 import { HUB_TYPE } from 'modules/Form/types/enum'
 import Row from './Row'
 
+let iconIndex = 0
+
 const icons = [
-  { id: 'icon-1', icon: CartShoppingIcon, text: 'Phí giao hàng' },
-  { id: 'icon-2', icon: GearIcon, text: 'Thu nhập đơn vượt mốc' },
-  { id: 'icon-3', icon: EnviraIcon, text: 'Thu nhập đơn ghép vượt mốc' },
+  { icon: CartShoppingIcon, text: 'Phí giao hàng' },
+  { icon: GearIcon, text: 'Thu nhập đơn vượt mốc' },
+  { icon: EnviraIcon, text: 'Thu nhập đơn ghép vượt mốc' },
   {
-    id: 'icon-4',
     icon: ShieldIcon,
     text: 'Ca HUB có đảm bảo thu nhập từ SPF (HUB 8)',
     fill: HUB_COLORS[HUB_TYPE.HUB_8],
   },
   {
-    id: 'icon-5',
     icon: ShieldIcon,
     text: 'Ca HUB có đảm bảo thu nhập từ SPF (HUB 10)',
     fill: HUB_COLORS[HUB_TYPE.HUB_10],
   },
   {
-    id: 'icon-6',
+    icon: CalendarXmark,
+    text: 'Ca HUB không được tính vào thưởng tuần',
+  },
+  {
     icon: BookIcon,
     text: 'Chi tiết thu nhập ngày đang đóng',
   },
   {
-    id: 'icon-7',
     icon: BookOpenIcon,
     text: 'Chi tiết thu nhập ngày đang mở',
   },
-]
+].map((icon) => {
+  iconIndex += 1
+  return {
+    ...icon,
+    id: `icon-explain-${iconIndex}`,
+  }
+})
 
 const InfoModal = () => {
   const [modalIsOpen, setIsOpen] = useState(false)

@@ -7,6 +7,7 @@ import {
   Hub,
   HUB_DISPLAY,
   HUB_TYPE,
+  HubAdvancedOpt,
   HubShiftList,
   HubShiftRawArr,
 } from 'modules/Form/types'
@@ -16,6 +17,10 @@ dayjs.extend(isoWeek)
 dayjs.extend(weekday)
 
 const IS_HUB_WELL_DONE_DEFAULT = true
+const HUB_ADVANCED_OPT = {
+  includeSundayReward: true,
+  includeWeekReward: true,
+}
 
 const EXTRA_MINUTE_UT = 1000 * 60
 const EXTRA_HOUR_UT = 1000 * 60 * 60
@@ -243,6 +248,22 @@ export const getIsHubWellDone = (isHubWellDone?: boolean) => {
   return typeof isHubWellDone === 'boolean'
     ? isHubWellDone
     : IS_HUB_WELL_DONE_DEFAULT
+}
+
+export const getHubAdvancedOpt = (hubAdvancedOpt?: HubAdvancedOpt) => {
+  return typeof hubAdvancedOpt !== 'undefined'
+    ? hubAdvancedOpt
+    : HUB_ADVANCED_OPT
+}
+export const getIncludeWeekReward = (includeWeekReward?: boolean) => {
+  return typeof includeWeekReward === 'boolean'
+    ? includeWeekReward
+    : HUB_ADVANCED_OPT.includeWeekReward
+}
+export const getIncludeSundayReward = (includeSundayReward?: boolean) => {
+  return typeof includeSundayReward === 'boolean'
+    ? includeSundayReward
+    : HUB_ADVANCED_OPT.includeSundayReward
 }
 
 export const getIsSoftCompensate = ({

@@ -8,6 +8,7 @@ import {
   ExtraRewardList,
   FilterHubTypeSetting,
   HUB_TYPE,
+  HubAdvancedOpt,
   HubColorsFilter,
   IncomeSetting,
   JoinOrder,
@@ -66,13 +67,13 @@ export const SETTINGS_DEFAULT: Settings = {
   QUICK_ADD_JOINS: get_SettingsDefault_QuickAddJoins(),
 }
 export const JOIN_2_DEFAULT: JoinOrder = {
-  key: combineWithUniqId('order_join_2_default_key'),
+  key: 'order_join_2_default_key',
   type: 2,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_2.PRICE,
 }
 export const JOIN_3_DEFAULT: JoinOrder = {
-  key: combineWithUniqId('order_join_3_default_key'),
+  key: 'order_join_3_default_key',
   type: 3,
   order: 0,
   price: SETTINGS_DEFAULT.JOIN_3.PRICE,
@@ -256,6 +257,11 @@ export const HUB_COLORS: HubColorsFilter = {
   [HUB_TYPE.HUB_5]: '#ee4d2d',
   [HUB_TYPE.HUB_3]: '#9b9b9b',
   [HUB_TYPE.HUB_1]: '#9b9b9b',
+}
+
+export const HUB_ADVANCED_OPT: HubAdvancedOpt = {
+  includeSundayReward: true,
+  includeWeekReward: true,
 }
 
 export const IS_HUB_WELL_DONE_DEFAULT = true

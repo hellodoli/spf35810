@@ -53,8 +53,15 @@ const modifyHub = createAsyncThunk(
   ) => {
     const state = getState() as RootState
     if (state?.form) {
-      const { hubType, hubShift, hubTime, order, isHubWellDone, settings } =
-        state.form
+      const {
+        hubType,
+        hubShift,
+        hubTime,
+        order,
+        isHubWellDone,
+        settings,
+        hubAdvancedOpt,
+      } = state.form
       const joins = getNoEmptyJoins([...Object.values(state.form.joins)])
       const orderCompensate = settings['ORDER_COMPENSATE_NUMBER'][hubType]
       const orderPrice = settings['ORDER_PRICE']['DEFAULT']
@@ -79,6 +86,7 @@ const modifyHub = createAsyncThunk(
         isHubWellDone,
         joins,
         isAutoCompensate,
+        hubAdvancedOpt,
       }
       console.log('modifyHub: ', { form: state.form, hub, type, joins })
       const response =
