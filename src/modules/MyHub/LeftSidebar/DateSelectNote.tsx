@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import ExpandBtn from 'components/ExpandBtn'
+import ExpandBtn from 'components/Buttons/ExpandBtn'
 import {
   displayMyHubTypeSelector,
   rangeTimeEndSelector,

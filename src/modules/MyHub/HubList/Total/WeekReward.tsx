@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 
-import ExpandBtn from 'components/ExpandBtn'
+import ExpandBtn from 'components/Buttons/ExpandBtn'
 import { HUB_COLORS } from 'modules/Form/constants'
 import {
   displayMyHubTypeSelector,

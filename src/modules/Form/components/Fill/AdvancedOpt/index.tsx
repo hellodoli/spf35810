@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import ExpandBtn from 'components/ExpandBtn'
+import ExpandBtn from 'components/Buttons/ExpandBtn'
 import FormItem from 'components/FormItem'
 import Switches from './Switches'
 

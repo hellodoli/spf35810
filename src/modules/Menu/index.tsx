@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
-import ToggleDarkLightBtn from 'components/ToggleDarkLightBtn'
+import { ToggleDarkLightBtn } from 'components/Buttons'
 import { routes } from 'utils/route-path'
 
 const menus = [

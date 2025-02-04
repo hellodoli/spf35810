@@ -5,8 +5,8 @@ import clsx from 'clsx'
 import { AppDispatch } from 'configStore'
 
 import { ReactComponent as RightToBracket } from 'assets/icons/right-to-bracket.svg'
+import { ModifyHubBtn } from 'components/Buttons'
 import FormItem from 'components/FormItem'
-import ModifyHubBtn from 'components/ModifyHubBtn'
 import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import {
   isCalModeSelector,
