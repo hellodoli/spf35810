@@ -49,7 +49,11 @@ const Join = ({ joinOrder: join, isPlainUI = true }: Props) => {
         label: isPlainUI ? '' : label,
         isHiddenLabel: isPlainUI,
         center: !isPlainUI,
-        className: isPlainUI ? (!isFirstRow ? 'flex flex-1' : 'flex') : '',
+        className: isPlainUI
+          ? !isFirstRow
+            ? 'flex flex-1'
+            : 'flex flex-none'
+          : '',
         subLabel: isPlainUI ? '' : subLabel,
         subLabelWidth: isPlainUI ? '' : subLabelWidth,
       }
