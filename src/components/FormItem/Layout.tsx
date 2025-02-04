@@ -27,10 +27,11 @@ const Layout = ({
   children,
   center = false,
   className = '',
+  isHiddenLabel = false,
 }: Props) => {
   return (
     <div
-      className={clsx('lg:flex first:mt-0', {
+      className={clsx('first:mt-0', 'lg:flex', {
         'lg:items-center': center,
         'mt-4': mt === '',
         [className]: !!className,
@@ -42,12 +43,15 @@ const Layout = ({
       <div
         className={clsx(
           'prose-spf prose-slate dark:prose-dark',
-          'overflow-hidden lg:text-right',
+          'overflow-hidden',
+          'lg:text-right',
           // default mobile
-          'pb-1',
           `lg:pb-[${applyPxStyleValue(pb)}]`,
           `max-[575px]:!w-auto`,
           {
+            hidden: isHiddenLabel,
+            'pb-0': !label,
+            'pb-1': !!label,
             'whitespace-nowrap': isWrapLabel,
           },
         )}

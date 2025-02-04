@@ -2,12 +2,13 @@ import React, { memo } from 'react'
 
 interface Props {
   max: number
+  isShortText?: boolean
 }
 
-const MaxLabel = ({ max }: Props) => {
+const MaxLabel = ({ max, isShortText = false }: Props) => {
   return (
     <div className="mt-1 text-xs prose-spf prose-slate dark:prose-dark">
-      (Số lượng tối đa: {max} đơn)
+      {isShortText ? `Tối đa: ${max} đơn` : `Số lượng tối đa: ${max} đơn`}
     </div>
   )
 }

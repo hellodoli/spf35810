@@ -8,9 +8,10 @@ import { actions } from 'modules/Form/slices'
 interface Props {
   joinId: string
   initValue: number
+  isPlainUI: boolean
 }
 
-const Order = ({ joinId, initValue: nextValue }: Props) => {
+const Order = ({ joinId, initValue: nextValue, isPlainUI }: Props) => {
   const dispatch = useDispatch()
   const maxJoinOrder = useMemo(makeMaxJoinOrder, [])
   const maxOrder = useSelector((state) => maxJoinOrder(state, joinId))
@@ -39,7 +40,7 @@ const Order = ({ joinId, initValue: nextValue }: Props) => {
         isCounterMobile={true}
         resetCount={1} // trick always change when `initValue` change
       />
-      <MaxLabel max={max} />
+      <MaxLabel max={max} isShortText={isPlainUI} />
     </>
   )
 }

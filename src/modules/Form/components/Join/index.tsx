@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
 
@@ -11,17 +11,51 @@ import Price from './Price'
 
 import './style.scss'
 
-interface Props {
-  joinOrder: JoinOrder
+const formItemStaticProps = {
+  pb: 0,
+  labelWidth: '30%',
+  isWrapLabel: false,
 }
 
-const Join = (props: Props) => {
-  const { joinOrder: join } = props
+interface GetFormItemProps {
+  label?: string
+  isFirstRow?: boolean
+  subLabel?: string
+  subLabelWidth?: string
+}
+
+interface Props {
+  joinOrder: JoinOrder
+  isPlainUI?: boolean
+}
+
+const Join = ({ joinOrder: join, isPlainUI = true }: Props) => {
   const dispatch = useDispatch()
   const labelPrice = getJoinLabel(join.type, true)
   const memoJoin = useMemo(() => join, []) // remember first render join.
   console.log('re-render [Join]', { type: join.type, join, memoJoin })
   const joinId = join.key
+
+  const getFormItemProps = useCallback(
+    ({
+      label = '',
+      isFirstRow = false,
+      subLabel = '',
+      subLabelWidth = '80px',
+    }: GetFormItemProps) => {
+      return {
+        ...formItemStaticProps,
+        mt: isPlainUI || isFirstRow ? 0 : 10,
+        label: isPlainUI ? '' : label,
+        isHiddenLabel: isPlainUI,
+        center: !isPlainUI,
+        className: isPlainUI ? (!isFirstRow ? 'flex flex-1' : 'flex') : '',
+        subLabel: isPlainUI ? '' : subLabel,
+        subLabelWidth: isPlainUI ? '' : subLabelWidth,
+      }
+    },
+    [isPlainUI],
+  )
 
   const deleteJoin = () => {
     dispatch(
@@ -32,7 +66,12 @@ const Join = (props: Props) => {
   }
 
   return (
-    <div className="join-item border-line p-1 pt-6 relative">
+    <div
+      className={clsx('join-item', 'border-line p-1 pt-6 relative', {
+        'md:flex md:flex-col': !isPlainUI,
+        'flex gap-2 lg:gap-1 pr-8': isPlainUI,
+      })}
+    >
       {/* Delete this join */}
       <span
         className={clsx(
@@ -49,12 +88,10 @@ const Join = (props: Props) => {
       </span>
       {/* Loại đơn */}
       <FormItem
-        pb={0}
-        mt={0}
-        labelWidth="30%"
-        center={true}
-        isWrapLabel={false}
-        label="Loại ghép:"
+        {...getFormItemProps({
+          isFirstRow: true,
+          label: 'Loại ghép:',
+        })}
       >
         <button
           className={clsx(
@@ -68,27 +105,21 @@ const Join = (props: Props) => {
       </FormItem>
       {/* Số đơn */}
       <FormItem
-        label="Số lượng:"
-        pb={0}
-        mt={10}
-        subLabel="đơn"
-        subLabelWidth="80px"
-        labelWidth="30%"
-        center={true}
-        isWrapLabel={false}
+        {...getFormItemProps({
+          label: 'Số lượng:',
+          subLabel: 'đơn',
+          subLabelWidth: '80px',
+        })}
       >
-        <Order joinId={joinId} initValue={join.order} />
+        <Order joinId={joinId} initValue={join.order} isPlainUI={isPlainUI} />
       </FormItem>
       {/* Giá đơn */}
       <FormItem
-        label={labelPrice}
-        pb={0}
-        mt={10}
-        subLabel="(VND)"
-        subLabelWidth="80px"
-        labelWidth="30%"
-        center={true}
-        isWrapLabel={false}
+        {...getFormItemProps({
+          label: labelPrice,
+          subLabel: '(VND)',
+          subLabelWidth: '80px',
+        })}
       >
         <Price
           joinId={joinId}

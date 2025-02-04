@@ -1,4 +1,5 @@
 export interface ItemLayout {
+  isHiddenLabel?: boolean
   label?: string
   labelWidth?: string
   isWrapLabel?: boolean
