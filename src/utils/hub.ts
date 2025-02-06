@@ -17,9 +17,10 @@ dayjs.extend(isoWeek)
 dayjs.extend(weekday)
 
 const IS_HUB_WELL_DONE_DEFAULT = true
-const HUB_ADVANCED_OPT = {
+const HUB_ADVANCED_OPT: HubAdvancedOpt = {
   includeSundayReward: true,
   includeWeekReward: true,
+  includeAutoCompensate: true,
 }
 
 const EXTRA_MINUTE_UT = 1000 * 60
@@ -244,16 +245,18 @@ export const isApplyForExtraSunday = (unixDate: number) => {
   return d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
 }
 
+export const getDefaultIsHubWellDone = () => IS_HUB_WELL_DONE_DEFAULT
 export const getIsHubWellDone = (isHubWellDone?: boolean) => {
   return typeof isHubWellDone === 'boolean'
     ? isHubWellDone
-    : IS_HUB_WELL_DONE_DEFAULT
+    : getDefaultIsHubWellDone()
 }
 
+export const getDefaultHubAdvancedOpt = () => HUB_ADVANCED_OPT
 export const getHubAdvancedOpt = (hubAdvancedOpt?: HubAdvancedOpt) => {
   return typeof hubAdvancedOpt !== 'undefined'
     ? hubAdvancedOpt
-    : HUB_ADVANCED_OPT
+    : getDefaultHubAdvancedOpt()
 }
 export const getIncludeWeekReward = (includeWeekReward?: boolean) => {
   return typeof includeWeekReward === 'boolean'
@@ -265,17 +268,25 @@ export const getIncludeSundayReward = (includeSundayReward?: boolean) => {
     ? includeSundayReward
     : HUB_ADVANCED_OPT.includeSundayReward
 }
+export const getIncludeAutoCompensate = (includeAutoCompensate?: boolean) => {
+  return typeof includeAutoCompensate === 'boolean'
+    ? includeAutoCompensate
+    : HUB_ADVANCED_OPT.includeAutoCompensate
+}
 
 export const getIsSoftCompensate = ({
   hubType,
   isHubWellDone,
   order,
+  includeAutoCompensate,
 }: {
   hubType: HUB_TYPE
   order: number
   isHubWellDone: boolean
+  includeAutoCompensate: boolean
 }) => {
-  const isSoftCompensate = isSuperHub(hubType) && isHubWellDone && order > 0
+  const isSoftCompensate =
+    includeAutoCompensate && isSuperHub(hubType) && isHubWellDone && order > 0
   return isSoftCompensate
 }
 

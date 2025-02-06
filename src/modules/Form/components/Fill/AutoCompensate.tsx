@@ -6,6 +6,7 @@ import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import FormItem from 'components/FormItem'
 import {
   hubTypeSelector,
+  includeAutoCompensateSelector,
   isHubWellDoneSelector,
   joinsSelector,
   locateSettingSelector,
@@ -26,6 +27,7 @@ const Compensate = () => {
     orderCompensateSelector(state, hubType),
   )
   const isHubWellDone = useSelector(isHubWellDoneSelector)
+  const includeAutoCompensate = useSelector(includeAutoCompensateSelector)
 
   const compensateHub = getCompensate_Hub({
     hubType,
@@ -34,6 +36,7 @@ const Compensate = () => {
     orderPrice,
     orderCompensate,
     isHubWellDone,
+    includeAutoCompensate,
     loc,
   })
 

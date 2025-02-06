@@ -1,6 +1,6 @@
 import { SETTING_LOCATE, Settings } from 'modules/Form/types'
 
-import { generateKey, getLocalStorage, getLSBoolValue } from '../utils'
+import { generateKey, getLocalStorage } from '../utils'
 
 // 1. SETTINGS_DEFAULT__LOCATE
 const settingsDefault_Locate = generateKey({
@@ -57,20 +57,3 @@ const get_SettingsDefault_QuickAddJoins = () => {
 }
 
 export { get_SettingsDefault_QuickAddJoins, settingsDefault_QuickAddJoins }
-
-// 3. SETTINGS_DEFAULT__PLAIN_UI
-/**
- * LATER: move this block to `default/global`
- */
-const settingsDefault_PlainUI = generateKey({
-  first: 'SETTINGS_DEFAULT',
-  content: 'PLAIN_UI',
-  defaultValue: false,
-})
-const get_SettingsDefault_PlainUI = () => {
-  return getLSBoolValue(
-    settingsDefault_PlainUI.lsKey,
-    settingsDefault_PlainUI.defaultValue,
-  )
-}
-export { get_SettingsDefault_PlainUI, settingsDefault_PlainUI }

@@ -22,6 +22,7 @@ export type HubShiftList = {
 export type HubAdvancedOpt = {
   includeWeekReward: boolean
   includeSundayReward: boolean
+  includeAutoCompensate: boolean
 }
 
 export interface HubGenaral {

@@ -19,8 +19,10 @@ const global_ExtraChildJoinOrder = generateKey({
   defaultValue: true,
 })
 const get_Global_ExtraChildJoinOrder = () => {
-  const { lsKey, defaultValue } = global_ExtraChildJoinOrder
-  return getLSBoolValue(lsKey, defaultValue)
+  return getLSBoolValue(
+    global_ExtraChildJoinOrder.lsKey,
+    global_ExtraChildJoinOrder.defaultValue,
+  )
 }
 export { get_Global_ExtraChildJoinOrder, global_ExtraChildJoinOrder }
 
@@ -31,7 +33,23 @@ const global_ExpandWeekReward = generateKey({
   defaultValue: true,
 })
 const get_Global_ExpandWeekReward = () => {
-  const { lsKey, defaultValue } = global_ExpandWeekReward
-  return getLSBoolValue(lsKey, defaultValue)
+  return getLSBoolValue(
+    global_ExpandWeekReward.lsKey,
+    global_ExpandWeekReward.defaultValue,
+  )
 }
 export { get_Global_ExpandWeekReward, global_ExpandWeekReward }
+
+// 4. GLOBAL__JOINS_PLAIN_UI
+const global_JoinsPlainUI = generateKey({
+  first: 'GLOBAL',
+  content: 'JOINS_PLAIN_UI',
+  defaultValue: false,
+})
+const get_Global_JoinsPlainUI = () => {
+  return getLSBoolValue(
+    global_JoinsPlainUI.lsKey,
+    global_JoinsPlainUI.defaultValue,
+  )
+}
+export { get_Global_JoinsPlainUI, global_JoinsPlainUI }

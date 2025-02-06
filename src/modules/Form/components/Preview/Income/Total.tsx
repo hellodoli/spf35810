@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import {
   hubTypeSelector,
+  includeAutoCompensateSelector,
   isHubWellDoneSelector,
   isShowExtraJoinOrderPriceSelector,
   isShowExtraOrderPriceSelector,
@@ -25,6 +26,7 @@ const Total = () => {
   const joins = useSelector(joinsSelector)
   const hubType = useSelector(hubTypeSelector)
   const isHubWellDone = useSelector(isHubWellDoneSelector)
+  const includeAutoCompensate = useSelector(includeAutoCompensateSelector)
   const isShowExtraJoinOrderPrice = useSelector(
     isShowExtraJoinOrderPriceSelector,
   )
@@ -41,6 +43,7 @@ const Total = () => {
     orderPrice,
     orderCompensate,
     isHubWellDone,
+    includeAutoCompensate,
     loc,
   })
 

@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { initialState } from 'modules/Form/slices/initState'
 import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
 import { RootState } from 'types/RootState'
+import { getIncludeAutoCompensate } from 'utils/hub'
 import { getMaxJoinOrder } from 'utils/join'
 
 export * from './income-setting'
@@ -49,15 +50,18 @@ export const hubAdvancedOptSelector = createSelector(
   [selectSlice],
   (state) => state.hubAdvancedOpt,
 )
-
 export const includeSundayRewardOptSelector = createSelector(
   [selectSlice],
   (state) => state.hubAdvancedOpt.includeSundayReward,
 )
-
 export const includeWeekRewardOptSelector = createSelector(
   [selectSlice],
   (state) => state.hubAdvancedOpt.includeWeekReward,
+)
+export const includeAutoCompensateSelector = createSelector(
+  [selectSlice],
+  (state) =>
+    getIncludeAutoCompensate(state.hubAdvancedOpt.includeAutoCompensate),
 )
 
 export const isOpenPreviewSelector = createSelector(

@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux'
 
 import Switch from 'components/Switch'
 import {
-  get_SettingsDefault_PlainUI,
-  settingsDefault_PlainUI,
+  get_Global_JoinsPlainUI,
+  global_JoinsPlainUI,
 } from 'modules/Form/default'
 import { joinsSelector } from 'modules/Form/selectors'
 import { setLocalStorage } from 'utils/storages'
 
 import Join from '../Join'
 
-const plainUIDefault = get_SettingsDefault_PlainUI()
+const plainUIDefault = get_Global_JoinsPlainUI()
 
 const ListJoin = () => {
   const joins = useSelector(joinsSelector)
@@ -19,7 +19,7 @@ const ListJoin = () => {
 
   const onChangeChecked = useCallback((nextIsPlainUI: boolean) => {
     setIsPlainUI(nextIsPlainUI)
-    setLocalStorage(settingsDefault_PlainUI.lsKey, `${nextIsPlainUI}`)
+    setLocalStorage(global_JoinsPlainUI.lsKey, `${nextIsPlainUI}`)
   }, [])
 
   return (

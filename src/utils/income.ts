@@ -1,7 +1,4 @@
-import {
-  EXTRA_SUNDAY_ORDER,
-  IS_HUB_WELL_DONE_DEFAULT,
-} from 'modules/Form/constants'
+import { EXTRA_SUNDAY_ORDER } from 'modules/Form/constants'
 import {
   FilterHubTypeSetting,
   Hub,
@@ -11,6 +8,7 @@ import {
   SETTING_LOCATE,
 } from 'modules/Form/types'
 import {
+  getIncludeAutoCompensate,
   getIncludeSundayReward,
   getIsHubWellDone,
   getIsSoftCompensate,
@@ -114,7 +112,7 @@ export const getPrice_Hub = ({
   joins,
   hubType,
   orderPrice,
-  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+  isHubWellDone,
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
   loc,
@@ -123,7 +121,7 @@ export const getPrice_Hub = ({
   joins: JoinOrder[]
   hubType: HUB_TYPE
   orderPrice: number
-  isHubWellDone?: boolean
+  isHubWellDone: boolean
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
   loc: SETTING_LOCATE
@@ -176,6 +174,7 @@ export const getCompensate_Hub = ({
   calPrice = true,
   hubType,
   isHubWellDone,
+  includeAutoCompensate,
   order,
   orderCompensate,
   orderPrice,
@@ -190,11 +189,13 @@ export const getCompensate_Hub = ({
   orderPrice: number
   isHubWellDone: boolean
   loc: SETTING_LOCATE
+  includeAutoCompensate: boolean
 }) => {
   const isSoftCompensate = getIsSoftCompensate({
     hubType,
     isHubWellDone,
     order,
+    includeAutoCompensate,
   })
   const compensatePrice = getPriceCompensate_Hub({
     orderCompensate,
@@ -288,16 +289,13 @@ export const getPrice_Hubs = ({
 
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const {
-      order,
-      joins,
-      hubType,
-      isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
-      isAutoCompensate,
-      hubTime,
-      hubShift,
-    } = hub
+    const { order, joins, hubType, isAutoCompensate, hubTime, hubShift } = hub
+
     const orderCompensate = orderCompensateNumber[hubType]
+    const includeAutoCompensate = getIncludeAutoCompensate(
+      hub.hubAdvancedOpt?.includeAutoCompensate,
+    )
+    const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     const generalParams = {
       hubType,
       joins,
@@ -311,6 +309,7 @@ export const getPrice_Hubs = ({
       isAutoCompensate
         ? getCompensate_Hub({
             ...generalParams,
+            includeAutoCompensate,
             orderCompensate,
           })
         : getPrice_Hub({
@@ -376,14 +375,14 @@ export const getDiffJoinsPrice_Hub = ({
   joins,
   hubType,
   orderPrice,
-  isHubWellDone = IS_HUB_WELL_DONE_DEFAULT,
+  isHubWellDone,
   loc,
 }: {
   order: number
   joins: JoinOrder[]
   hubType: HUB_TYPE
   orderPrice: number
-  isHubWellDone?: boolean
+  isHubWellDone: boolean
   loc: SETTING_LOCATE
 }) => {
   const { totalJoinsOrder } = getPreviewOrder({ order, joins })
@@ -415,7 +414,7 @@ export const getDiffJoinsPrice_Hubs = ({
   let measure = 0
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
-    const { order, joins, hubType, isHubWellDone, isAutoCompensate } = hub
+    const { order, joins, hubType, isAutoCompensate } = hub
     const diff = isAutoCompensate
       ? 0
       : getDiffJoinsPrice_Hub({
@@ -423,7 +422,7 @@ export const getDiffJoinsPrice_Hubs = ({
           joins,
           hubType,
           orderPrice,
-          isHubWellDone,
+          isHubWellDone: getIsHubWellDone(hub.isHubWellDone),
           loc,
         })
     measure += diff

@@ -8,7 +8,6 @@ import {
   ExtraRewardList,
   FilterHubTypeSetting,
   HUB_TYPE,
-  HubAdvancedOpt,
   HubColorsFilter,
   IncomeSetting,
   JoinOrder,
@@ -258,13 +257,6 @@ export const HUB_COLORS: HubColorsFilter = {
   [HUB_TYPE.HUB_3]: '#9b9b9b',
   [HUB_TYPE.HUB_1]: '#9b9b9b',
 }
-
-export const HUB_ADVANCED_OPT: HubAdvancedOpt = {
-  includeSundayReward: true,
-  includeWeekReward: true,
-}
-
-export const IS_HUB_WELL_DONE_DEFAULT = true
 
 export const ELE_CLASSNAMES = {
   HUB_PREVIEW: combineWithUniqId('hub-preview'),
