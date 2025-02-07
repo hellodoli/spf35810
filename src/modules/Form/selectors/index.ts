@@ -17,6 +17,11 @@ export const orderSelector = createSelector(
   (state) => state.order,
 )
 
+export const hubExtraIncomeSelector = createSelector(
+  [selectSlice],
+  (state) => state.hubExtraIncome,
+)
+
 export const joinsObSelector = createSelector(
   [selectSlice],
   (state) => state.joins,

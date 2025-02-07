@@ -34,6 +34,7 @@ export interface HubGenaral {
   isHubWellDone?: boolean
   isAutoCompensate?: boolean
   hubAdvancedOpt?: HubAdvancedOpt
+  extraIncome?: number
 }
 
 export interface Hub extends HubGenaral {

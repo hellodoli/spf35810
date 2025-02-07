@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 
 import { ExtraContainer, ExtraJoinOrderPrice, ExtraOrderPrice } from './Extra'
+import ExtraIncome from './ExtraIncome'
 import JoinOrder from './JoinOrder'
 import JoinsPay from './JoinsPay'
 import SingleOrder from './SingleOrder'
@@ -25,6 +26,9 @@ const Main = () => {
         {/* Thu nhập đơn ghép vượt mốc */}
         <ExtraJoinOrderPrice />
       </ExtraContainer>
+
+      {/* Thu nhập khác */}
+      <ExtraIncome />
 
       {/* Thu nhập tăng/giảm do đơn ghép */}
       <JoinsPay />

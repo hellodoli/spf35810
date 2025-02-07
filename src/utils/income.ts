@@ -8,6 +8,7 @@ import {
   SETTING_LOCATE,
 } from 'modules/Form/types'
 import {
+  getHubExtraIncome,
   getIncludeAutoCompensate,
   getIncludeSundayReward,
   getIsHubWellDone,
@@ -112,6 +113,7 @@ export const getPrice_Hub = ({
   joins,
   hubType,
   orderPrice,
+  extraIncomePrice,
   isHubWellDone,
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
@@ -121,6 +123,7 @@ export const getPrice_Hub = ({
   joins: JoinOrder[]
   hubType: HUB_TYPE
   orderPrice: number
+  extraIncomePrice: number
   isHubWellDone: boolean
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
@@ -136,6 +139,8 @@ export const getPrice_Hub = ({
   let totalPrice = shipPrice
   let extraOrderPrice = 0
   let extraJoinOrderPrice = 0
+
+  totalPrice += extraIncomePrice
 
   if (isHubWellDone) {
     // thu nhập đơn ghép vượt mốc
@@ -168,6 +173,7 @@ export const getPrice_Hub = ({
     shipPrice,
     extraOrderPrice,
     extraJoinOrderPrice,
+    extraIncomePrice,
   }
 }
 export const getCompensate_Hub = ({
@@ -177,6 +183,7 @@ export const getCompensate_Hub = ({
   includeAutoCompensate,
   order,
   orderCompensate,
+  extraIncomePrice,
   orderPrice,
   joins,
   loc,
@@ -187,6 +194,7 @@ export const getCompensate_Hub = ({
   order: number
   orderCompensate: number
   orderPrice: number
+  extraIncomePrice: number
   isHubWellDone: boolean
   loc: SETTING_LOCATE
   includeAutoCompensate: boolean
@@ -205,6 +213,7 @@ export const getCompensate_Hub = ({
   let shipPrice = 0
   let extraOrderPrice = 0
   let extraJoinOrderPrice = 0
+  let totalPrice = 0
 
   if (calPrice && isSoftCompensate) {
     if (order < orderCompensate) {
@@ -218,13 +227,13 @@ export const getCompensate_Hub = ({
         joins,
         order,
         orderPrice,
+        extraIncomePrice,
         loc,
         isHubWellDone,
         isShowExtraJoinOrderPrice: true,
         isShowExtraOrderPrice: true,
       })
-      const hubTotalPrice = hub.totalPrice
-      const hubExtraJoinOrderPrice = hub.extraJoinOrderPrice
+      const hubTotalPrice = hub.totalPrice - hub.extraIncomePrice
       if (hubTotalPrice < compensatePrice) {
         isCompensate = true
         shipPrice = compensatePrice
@@ -238,17 +247,23 @@ export const getCompensate_Hub = ({
       }*/ else {
         isCompensate = false
         shipPrice = hub.shipPrice
-        extraJoinOrderPrice = hubExtraJoinOrderPrice
+        extraJoinOrderPrice = hub.extraJoinOrderPrice
         extraOrderPrice = hub.extraOrderPrice
       }
     }
   }
+
+  // sum total price
+  totalPrice += extraIncomePrice
+  const mainPrice = shipPrice + extraOrderPrice + extraJoinOrderPrice
+  totalPrice += mainPrice
 
   return {
     isSoftCompensate,
     isCompensate,
     calPrice,
     order,
+    extraIncomePrice,
     /**
      * price when `isSoftCompensate = true` && `isCompensate = true`
      * !Note:
@@ -258,7 +273,7 @@ export const getCompensate_Hub = ({
     shipPrice,
     extraOrderPrice,
     extraJoinOrderPrice,
-    totalPrice: shipPrice + extraOrderPrice + extraJoinOrderPrice,
+    totalPrice,
   }
 }
 export const getPrice_Hubs = ({
@@ -285,17 +300,19 @@ export const getPrice_Hubs = ({
   const shipArr: DetailItem[] = []
   const extraOrderArr: DetailItem[] = []
   const extraJoinOrderArr: DetailItem[] = []
+  const extraIncomeArr: DetailItem[] = []
   let total = 0
 
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
     const { order, joins, hubType, isAutoCompensate, hubTime, hubShift } = hub
-
     const orderCompensate = orderCompensateNumber[hubType]
     const includeAutoCompensate = getIncludeAutoCompensate(
       hub.hubAdvancedOpt?.includeAutoCompensate,
     )
     const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
+    const extraIncomePrice = getHubExtraIncome(hub.extraIncome)
+
     const generalParams = {
       hubType,
       joins,
@@ -303,6 +320,7 @@ export const getPrice_Hubs = ({
       orderPrice,
       loc,
       isHubWellDone,
+      extraIncomePrice,
     }
 
     const { totalPrice, shipPrice, extraOrderPrice, extraJoinOrderPrice } =
@@ -323,6 +341,13 @@ export const getPrice_Hubs = ({
 
     const [start, end] = hubShift.split('_')
     const label = `${start} - ${end}`
+
+    // phí thêm
+    extraIncomeArr.push({
+      hubShift,
+      price: extraIncomePrice,
+      label,
+    })
 
     // phí giao hàng
     shipArr.push({ hubShift, price: shipPrice, label })
@@ -367,6 +392,7 @@ export const getPrice_Hubs = ({
     shipArr,
     extraOrderArr,
     extraJoinOrderArr,
+    extraIncomeArr,
   }
 }
 

@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import {
+  hubExtraIncomeSelector,
   hubTypeSelector,
   includeAutoCompensateSelector,
   isHubWellDoneSelector,
@@ -35,12 +36,14 @@ const Total = () => {
   const orderCompensate = useSelector((state) =>
     orderCompensateSelector(state, hubType),
   )
+  const extraIncomePrice = useSelector(hubExtraIncomeSelector)
 
   const compensateHub = getCompensate_Hub({
     hubType,
     joins,
     order,
     orderPrice,
+    extraIncomePrice,
     orderCompensate,
     isHubWellDone,
     includeAutoCompensate,
@@ -52,6 +55,7 @@ const Total = () => {
     joins,
     order,
     orderPrice,
+    extraIncomePrice,
     isHubWellDone,
     isShowExtraJoinOrderPrice,
     isShowExtraOrderPrice,
@@ -62,8 +66,13 @@ const Total = () => {
 
   const renderAutoCompensate = () => {
     if (!isCompensate) return null
-    const { shipPrice, extraOrderPrice, extraJoinOrderPrice, totalPrice } =
-      compensateHub
+    const {
+      shipPrice,
+      extraOrderPrice,
+      extraJoinOrderPrice,
+      totalPrice,
+      extraIncomePrice,
+    } = compensateHub
     return (
       <div className="flex items-center">
         <Shield
@@ -92,6 +101,12 @@ const Total = () => {
               <span className="mr-1">Thu nhập đơn ghép vượt mốc:</span>
               <strong className="text-color-primary">
                 {f(extraJoinOrderPrice)}
+              </strong>
+            </li>
+            <li>
+              <span className="mr-1">Thu nhập khác:</span>
+              <strong className="text-color-primary">
+                {f(extraIncomePrice)}
               </strong>
             </li>
           </ul>

@@ -14,6 +14,7 @@ export interface HubState {
   order: number
   joins: { [key: string]: JoinOrder }
   hubAdvancedOpt: HubAdvancedOpt
+  hubExtraIncome: number
 
   myHubs: MyHubs
   hubsExist: { [key: string]: Hub }

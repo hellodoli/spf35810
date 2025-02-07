@@ -14,6 +14,7 @@ import { actions } from 'modules/Form/slices'
 import { FORM_ACTION } from 'modules/Form/types'
 import AdvancedOpt from './AdvancedOpt'
 import AutoCompensate from './AutoCompensate'
+import ExtraIncome from './ExtraIncome'
 import HubSelect from './HubSelect'
 import HubTime from './HubTime'
 import HubType from './HubType'
@@ -80,6 +81,8 @@ const Fill = ({
             )}
             {/* Đơn ghép */}
             <Joins />
+            {/* Thu nhập khác */}
+            <ExtraIncome type={type} />
             {/* Tùy chỉnh nâng cao */}
             {!isCalMode && <AdvancedOpt />}
             {/* Meta zone */}

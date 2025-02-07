@@ -7,6 +7,7 @@ import { ReactComponent as CartShoppingIcon } from 'assets/icons/cart-shopping.s
 import { ReactComponent as InfoIcon } from 'assets/icons/circle-info.svg'
 import { ReactComponent as EnviraIcon } from 'assets/icons/envira.svg'
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
+import { ReactComponent as HandHoldingDollarIcon } from 'assets/icons/hand-holding-dollar.svg'
 import { ReactComponent as ShieldIcon } from 'assets/icons/shield-halved.svg'
 import Modal from 'components/Modal'
 import { HUB_COLORS } from 'modules/Form/constants'
@@ -19,6 +20,10 @@ const icons = [
   { icon: CartShoppingIcon, text: 'Phí giao hàng' },
   { icon: GearIcon, text: 'Thu nhập đơn vượt mốc' },
   { icon: EnviraIcon, text: 'Thu nhập đơn ghép vượt mốc' },
+  {
+    icon: HandHoldingDollarIcon,
+    text: 'Thu nhập khác (tip, phí thời tiết, ...)',
+  },
   {
     icon: ShieldIcon,
     text: 'Ca HUB có đảm bảo thu nhập từ SPF (HUB 8)',

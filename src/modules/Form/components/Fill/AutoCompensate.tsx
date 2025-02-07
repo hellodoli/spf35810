@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import FormItem from 'components/FormItem'
 import {
+  hubExtraIncomeSelector,
   hubTypeSelector,
   includeAutoCompensateSelector,
   isHubWellDoneSelector,
@@ -28,12 +29,14 @@ const Compensate = () => {
   )
   const isHubWellDone = useSelector(isHubWellDoneSelector)
   const includeAutoCompensate = useSelector(includeAutoCompensateSelector)
+  const extraIncomePrice = useSelector(hubExtraIncomeSelector)
 
   const compensateHub = getCompensate_Hub({
     hubType,
     joins,
     order,
     orderPrice,
+    extraIncomePrice,
     orderCompensate,
     isHubWellDone,
     includeAutoCompensate,

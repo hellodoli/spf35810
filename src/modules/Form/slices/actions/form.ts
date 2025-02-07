@@ -1,7 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
 import { Hub, HUB_TYPE, HubAdvancedOpt, HubState } from 'modules/Form/types'
-import { getHubAdvancedOpt, getIsHubWellDone } from 'utils/hub'
+import {
+  getHubAdvancedOpt,
+  getHubExtraIncome,
+  getIsHubWellDone,
+} from 'utils/hub'
 import { convertFromJoinsOb } from 'utils/join'
 
 export const formActions = {
@@ -49,6 +53,20 @@ export const formActions = {
     const { isInclude, key } = action.payload
     state.hubAdvancedOpt[key] = isInclude
   },
+  addHubExtraIncome: (
+    state: HubState,
+    action: PayloadAction<{ price: number }>,
+  ) => {
+    const { price } = action.payload
+    state.hubExtraIncome += price
+  },
+  changeHubExtraIncome: (
+    state: HubState,
+    action: PayloadAction<{ price: number }>,
+  ) => {
+    const { price } = action.payload
+    state.hubExtraIncome = price
+  },
   changeHubDetail: (state: HubState, action: PayloadAction<{ hub: Hub }>) => {
     const { hub } = action.payload
     state.hubShift = hub.hubShift
@@ -58,6 +76,7 @@ export const formActions = {
     state.joins = convertFromJoinsOb(hub.joins)
     state.isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     state.hubAdvancedOpt = getHubAdvancedOpt(hub.hubAdvancedOpt)
+    state.hubExtraIncome = getHubExtraIncome(hub.extraIncome)
 
     state.isLoading = false
   },

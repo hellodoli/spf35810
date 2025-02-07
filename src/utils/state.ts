@@ -2,7 +2,11 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { JOIN_2_DEFAULT, SETTINGS_DEFAULT } from 'modules/Form/constants'
 import { HUB_TYPE, HubState } from 'modules/Form/types'
-import { getDefaultHubAdvancedOpt, getDefaultIsHubWellDone } from './hub'
+import {
+  getDefaultHubAdvancedOpt,
+  getDefaultIsHubWellDone,
+  getHubExtraIncome,
+} from './hub'
 import { getUnixTime } from './time'
 
 export const getResetHubFillState = () => {
@@ -18,12 +22,20 @@ export const getResetHubFillState = () => {
     order: SETTINGS_DEFAULT.ORDER_QUANTITY.INIT, // LATER: custom by user
     joins: { [join.key]: join },
     hubAdvancedOpt: getDefaultHubAdvancedOpt(),
+    hubExtraIncome: getHubExtraIncome(),
   }
 }
 
 export const changeResetHubFillState = (state: HubState) => {
-  const { hubShift, hubTime, hubType, joins, isHubWellDone, hubAdvancedOpt } =
-    getResetHubFillState()
+  const {
+    hubShift,
+    hubTime,
+    hubType,
+    joins,
+    isHubWellDone,
+    hubAdvancedOpt,
+    hubExtraIncome,
+  } = getResetHubFillState()
   state.hubShift = hubShift
   state.hubTime = hubTime
   state.hubType = hubType
@@ -31,6 +43,7 @@ export const changeResetHubFillState = (state: HubState) => {
   state.isHubWellDone = isHubWellDone
   state.order = state.settings['ORDER_QUANTITY']['INIT']
   state.hubAdvancedOpt = hubAdvancedOpt
+  state.hubExtraIncome = hubExtraIncome
   state.isLoading = false
   state.isLoadingMyHub = false
 }

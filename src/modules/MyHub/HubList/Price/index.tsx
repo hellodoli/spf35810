@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { ReactComponent as CartShoppingIcon } from 'assets/icons/cart-shopping.svg'
 import { ReactComponent as EnviraIcon } from 'assets/icons/envira.svg'
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
+import { ReactComponent as HandHoldingDollarIcon } from 'assets/icons/hand-holding-dollar.svg'
 import {
   locateSettingSelector,
   orderCompensateNumberSelector,
@@ -41,6 +42,7 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
     shipArr,
     extraOrderArr,
     extraJoinOrderArr,
+    extraIncomeArr,
   } = getPrice_Hubs({
     hubs,
     orderPrice,
@@ -113,6 +115,26 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
                   <span className="mr-1">{`(${extraJoinOrder.label}):`}</span>
                   <strong className="text-color-success">
                     {f(extraJoinOrder.price)}
+                  </strong>
+                </li>
+              )
+            })}
+            {extraIncomeArr.map((extraIncome) => {
+              if (!extraIncome.price) return null
+              return (
+                <li
+                  key={`extraJoinOrder-${extraIncome.label}`}
+                  className="flex flex-wrap items-center"
+                >
+                  <HandHoldingDollarIcon
+                    fill="var(--nc-primary)"
+                    width={12}
+                    height={12}
+                    className="mr-2"
+                  />
+                  <span className="mr-1">{`(${extraIncome.label}):`}</span>
+                  <strong className="text-color-success">
+                    {f(extraIncome.price)}
                   </strong>
                 </li>
               )

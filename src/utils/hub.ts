@@ -274,6 +274,10 @@ export const getIncludeAutoCompensate = (includeAutoCompensate?: boolean) => {
     : HUB_ADVANCED_OPT.includeAutoCompensate
 }
 
+export const getHubExtraIncome = (hubExtraIncome?: number) => {
+  return typeof hubExtraIncome === 'number' ? hubExtraIncome : 0
+}
+
 export const getIsSoftCompensate = ({
   hubType,
   isHubWellDone,
