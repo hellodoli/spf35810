@@ -19,6 +19,7 @@ import {
   getPrice_Hubs,
 } from 'utils/income'
 import { getFormat } from 'utils/price'
+import IncomeRowItem from './IncomeRowItem'
 import JoinsPay from './JoinsPay'
 
 interface Props {
@@ -51,6 +52,21 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
     isShowExtraSundayPrice: false,
   })
 
+  const incomeArr = useMemo(
+    () => [
+      { id: `shipment`, items: shipArr, icon: CartShoppingIcon },
+      { id: `extraOrder`, items: extraOrderArr, icon: GearIcon },
+      { id: `extraJoinOrder`, items: extraJoinOrderArr, icon: EnviraIcon },
+      {
+        id: `extraIncome`,
+        items: extraIncomeArr,
+        icon: HandHoldingDollarIcon,
+        hideEmpty: true,
+      },
+    ],
+    [shipArr, extraOrderArr, extraJoinOrderArr, extraIncomeArr],
+  )
+
   return (
     <ul className="p-2 border-line">
       <li className="mb-1 last:mb-0">
@@ -62,81 +78,21 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
         <strong className="ml-1 text-color-success">{f(priceHubs)}</strong>
         {isOpenViewDetailIncome && (
           <ul className="pl-2 empty:hidden">
-            {shipArr.map((ship) => {
+            {incomeArr.map(({ id, items, icon, hideEmpty = false }) => {
               return (
-                <li
-                  key={`shipment-${ship.label}`}
-                  className="flex flex-wrap items-center"
-                >
-                  <CartShoppingIcon
-                    fill="var(--nc-primary)"
-                    width={12}
-                    height={12}
-                    className="mr-2"
-                  />
-                  <span className="mr-1">{`(${ship.label}):`}</span>
-                  <strong className="text-color-success">
-                    {f(ship.price)}
-                  </strong>
-                </li>
-              )
-            })}
-            {extraOrderArr.map((extraOrder) => {
-              return (
-                <li
-                  key={`extraOrder-${extraOrder.label}`}
-                  className="flex flex-wrap items-center"
-                >
-                  <GearIcon
-                    fill="var(--nc-primary)"
-                    width={12}
-                    height={12}
-                    className="mr-2"
-                  />
-                  <span className="mr-1">{`(${extraOrder.label}):`}</span>
-                  <strong className="text-color-success">
-                    {f(extraOrder.price)}
-                  </strong>
-                </li>
-              )
-            })}
-            {extraJoinOrderArr.map((extraJoinOrder) => {
-              return (
-                <li
-                  key={`extraJoinOrder-${extraJoinOrder.label}`}
-                  className="flex flex-wrap items-center"
-                >
-                  <EnviraIcon
-                    fill="var(--nc-primary)"
-                    width={12}
-                    height={12}
-                    className="mr-2"
-                  />
-                  <span className="mr-1">{`(${extraJoinOrder.label}):`}</span>
-                  <strong className="text-color-success">
-                    {f(extraJoinOrder.price)}
-                  </strong>
-                </li>
-              )
-            })}
-            {extraIncomeArr.map((extraIncome) => {
-              if (!extraIncome.price) return null
-              return (
-                <li
-                  key={`extraJoinOrder-${extraIncome.label}`}
-                  className="flex flex-wrap items-center"
-                >
-                  <HandHoldingDollarIcon
-                    fill="var(--nc-primary)"
-                    width={12}
-                    height={12}
-                    className="mr-2"
-                  />
-                  <span className="mr-1">{`(${extraIncome.label}):`}</span>
-                  <strong className="text-color-success">
-                    {f(extraIncome.price)}
-                  </strong>
-                </li>
+                <React.Fragment key={id}>
+                  {items.map(({ label, price }) => {
+                    if (hideEmpty && !price) return null
+                    return (
+                      <IncomeRowItem
+                        key={`${id}-${label}`}
+                        icon={icon}
+                        label={label}
+                        price={price}
+                      />
+                    )
+                  })}
+                </React.Fragment>
               )
             })}
           </ul>
