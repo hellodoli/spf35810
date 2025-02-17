@@ -1,33 +1,47 @@
 import React, { useMemo } from 'react'
 
-import { WEEK_REWARD } from 'modules/Form/constants'
-import { OrderExtraRewardArr, SETTING_LOCATE } from 'modules/Form/types'
+import {
+  ExtraRewardList,
+  OrderExtraRewardArr,
+  SETTING_LOCATE,
+} from 'modules/Form/types'
 import { getFormat } from 'utils/price'
-import type { LocateBtnItem } from './Item'
-import { Item, locatesArr } from './Item'
+
+import type { LocateBtnItem } from '../Item'
+import { Item, locatesArr } from '../Item'
 
 interface Props {
   curLocate: SETTING_LOCATE
+  extraRewardList: ExtraRewardList
+  unit: string
+  title: string
+  subTitle: string
 }
 
 const headerClassName = 'text-white font-bold uppercase bg-[#35AB99]'
 const subHeadClassName = 'text-white font-bold bg-[#E64739]'
 
-const WeekReward = ({ curLocate }: Props) => {
+const Table = ({
+  curLocate,
+  extraRewardList,
+  unit,
+  title,
+  subTitle,
+}: Props) => {
   const f = useMemo(() => getFormat(), [])
   const loc = locatesArr.find((loc) => loc.value === curLocate) as LocateBtnItem
-  const weekReward = WEEK_REWARD[curLocate]
+  const extraReward = extraRewardList[curLocate]
 
-  const hubTypes = useMemo(() => Object.keys(weekReward), [weekReward])
-  const orderArr = useMemo(() => Object.values(weekReward), [weekReward])
+  const hubTypes = useMemo(() => Object.keys(extraReward), [extraReward])
+  const orderArr = useMemo(() => Object.values(extraReward), [extraReward])
 
   const getOrderLabel = (
     from: OrderExtraRewardArr[0],
     to: OrderExtraRewardArr[1],
   ) => {
     if (!from && !to) return '-'
-    if (from === to) return `${from} ca`
-    return to ? `Từ ${from} - ${to} (ca)` : `Từ ${from} ca trở lên`
+    if (from === to) return `${from} ${unit}`
+    return to ? `Từ ${from} - ${to} (${unit})` : `Từ ${from} ${unit} trở lên`
   }
 
   return (
@@ -46,10 +60,10 @@ const WeekReward = ({ curLocate }: Props) => {
       <Item
         className={`${headerClassName} row-start-1 row-end-3 col-start-2 col-end-4`}
       >
-        Số ca hoạt động đạt kpi/tuần
+        {title}
       </Item>
       <Item className={`${headerClassName} col-start-4 col-end-6`}>
-        Nhận thêm
+        {subTitle}
       </Item>
 
       {/* Locate Header */}
@@ -119,4 +133,4 @@ const WeekReward = ({ curLocate }: Props) => {
   )
 }
 
-export default WeekReward
+export default Table

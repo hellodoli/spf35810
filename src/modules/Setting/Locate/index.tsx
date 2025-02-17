@@ -2,10 +2,9 @@ import React from 'react'
 
 import { SETTING_LOCATE } from 'modules/Form/types'
 import ExtraJoinsOrder from './ExtraJoinsOrder'
-import ExtraOrder from './ExtraOrder'
+import { ExtraOrder, WeekReward } from './ExtraReward'
 import { locatesArr as locates } from './Item'
 import SundayReward from './SundayReward'
-import WeekReward from './WeekReward'
 
 import ChooseHubBtn from '../ChooseHubBtn'
 
