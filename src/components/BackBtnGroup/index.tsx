@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, useHistory, useRouteMatch } from 'react-router-dom'
 import clsx from 'clsx'
 
+import { ReactComponent as AngleDownIcon } from 'assets/icons/angle-down.svg'
 import { ReactComponent as AnglesDownIcon } from 'assets/icons/angles-down.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
@@ -24,14 +25,46 @@ const BackBtnGroup = ({
     history.replace('/add')
   }
 
-  const scrollToView = () => {
-    const hubPreview = document.querySelector(`.${ELE_CLASSNAMES.HUB_PREVIEW}`)
-    if (!hubPreview) {
-      const toggleHubPreviewBtn = document.querySelector(
-        `.${ELE_CLASSNAMES.TOGGLE_HUB_PREVIEW_BUTTON}`,
-      )
-      if (toggleHubPreviewBtn) toggleHubPreviewBtn.scrollIntoView()
-    } else hubPreview.scrollIntoView()
+  const scrollToView = ({
+    blockSelector = '',
+    backupSelector = '',
+    scrollBlock = 'start',
+    scrollInline = 'nearest',
+    scrollBehavior,
+  }: {
+    blockSelector?: string
+    backupSelector?: string
+    scrollBlock?: ScrollLogicalPosition
+    scrollInline?: ScrollLogicalPosition
+    scrollBehavior?: ScrollBehavior
+  }) => {
+    const options = {
+      block: scrollBlock,
+      inline: scrollInline,
+      ...(scrollBehavior && {
+        behavior: scrollBehavior,
+      }),
+    }
+    const block = document.querySelector(blockSelector)
+    if (!block) {
+      if (!backupSelector) return
+      const backupBlock = document.querySelector(backupSelector)
+      if (backupBlock) backupBlock.scrollIntoView(options)
+    } else block.scrollIntoView(options)
+  }
+
+  const scrollToPreviewBlock = () => {
+    scrollToView({
+      blockSelector: `.${ELE_CLASSNAMES.HUB_PREVIEW}`,
+      backupSelector: `.${ELE_CLASSNAMES.TOGGLE_HUB_PREVIEW_BUTTON}`,
+    })
+  }
+
+  const scrollToExtraBlock = () => {
+    scrollToView({
+      blockSelector: `.${ELE_CLASSNAMES.HUB_EXTRA_INCOME}`,
+      scrollBlock: 'center',
+    })
   }
 
   return (
@@ -71,7 +104,16 @@ const BackBtnGroup = ({
               'stardust-button-reset stardust-button stardust-button--secondary',
               'lg:hidden',
             )}
-            onClick={scrollToView}
+            onClick={scrollToExtraBlock}
+          >
+            <AngleDownIcon fill="var(--nc-primary)" width={16} height={16} />
+          </button>
+          <button
+            className={clsx(
+              'stardust-button-reset stardust-button stardust-button--secondary',
+              'lg:hidden',
+            )}
+            onClick={scrollToPreviewBlock}
           >
             <AnglesDownIcon fill="var(--nc-primary)" width={16} height={16} />
           </button>

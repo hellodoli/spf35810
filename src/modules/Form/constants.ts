@@ -260,5 +260,7 @@ export const HUB_COLORS: HubColorsFilter = {
 
 export const ELE_CLASSNAMES = {
   HUB_PREVIEW: combineWithUniqId('hub-preview'),
-  TOGGLE_HUB_PREVIEW_BUTTON: combineWithUniqId('toggle_hub_preview_button'),
+  TOGGLE_HUB_PREVIEW_BUTTON: combineWithUniqId('toggle-hub-preview-button'),
+  HUB_EXTRA_INCOME: combineWithUniqId('hub-extra-income'),
+  TOGGLE_HUB_EXTRA_INCOME: combineWithUniqId('toggle-hub-extra-income'),
 }

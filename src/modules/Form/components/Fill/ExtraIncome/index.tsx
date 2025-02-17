@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import FormItem from 'components/FormItem'
 import { InputNumber } from 'components/Input'
+import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import { hubExtraIncomeSelector } from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { FORM_ACTION } from 'modules/Form/types/enum'
@@ -28,7 +29,7 @@ interface Props {
   type?: FORM_ACTION
 }
 
-const Tip = ({ type = FORM_ACTION.ADD }: Props) => {
+const ExtraIncome = ({ type = FORM_ACTION.ADD }: Props) => {
   const f = getFormat()
   const dispatch = useDispatch()
   const extraIncome = useSelector(hubExtraIncomeSelector)
@@ -53,7 +54,7 @@ const Tip = ({ type = FORM_ACTION.ADD }: Props) => {
   return (
     <FormItem
       label="Thu nhập khác:"
-      className={`form-type-${type.toLowerCase()}`}
+      className={`form-type-${type.toLowerCase()} ${ELE_CLASSNAMES.HUB_EXTRA_INCOME}`}
     >
       <div className="border-line p-2">
         <InputNumber
@@ -88,4 +89,4 @@ const Tip = ({ type = FORM_ACTION.ADD }: Props) => {
   )
 }
 
-export default Tip
+export default ExtraIncome
