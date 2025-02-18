@@ -87,6 +87,17 @@ export const formActions = {
       })
     }
   },
+  deleteHubExtraIncome: (
+    state: HubState,
+    action: PayloadAction<{
+      id: string
+    }>,
+  ) => {
+    const { id } = action.payload
+    state.extraIncomeArr = state.extraIncomeArr.filter(
+      (extraIncome) => extraIncome.id !== id,
+    )
+  },
   changeHubDetail: (state: HubState, action: PayloadAction<{ hub: Hub }>) => {
     const { hub } = action.payload
     state.hubShift = hub.hubShift

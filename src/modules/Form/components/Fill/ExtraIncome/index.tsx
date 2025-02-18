@@ -102,6 +102,15 @@ const ExtraIncome = ({ type = FORM_ACTION.ADD }: Props) => {
     )
   }
 
+  // delete
+  const handleDelete = (id: string) => {
+    dispatch(
+      actions.deleteHubExtraIncome({
+        id,
+      }),
+    )
+  }
+
   return (
     <FormItem
       label="Thu nhập khác:"
@@ -139,14 +148,24 @@ const ExtraIncome = ({ type = FORM_ACTION.ADD }: Props) => {
                     }}
                   >
                     <span className="mr-1">{`${extraIncome.labelText}: `}</span>
-                    <span>{f(extraIncome.price)}</span>
+                    <span className="mr-2">{f(extraIncome.price)}</span>
+                    <span
+                      className={clsx(
+                        'delete-button always-visible rounded-full w-[12px] h-[12px]',
+                        'flex items-center justify-center',
+                        'cursor-pointer border-line p-1 text-xs select-none',
+                      )}
+                      onClick={() => handleDelete(extraIncome.id)}
+                    >
+                      <small>x</small>
+                    </span>
                   </button>
                 )
               })}
             </div>
           )}
         </FormItem>
-        <FormItem label="Thêm nhanh:">
+        <FormItem label="Số tiền:">
           <div className="flex items-center flex-wrap gap-1">
             {quickAddExtraIncomeBtnArr.map(({ id, price }) => {
               return (
