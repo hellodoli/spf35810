@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 import AddJoin from 'components/AddJoin'
 import QuickAddJoinBtn from 'components/QuickAddJoinBtn'
@@ -30,7 +31,14 @@ const Order = () => {
         </em>
       </div>
       <AddJoin noMaxMode={true} joinDefault={joinDefault} onClick={onAdd} />
-      <div className="flex items-center flex-wrap gap-1 min-h-[30px] mt-4 empty:hidden">
+      <div
+        className={clsx(
+          'flex items-center flex-wrap gap-1',
+          'min-h-[30px]',
+          'mt-4',
+          'empty:hidden',
+        )}
+      >
         {quickAddJoins.map((join) => {
           return (
             <QuickAddJoinBtn

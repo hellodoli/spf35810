@@ -6,7 +6,7 @@ import { ReactComponent as SunIcon } from 'assets/icons/sun.svg'
 import { COLOR_THEME } from 'modules/Form/types/enum'
 import { getTheme, toggleTheme } from 'utils/theme'
 
-const ToggleDarkLightBtn = () => {
+const ToggleDarkLightBtn = ({ iconOnly = false }: { iconOnly?: boolean }) => {
   const [theme, setTheme] = useState(() => getTheme())
 
   const t = useMemo(() => {
@@ -37,7 +37,7 @@ const ToggleDarkLightBtn = () => {
       onClick={toggle}
     >
       <Icon width={12} height={12} fill="currentColor" />
-      <span className="ml-1">{t.text}</span>
+      {!iconOnly && <span className="ml-1">{t.text}</span>}
     </button>
   )
 }

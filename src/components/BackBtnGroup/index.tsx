@@ -5,8 +5,7 @@ import clsx from 'clsx'
 import { ReactComponent as AngleDownIcon } from 'assets/icons/angle-down.svg'
 import { ReactComponent as AnglesDownIcon } from 'assets/icons/angles-down.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
-import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg'
-import ModifyHubBtn from 'components/Buttons/ModifyHubBtn'
+import { ModifyHubBtn, ToggleDarkLightBtn } from 'components/Buttons'
 import { ELE_CLASSNAMES } from 'modules/Form/constants'
 import { FORM_ACTION } from 'modules/Form/types/enum'
 import { isAddHubPathName, isFormHubPathName } from 'utils/route-path'
@@ -87,8 +86,7 @@ const BackBtnGroup = ({
           className="stardust-button-reset stardust-button stardust-button--primary flex items-center leading-normal"
           onClick={handleAddHub}
         >
-          <PlusIcon fill="var(--nc-primary-bg)" width={16} height={16} />
-          <span className="ml-2">Thêm ca hub</span>
+          <span>Thêm ca mới</span>
         </button>
       )}
       {isFormHubPathName(path) && (
@@ -117,6 +115,7 @@ const BackBtnGroup = ({
           >
             <AnglesDownIcon fill="var(--nc-primary)" width={16} height={16} />
           </button>
+          <ToggleDarkLightBtn iconOnly={true} />
         </>
       )}
     </div>

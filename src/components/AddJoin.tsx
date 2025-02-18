@@ -127,7 +127,7 @@ const AddJoin = ({
             resetCount={resetCountOrder}
             isCounterMobile={true}
             // with `noMaxMode`
-            {...(!noMaxMode ? { max } : {})}
+            {...(!noMaxMode && { max })}
           />
           {!noMaxMode && <MaxLabel max={max} />}
         </FormItem>
