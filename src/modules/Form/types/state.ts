@@ -1,5 +1,5 @@
 import { HUB_DISPLAY, HUB_TYPE } from './enum'
-import { Hub, HubAdvancedOpt, MyHubs, RangeTime } from './hub'
+import { ExtraIncomeItem, Hub, HubAdvancedOpt, MyHubs, RangeTime } from './hub'
 import { JoinOrder } from './join'
 import { FilterHubTypeSetting, IncomeSetting, Settings } from './settings'
 
@@ -14,7 +14,7 @@ export interface HubState {
   order: number
   joins: { [key: string]: JoinOrder }
   hubAdvancedOpt: HubAdvancedOpt
-  hubExtraIncome: number
+  extraIncomeArr: ExtraIncomeItem[]
 
   myHubs: MyHubs
   hubsExist: { [key: string]: Hub }

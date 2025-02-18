@@ -7,6 +7,17 @@ export type HubOrderCompensateNumber = {
 
 export type OrderExtraRewardArr = [number, number | null, number]
 
+export interface ExtraIncomeLabel {
+  id: string
+  color: string
+  text: string
+  des?: string
+}
+
+export type ExtraIncomeLabelList = {
+  [key: string]: ExtraIncomeLabel
+}
+
 export interface Settings {
   ORDER_PRICE: {
     MIN: number
@@ -34,6 +45,7 @@ export interface Settings {
   LOCATE: SETTING_LOCATE
   ORDER_COMPENSATE_NUMBER: HubOrderCompensateNumber
   QUICK_ADD_JOINS: JoinOrder[]
+  QUICK_EXTRA_INCOME_LABELS: ExtraIncomeLabelList
 }
 
 export interface IncomeSetting {

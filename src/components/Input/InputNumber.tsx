@@ -1,4 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
 import clsx from 'clsx'
 
 import { ReactComponent as DownIcon } from 'assets/icons/caret-down.svg'
@@ -13,6 +19,13 @@ interface Props {
   step?: number
   disabled?: boolean
   isCounterMobile?: boolean
+  wrapperClassName?: string
+  inline?: boolean
+  activeWhenFocus?: boolean
+  onFocus?: () => void
+  onBlur?: () => void
+  onCount?: () => void
+  parentRef?: React.Ref<unknown>
 }
 
 const getValue = ({
@@ -54,13 +67,16 @@ const CounterMobile = ({
   min,
   max,
   step,
+  onCount: onCountCallback,
 }: {
   setValue: React.Dispatch<React.SetStateAction<string | number>>
   min: number
   max: number
   step: number
+  onCount?: () => void
 }) => {
   const onCount = (type: 'up' | 'down') => {
+    onCountCallback?.()
     setValue((value) => {
       const count = getNumberValue(value, min)
       const afterCountValue = type === 'up' ? count + step : count - step
@@ -108,7 +124,19 @@ const InputNumber = ({
   step = 1,
   disabled = false,
   isCounterMobile = false,
+  wrapperClassName = '',
+  inline = false,
+  activeWhenFocus = false,
+  onFocus: onFocusCallback,
+  onBlur: onBlurCallback,
+  onCount: onCountCallback,
+  parentRef,
 }: Props) => {
+  const inputWrapperProps = {
+    className: wrapperClassName,
+    inline,
+  }
+
   const [value, setValue] = useState<string | number>(
     getValue({
       value: initValue,
@@ -116,10 +144,18 @@ const InputNumber = ({
       max,
     }),
   )
+  const [activeFocus, setActiveFocus] = useState(false)
 
   const handleChangeValue = useCallback((number: string | number) => {
     setValue(number)
   }, [])
+
+  const handleOffActiveFocus = useCallback(() => {
+    if (activeWhenFocus) setActiveFocus(false)
+  }, [activeWhenFocus])
+  const handleOnActiveFocus = useCallback(() => {
+    if (activeWhenFocus) setActiveFocus(true)
+  }, [activeWhenFocus])
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rootValue = e.target.value
@@ -132,6 +168,21 @@ const InputNumber = ({
         handleChangeValue('')
       }
     }
+    handleOnActiveFocus()
+  }
+
+  const onCount = useCallback(() => {
+    handleOnActiveFocus()
+    onCountCallback?.()
+  }, [handleOnActiveFocus])
+
+  const onFocus = () => {
+    handleOnActiveFocus()
+    onFocusCallback?.()
+  }
+
+  const onBlur = () => {
+    onBlurCallback?.()
   }
 
   useEffect(() => {
@@ -159,8 +210,15 @@ const InputNumber = ({
     }
   }, [value, min, max, handleChangeValue])
 
+  useImperativeHandle(parentRef, () => {
+    return {
+      handleOffActiveFocus,
+      handleOnActiveFocus,
+    }
+  }, [])
+
   return (
-    <InputWrapper>
+    <InputWrapper {...inputWrapperProps} activeFocus={activeFocus}>
       <input
         type="number"
         className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none"
@@ -170,9 +228,17 @@ const InputNumber = ({
         onChange={onChange}
         step={step}
         disabled={disabled}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
       {isCounterMobile && (
-        <CounterMobile setValue={setValue} min={min} max={max} step={step} />
+        <CounterMobile
+          setValue={setValue}
+          min={min}
+          max={max}
+          step={step}
+          onCount={onCount}
+        />
       )}
     </InputWrapper>
   )

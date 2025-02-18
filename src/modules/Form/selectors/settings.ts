@@ -37,3 +37,13 @@ export const quickAddJoinsSelector = createSelector(
   [settingsSelector],
   (settings) => settings['QUICK_ADD_JOINS'],
 )
+
+export const quickExtraIncomeLabelListSelector = createSelector(
+  [settingsSelector],
+  (settings) => settings['QUICK_EXTRA_INCOME_LABELS'],
+)
+
+export const quickExtraIncomeLabelsSelector = createSelector(
+  [quickExtraIncomeLabelListSelector],
+  (labelList) => Object.values(labelList),
+)

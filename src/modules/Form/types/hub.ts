@@ -19,10 +19,17 @@ export type HubShiftList = {
   [key in HUB_TYPE]: HubShift[]
 }
 
-export type HubAdvancedOpt = {
+export interface HubAdvancedOpt {
   includeWeekReward: boolean
   includeSundayReward: boolean
   includeAutoCompensate: boolean
+}
+
+export interface ExtraIncomeItem {
+  id: string
+  labelId: string
+  labelText: string
+  price: number
 }
 
 export interface HubGenaral {
@@ -34,7 +41,7 @@ export interface HubGenaral {
   isHubWellDone?: boolean
   isAutoCompensate?: boolean
   hubAdvancedOpt?: HubAdvancedOpt
-  extraIncome?: number
+  extraIncomeArr?: ExtraIncomeItem[]
 }
 
 export interface Hub extends HubGenaral {

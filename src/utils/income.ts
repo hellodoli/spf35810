@@ -311,7 +311,7 @@ export const getPrice_Hubs = ({
       hub.hubAdvancedOpt?.includeAutoCompensate,
     )
     const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
-    const extraIncomePrice = getHubExtraIncome(hub.extraIncome)
+    const extraIncomePrice = getHubExtraIncome(hub.extraIncomeArr)
 
     const generalParams = {
       hubType,

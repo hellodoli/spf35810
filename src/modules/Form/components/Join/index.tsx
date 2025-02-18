@@ -101,6 +101,9 @@ const Join = ({ joinOrder: join, isPlainUI = true }: Props) => {
           className={clsx(
             'stardust-button-reset stardust-button stardust-button--secondary rounded-2xl',
             'stardust-button--active',
+            {
+              'h-8': isPlainUI,
+            },
           )}
           disabled={true}
         >
@@ -129,6 +132,7 @@ const Join = ({ joinOrder: join, isPlainUI = true }: Props) => {
           joinId={joinId}
           joinType={join.type}
           initValue={memoJoin.price}
+          isPlainUI={isPlainUI}
         />
       </FormItem>
     </div>

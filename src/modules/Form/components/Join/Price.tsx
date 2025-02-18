@@ -11,6 +11,7 @@ interface Props {
   joinId: string
   joinType: JoinOrder['type']
   initValue: number
+  isPlainUI?: boolean
 }
 
 /**
@@ -18,7 +19,7 @@ interface Props {
  */
 const isHappyJoin = false
 
-const Price = ({ joinId, joinType, initValue }: Props) => {
+const Price = ({ joinId, joinType, initValue, isPlainUI = false }: Props) => {
   const dispatch = useDispatch()
   const orderPrice = useSelector(orderPriceDefaultSelector)
 
@@ -56,6 +57,7 @@ const Price = ({ joinId, joinType, initValue }: Props) => {
           initValue={initValue}
           onChangeInput={onChangeInput}
           disabled={isHappyJoin}
+          wrapperClassName={isPlainUI ? '!h-8' : ''}
         />
       )}
     </>

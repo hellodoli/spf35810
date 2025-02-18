@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { initialState } from 'modules/Form/slices/initState'
 import { HUB_TYPE, JoinOrder } from 'modules/Form/types'
 import { RootState } from 'types/RootState'
-import { getIncludeAutoCompensate } from 'utils/hub'
+import { getHubExtraIncome, getIncludeAutoCompensate } from 'utils/hub'
 import { getMaxJoinOrder } from 'utils/join'
 
 export * from './income-setting'
@@ -17,9 +17,12 @@ export const orderSelector = createSelector(
   (state) => state.order,
 )
 
-export const hubExtraIncomeSelector = createSelector(
+export const hubExtraIncomeArrSelector = createSelector(
   [selectSlice],
-  (state) => state.hubExtraIncome,
+  (state) => state.extraIncomeArr,
+)
+export const hubExtraIncomeSelector = createSelector([selectSlice], (state) =>
+  getHubExtraIncome(state.extraIncomeArr),
 )
 
 export const joinsObSelector = createSelector(

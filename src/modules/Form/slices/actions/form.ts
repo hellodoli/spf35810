@@ -2,8 +2,9 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 import { Hub, HUB_TYPE, HubAdvancedOpt, HubState } from 'modules/Form/types'
 import {
+  combineWithUniqId,
   getHubAdvancedOpt,
-  getHubExtraIncome,
+  getHubExtraIncomeArr,
   getIsHubWellDone,
 } from 'utils/hub'
 import { convertFromJoinsOb } from 'utils/join'
@@ -55,17 +56,36 @@ export const formActions = {
   },
   addHubExtraIncome: (
     state: HubState,
-    action: PayloadAction<{ price: number }>,
+    action: PayloadAction<{
+      price: number
+      labelId: string
+      labelText: string
+    }>,
   ) => {
-    const { price } = action.payload
-    state.hubExtraIncome += price
-  },
-  changeHubExtraIncome: (
-    state: HubState,
-    action: PayloadAction<{ price: number }>,
-  ) => {
-    const { price } = action.payload
-    state.hubExtraIncome = price
+    const { price, labelId, labelText } = action.payload
+    const labelIds = [...state.extraIncomeArr].map(
+      (extraIncome) => extraIncome.labelId,
+    )
+    const matchLabelId = labelIds.includes(labelId)
+    if (matchLabelId) {
+      // exist label
+      state.extraIncomeArr = state.extraIncomeArr.map((extraIncome) => {
+        if (extraIncome.labelId === labelId)
+          return {
+            ...extraIncome,
+            price: extraIncome.price + price,
+          }
+        return extraIncome
+      })
+    } else {
+      // add new
+      state.extraIncomeArr.push({
+        id: combineWithUniqId(labelId),
+        labelId,
+        labelText,
+        price,
+      })
+    }
   },
   changeHubDetail: (state: HubState, action: PayloadAction<{ hub: Hub }>) => {
     const { hub } = action.payload
@@ -76,8 +96,7 @@ export const formActions = {
     state.joins = convertFromJoinsOb(hub.joins)
     state.isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     state.hubAdvancedOpt = getHubAdvancedOpt(hub.hubAdvancedOpt)
-    state.hubExtraIncome = getHubExtraIncome(hub.extraIncome)
-
+    state.extraIncomeArr = getHubExtraIncomeArr(hub.extraIncomeArr)
     state.isLoading = false
   },
 }

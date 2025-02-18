@@ -5,9 +5,15 @@ interface Props {
   children: React.ReactNode
   inline?: boolean
   className?: string
+  activeFocus?: boolean
 }
 
-const InputWrapper = ({ children, inline = false, className = '' }: Props) => {
+const InputWrapper = ({
+  children,
+  inline = false,
+  className = '',
+  activeFocus = false,
+}: Props) => {
   return (
     <div
       className={clsx('rounded-[2px] box-border overflow-hidden h-[40px]', {
@@ -16,7 +22,8 @@ const InputWrapper = ({ children, inline = false, className = '' }: Props) => {
         [className]: !!className,
       })}
       style={{
-        border: '1px solid rgba(0, 0, 0, 0.14)',
+        border: '1px solid',
+        borderColor: activeFocus ? 'var(--nc-primary)' : 'rgba(0, 0, 0, 0.14)',
         boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 0px inset',
       }}
     >

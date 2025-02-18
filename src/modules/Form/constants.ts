@@ -4,6 +4,8 @@ import {
   get_SettingsDefault_QuickAddJoins,
 } from './default'
 import {
+  ExtraIncomeLabel,
+  ExtraIncomeLabelList,
   ExtraOrderSundayList,
   ExtraRewardList,
   FilterHubTypeSetting,
@@ -30,6 +32,36 @@ export const FILTER_HUBTYPE_MY_HUB_DEFAULT: FilterHubTypeSetting = {
   [HUB_TYPE.HUB_3]: true,
   [HUB_TYPE.HUB_1]: true,
 }
+
+const create_QUICK_EXTRA_INCOME_LABELS = () => {
+  const QUICK_EXTRA_INCOME_LABELS_DEFAULT: ExtraIncomeLabelList = {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const QUICK_EXTRA_INCOME_LABELS_DEFAULT_ARR: ExtraIncomeLabel[] = [
+    { text: 'Khác', color: 'var(--nc-error)', des: '' },
+    { text: 'Tiền tip online', color: 'var(--nc-caution)', des: '' },
+    {
+      text: 'Tiền tip khách cho',
+      color: 'var(--nc-secondary-yellow)',
+      des: '',
+    },
+    {
+      text: 'Tiền thừa khách cho',
+      color: 'var(--nc-secondary-yellow)',
+      des: '',
+    },
+    { text: 'Phí giữ xe', color: 'var(--nc-success)', des: '' },
+    { text: 'Phí thời tiết', color: 'var(--nc-text-link)', des: '' },
+  ].map((item, index) => {
+    const id = `quick_extra_income_label_${index + 1}`
+    const newItem = { ...item, id }
+    QUICK_EXTRA_INCOME_LABELS_DEFAULT[id] = newItem
+    return newItem
+  })
+  return QUICK_EXTRA_INCOME_LABELS_DEFAULT
+}
+export const QUICK_EXTRA_INCOME_LABELS_DEFAULT =
+  create_QUICK_EXTRA_INCOME_LABELS()
+
 export const SETTINGS_DEFAULT: Settings = {
   ORDER_PRICE: {
     MIN: 0,
@@ -61,6 +93,7 @@ export const SETTINGS_DEFAULT: Settings = {
     [HUB_TYPE.HUB_3]: 0,
     [HUB_TYPE.HUB_5]: 0,
   },
+  QUICK_EXTRA_INCOME_LABELS: QUICK_EXTRA_INCOME_LABELS_DEFAULT,
   // !IMPORTANT: values maybe change by user
   LOCATE: get_SettingsDefault_Locate(),
   QUICK_ADD_JOINS: get_SettingsDefault_QuickAddJoins(),

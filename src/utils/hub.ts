@@ -4,6 +4,7 @@ import weekday from 'dayjs/plugin/weekday'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
+  ExtraIncomeItem,
   Hub,
   HUB_DISPLAY,
   HUB_TYPE,
@@ -274,8 +275,16 @@ export const getIncludeAutoCompensate = (includeAutoCompensate?: boolean) => {
     : HUB_ADVANCED_OPT.includeAutoCompensate
 }
 
-export const getHubExtraIncome = (hubExtraIncome?: number) => {
-  return typeof hubExtraIncome === 'number' ? hubExtraIncome : 0
+export const getHubExtraIncomeArr = (hubExtraIncomeArr?: ExtraIncomeItem[]) => {
+  return typeof hubExtraIncomeArr !== 'undefined' ? hubExtraIncomeArr : []
+}
+export const getHubExtraIncome = (
+  hubExtraIncomeArr: ExtraIncomeItem[] = [],
+) => {
+  return hubExtraIncomeArr.reduce(
+    (accumulator, extra) => accumulator + extra.price,
+    0,
+  )
 }
 
 export const getIsSoftCompensate = ({

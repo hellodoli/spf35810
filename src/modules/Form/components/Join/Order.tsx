@@ -39,6 +39,7 @@ const Order = ({ joinId, initValue: nextValue, isPlainUI }: Props) => {
         onChangeInput={onChangeInput}
         isCounterMobile={true}
         resetCount={1} // trick always change when `initValue` change
+        wrapperClassName={isPlainUI ? '!h-8' : ''}
       />
       <MaxLabel max={max} isShortText={isPlainUI} />
     </>
