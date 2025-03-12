@@ -51,6 +51,7 @@ const create_QUICK_EXTRA_INCOME_LABELS = () => {
     },
     { text: 'Phí giữ xe', color: 'var(--nc-success)', des: '' },
     { text: 'Phí thời tiết', color: 'var(--nc-text-link)', des: '' },
+    { text: 'Phí giao tận cửa', color: 'var(--nc-error)', des: '' },
   ].map((item, index) => {
     const id = `quick_extra_income_label_${index + 1}`
     const newItem = { ...item, id }
