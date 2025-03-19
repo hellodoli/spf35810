@@ -5,6 +5,7 @@ import type { ItemLayout } from './type'
 
 interface Props extends ItemLayout {
   children: React.ReactNode
+  LabelComp?: () => JSX.Element
 }
 
 const applyPxStyleValue = (styleValue: string | number) => {
@@ -14,6 +15,7 @@ const applyPxStyleValue = (styleValue: string | number) => {
 
 const Layout = ({
   label = '',
+  LabelComp,
   mt = '',
   pb = 30,
   pl = 20,
@@ -60,6 +62,7 @@ const Layout = ({
         }}
       >
         {label}
+        {LabelComp ? <LabelComp /> : null}
       </div>
 
       <div
