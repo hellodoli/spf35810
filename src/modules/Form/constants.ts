@@ -220,6 +220,7 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
   [SETTING_LOCATE.OTHER]: [...EXTRA_SUNDAY_ORDER_NO_REWARD],
 }
 
+export const WEEK_REWARD_SEASON_2025_05_19 = '1747587600000'
 export const WEEK_REWARD: ExtraRewardList = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [
@@ -236,6 +237,72 @@ export const WEEK_REWARD: ExtraRewardList = {
       [6, 6, 150000],
       [9, 9, 300000],
       [12, null, 500000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HANOI]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 100000],
+      [5, 5, 150000],
+      [6, null, 300000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [6, 6, 150000],
+      [9, 9, 300000],
+      [12, null, 500000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HAIPHONG]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 80000],
+      [6, null, 200000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 80000],
+      [6, null, 200000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [6, 6, 80000],
+      [9, null, 200000],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.OTHER]: {
+    [HUB_TYPE.HUB_10]: [],
+    [HUB_TYPE.HUB_8]: [],
+    [HUB_TYPE.HUB_5]: [],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+}
+export const WEEK_REWARD_2025_05_19: ExtraRewardList = {
+  [SETTING_LOCATE.TPHCM]: {
+    [HUB_TYPE.HUB_10]: [
+      [4, 4, 100000],
+      [5, 5, 200000],
+      [6, 6, 400000],
+      [7, null, 500000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [4, 4, 100000],
+      [5, 5, 200000],
+      [6, 6, 400000],
+      [7, null, 500000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [8, 8, 100000],
+      [10, 10, 200000],
+      [12, 12, 400000],
+      [14, null, 500000],
     ],
     [HUB_TYPE.HUB_3]: [],
     [HUB_TYPE.HUB_1]: [],
