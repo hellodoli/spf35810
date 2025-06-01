@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { WEEK_REWARD } from 'modules/Form/constants'
+import { WEEK_REWARD_2025_05_19 as WEEK_REWARD } from 'modules/Form/constants'
 import { SETTING_LOCATE } from 'modules/Form/types'
 import Table from './Table'
 
