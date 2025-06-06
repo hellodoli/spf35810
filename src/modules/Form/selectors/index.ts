@@ -6,16 +6,12 @@ import { RootState } from 'types/RootState'
 import { getHubExtraIncome, getIncludeAutoCompensate } from 'utils/hub'
 import { getMaxJoinOrder } from 'utils/join'
 
+export * from './form'
 export * from './income-setting'
 export * from './my-hub'
 export * from './settings'
 
 const selectSlice = (state: RootState) => state.form || initialState
-
-export const orderSelector = createSelector(
-  [selectSlice],
-  (state) => state.order,
-)
 
 export const hubExtraIncomeArrSelector = createSelector(
   [selectSlice],
@@ -23,35 +19,6 @@ export const hubExtraIncomeArrSelector = createSelector(
 )
 export const hubExtraIncomeSelector = createSelector([selectSlice], (state) =>
   getHubExtraIncome(state.extraIncomeArr),
-)
-
-export const joinsObSelector = createSelector(
-  [selectSlice],
-  (state) => state.joins,
-)
-
-export const joinsSelector = createSelector([joinsObSelector], (joinsOb) =>
-  Object.values(joinsOb),
-)
-
-export const isHubWellDoneSelector = createSelector(
-  [selectSlice],
-  (state) => state.isHubWellDone,
-)
-
-export const hubTypeSelector = createSelector(
-  [selectSlice],
-  (state) => state.hubType,
-)
-
-export const hubTimeSelector = createSelector(
-  [selectSlice],
-  (state) => state.hubTime,
-)
-
-export const hubShiftSelector = createSelector(
-  [selectSlice],
-  (state) => state.hubShift,
 )
 
 export const hubAdvancedOptSelector = createSelector(

@@ -15,6 +15,7 @@ export interface HubState {
   joins: { [key: string]: JoinOrder }
   hubAdvancedOpt: HubAdvancedOpt
   extraIncomeArr: ExtraIncomeItem[]
+  isHubShort: boolean
 
   myHubs: MyHubs
   hubsExist: { [key: string]: Hub }

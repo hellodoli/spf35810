@@ -19,6 +19,7 @@ export const getResetHubFillState = () => {
     joins: { [join.key]: join },
     hubAdvancedOpt: getDefaultHubAdvancedOpt(),
     extraIncomeArr: [],
+    isHubShort: false,
   }
 }
 
@@ -42,4 +43,5 @@ export const changeResetHubFillState = (state: HubState) => {
   state.extraIncomeArr = extraIncomeArr
   state.isLoading = false
   state.isLoadingMyHub = false
+  state.isHubShort = false
 }
