@@ -5,6 +5,7 @@ import {
   combineWithUniqId,
   getHubAdvancedOpt,
   getHubExtraIncomeArr,
+  getIsHubShort,
   getIsHubWellDone,
 } from 'utils/hub'
 import { convertFromJoinsOb } from 'utils/join'
@@ -108,6 +109,14 @@ export const formActions = {
     state.isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     state.hubAdvancedOpt = getHubAdvancedOpt(hub.hubAdvancedOpt)
     state.extraIncomeArr = getHubExtraIncomeArr(hub.extraIncomeArr)
+    state.isHubShort = getIsHubShort(hub.isHubShort)
     state.isLoading = false
+  },
+  changeHubShort: (
+    state: HubState,
+    action: PayloadAction<{ isHubShort: boolean }>,
+  ) => {
+    const { isHubShort } = action.payload
+    state.isHubShort = isHubShort
   },
 }

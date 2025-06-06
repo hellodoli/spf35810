@@ -46,6 +46,7 @@ export interface Settings {
   ORDER_COMPENSATE_NUMBER: HubOrderCompensateNumber
   QUICK_ADD_JOINS: JoinOrder[]
   QUICK_EXTRA_INCOME_LABELS: ExtraIncomeLabelList
+  HUB_SHORT_PRICE: number
 }
 
 export interface IncomeSetting {

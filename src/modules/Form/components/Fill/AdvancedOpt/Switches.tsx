@@ -7,9 +7,10 @@ import {
   includeAutoCompensateSelector,
   includeSundayRewardOptSelector,
   includeWeekRewardOptSelector,
+  isHubShortSelector,
 } from 'modules/Form/selectors'
 import { HubAdvancedOpt } from 'modules/Form/types/hub'
-import { isApplyForExtraSunday, isSuperHub } from 'utils/hub'
+import { isApplyForExtraSunday, isEnhanceHub, isSuperHub } from 'utils/hub'
 import SwitchItem from './SwitchItem'
 
 const modalInfo: { [k in keyof HubAdvancedOpt]: string[] } = {
@@ -30,9 +31,14 @@ const modalInfo: { [k in keyof HubAdvancedOpt]: string[] } = {
   ],
 }
 
+const hubShort_modalInfo = ['']
+const hubShort_id = 'hubShort_switch'
+const hubShort_key = 'hubShortSwitch'
+
 const Switches = () => {
   const hubType = useSelector(hubTypeSelector)
   const hubTime = useSelector(hubTimeSelector)
+  const isHubShort = useSelector(isHubShortSelector)
   const includeWeekReward = useSelector(includeWeekRewardOptSelector)
   const includeSundayReward = useSelector(includeSundayRewardOptSelector)
   const includeAutoCompensate = useSelector(includeAutoCompensateSelector)
@@ -48,7 +54,27 @@ const Switches = () => {
         checked: includeWeekReward,
       },
     ]
-    let datas = [...baseDatas]
+
+    let datas: {
+      id: string
+      key: string
+      text: string
+      modalInfoText: string[]
+      checked: boolean
+    }[] = []
+
+    if (!isEnhanceHub(hubType)) {
+      const hubShortSwitch = {
+        id: hubShort_id,
+        key: hubShort_key,
+        text: 'Hub giao gần',
+        modalInfoText: hubShort_modalInfo,
+        checked: isHubShort,
+      }
+      datas = [...datas, hubShortSwitch]
+    }
+
+    datas = [...datas, ...baseDatas]
 
     if (isApplyForExtraSunday(hubTime)) {
       const key = 'includeSundayReward'
@@ -79,6 +105,7 @@ const Switches = () => {
     includeWeekReward,
     includeSundayReward,
     includeAutoCompensate,
+    isHubShort,
   ])
 
   return (
@@ -91,6 +118,7 @@ const Switches = () => {
               checked={checked}
               modalInfoText={modalInfoText}
               updateKey={key as keyof HubAdvancedOpt}
+              hubShortSwitch={key === hubShort_key}
             />
           </div>
         )

@@ -84,7 +84,8 @@ const Fill = ({
             {/* Thu nhập khác */}
             <ExtraIncome type={type} />
             {/* Tùy chỉnh nâng cao */}
-            {!isCalMode && <AdvancedOpt />}
+            <AdvancedOpt />
+
             {/* Meta zone */}
             <Meta type={type} hubId={hubId} />
           </>

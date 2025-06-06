@@ -96,6 +96,7 @@ export const SETTINGS_DEFAULT: Settings = {
   },
   QUICK_EXTRA_INCOME_LABELS: QUICK_EXTRA_INCOME_LABELS_DEFAULT,
   // !IMPORTANT: values maybe change by user
+  HUB_SHORT_PRICE: 9000,
   LOCATE: get_SettingsDefault_Locate(),
   QUICK_ADD_JOINS: get_SettingsDefault_QuickAddJoins(),
 }

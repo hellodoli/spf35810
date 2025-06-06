@@ -23,6 +23,7 @@ const HUB_ADVANCED_OPT: HubAdvancedOpt = {
   includeWeekReward: true,
   includeAutoCompensate: true,
 }
+const IS_HUB_SHORT_DEFAULT = false
 
 const EXTRA_MINUTE_UT = 1000 * 60
 const EXTRA_HOUR_UT = 1000 * 60 * 60
@@ -248,11 +249,18 @@ export const isApplyForExtraSunday = (unixDate: number) => {
   return d.getDay() === 0 && d.getTime() >= 1729962000000 // after 27/10/2024
 }
 
+const getHubDataBooleanDefault = (fallbackData: boolean, data?: boolean) => {
+  return typeof data === 'boolean' ? data : fallbackData
+}
+
 export const getDefaultIsHubWellDone = () => IS_HUB_WELL_DONE_DEFAULT
 export const getIsHubWellDone = (isHubWellDone?: boolean) => {
-  return typeof isHubWellDone === 'boolean'
-    ? isHubWellDone
-    : getDefaultIsHubWellDone()
+  return getHubDataBooleanDefault(getDefaultIsHubWellDone(), isHubWellDone)
+}
+
+export const getDefaultIsHubShort = () => IS_HUB_SHORT_DEFAULT
+export const getIsHubShort = (isHubShort?: boolean) => {
+  return getHubDataBooleanDefault(getDefaultIsHubShort(), isHubShort)
 }
 
 export const getDefaultHubAdvancedOpt = () => HUB_ADVANCED_OPT
@@ -262,19 +270,22 @@ export const getHubAdvancedOpt = (hubAdvancedOpt?: HubAdvancedOpt) => {
     : getDefaultHubAdvancedOpt()
 }
 export const getIncludeWeekReward = (includeWeekReward?: boolean) => {
-  return typeof includeWeekReward === 'boolean'
-    ? includeWeekReward
-    : HUB_ADVANCED_OPT.includeWeekReward
+  return getHubDataBooleanDefault(
+    HUB_ADVANCED_OPT.includeWeekReward,
+    includeWeekReward,
+  )
 }
 export const getIncludeSundayReward = (includeSundayReward?: boolean) => {
-  return typeof includeSundayReward === 'boolean'
-    ? includeSundayReward
-    : HUB_ADVANCED_OPT.includeSundayReward
+  return getHubDataBooleanDefault(
+    HUB_ADVANCED_OPT.includeSundayReward,
+    includeSundayReward,
+  )
 }
 export const getIncludeAutoCompensate = (includeAutoCompensate?: boolean) => {
-  return typeof includeAutoCompensate === 'boolean'
-    ? includeAutoCompensate
-    : HUB_ADVANCED_OPT.includeAutoCompensate
+  return getHubDataBooleanDefault(
+    HUB_ADVANCED_OPT.includeAutoCompensate,
+    includeAutoCompensate,
+  )
 }
 
 export const getHubExtraIncomeArr = (hubExtraIncomeArr?: ExtraIncomeItem[]) => {

@@ -15,6 +15,7 @@ interface Props {
   modalInfoText?: string[]
   checked: boolean
   updateKey: keyof HubAdvancedOpt
+  hubShortSwitch?: boolean
 }
 
 const SwitchItem = ({
@@ -22,6 +23,7 @@ const SwitchItem = ({
   modalInfoText = modalInfoTextDefault,
   checked,
   updateKey,
+  hubShortSwitch = false,
 }: Props) => {
   const dispatch = useDispatch()
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -75,14 +77,23 @@ const SwitchItem = ({
 
   const onChangeChecked = useCallback(
     (isChecked: boolean) => {
-      dispatch(
-        actions.changeHubAdvancedOpt({
-          isInclude: isChecked,
-          key: updateKey,
-        }),
-      )
+      if (hubShortSwitch) {
+        dispatch(
+          actions.changeHubShort({
+            isHubShort: isChecked,
+          }),
+        )
+      } else {
+        // change hub advance opt
+        dispatch(
+          actions.changeHubAdvancedOpt({
+            isInclude: isChecked,
+            key: updateKey,
+          }),
+        )
+      }
     },
-    [updateKey],
+    [updateKey, hubShortSwitch],
   )
 
   return (
