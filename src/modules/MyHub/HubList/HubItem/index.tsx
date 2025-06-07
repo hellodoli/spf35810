@@ -57,6 +57,7 @@ const HubItem = ({
     order: getTotalOrderOfJoins(joins),
     isJoin: true,
     loc,
+    isHubShort,
   })
 
   const onHandleClick = () => {

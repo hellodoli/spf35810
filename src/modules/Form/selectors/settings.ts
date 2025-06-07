@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { initialState } from 'modules/Form/slices/initState'
 import { HUB_TYPE } from 'modules/Form/types'
 import { RootState } from 'types/RootState'
+import { getPriceDefaultWithHubShort } from 'utils/income'
 
 const selectSlice = (state: RootState) => state.form || initialState
 
@@ -19,9 +20,11 @@ export const isHubShortSelector = createSelector(
 export const orderPriceDefaultSelector = createSelector(
   [isHubShortSelector, settingsSelector],
   (isHubShort, settings) =>
-    isHubShort
-      ? settings['HUB_SHORT_PRICE']
-      : settings['ORDER_PRICE']['DEFAULT'],
+    getPriceDefaultWithHubShort({
+      hubShortPrice: settings['HUB_SHORT_PRICE'],
+      orderPrice: settings['ORDER_PRICE']['DEFAULT'],
+      isHubShort,
+    }),
 )
 
 export const hubShortPriceSelector = createSelector(

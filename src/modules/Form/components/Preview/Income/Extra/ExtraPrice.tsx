@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import ExpandBtn from 'components/Buttons/ExpandBtn'
 import {
   hubTypeSelector,
+  isHubShortSelector,
   isShowDetailWithOrderSelector,
   locateSettingSelector,
 } from 'modules/Form/selectors'
@@ -24,6 +25,7 @@ const ExtraPrice = ({
 }) => {
   const isShowDetailWithOrder = useSelector(isShowDetailWithOrderSelector)
   const hubType = useSelector(hubTypeSelector)
+  const isHubShort = useSelector(isHubShortSelector)
   const loc = useSelector(locateSettingSelector)
 
   const [isDetail, setIsDetail] = useState(false)
@@ -35,8 +37,9 @@ const ExtraPrice = ({
         order,
         isJoin,
         loc,
+        isHubShort,
       }),
-    [hubType, order, loc, isJoin],
+    [hubType, order, loc, isJoin, isHubShort],
   )
 
   const toggleDetail = useCallback(() => {

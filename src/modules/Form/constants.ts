@@ -178,6 +178,72 @@ export const EXTRA_ORDER: ExtraRewardList = {
     [HUB_TYPE.HUB_1]: [],
   },
 }
+export const EXTRA_ORDER_WITH_HUB_SHORT: ExtraRewardList = {
+  [SETTING_LOCATE.TPHCM]: {
+    [HUB_TYPE.HUB_10]: [
+      [41, 45, 7000],
+      [46, null, 8000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [32, 37, 6000],
+      [38, null, 8000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [18, 27, 5000],
+      [28, null, 7000],
+    ],
+    [HUB_TYPE.HUB_3]: [
+      [10, 17, 3000],
+      [18, null, 4000],
+    ],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HANOI]: {
+    [HUB_TYPE.HUB_10]: [
+      [41, 45, 7000],
+      [46, null, 8000],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [32, 37, 6000],
+      [38, null, 8000],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [18, 27, 5000],
+      [28, null, 7000],
+    ],
+    [HUB_TYPE.HUB_3]: [
+      [10, 17, 3000],
+      [18, null, 4000],
+    ],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.HAIPHONG]: {
+    [HUB_TYPE.HUB_10]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_8]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_5]: [
+      [10, 12, 500],
+      [13, 16, 1000],
+      [17, null, 1500],
+    ],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+  [SETTING_LOCATE.OTHER]: {
+    [HUB_TYPE.HUB_10]: [],
+    [HUB_TYPE.HUB_8]: [],
+    [HUB_TYPE.HUB_5]: [],
+    [HUB_TYPE.HUB_3]: [],
+    [HUB_TYPE.HUB_1]: [],
+  },
+}
 export const EXTRA_JOIN_ORDER: RewardList = {
   [HUB_TYPE.HUB_10]: [
     [18, 22, 4000],

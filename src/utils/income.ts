@@ -100,7 +100,7 @@ export const getOrder_Hubs = (hubs: Hub[]) => {
   return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
 }
 
-const getPriceDefaultWithHubShort = ({
+export const getPriceDefaultWithHubShort = ({
   isHubShort,
   orderPrice,
   hubShortPrice,
@@ -182,6 +182,7 @@ export const getPrice_Hub = ({
         order,
         isJoin: false,
         loc,
+        isHubShort,
       })
       extraOrderPrice = extraOrder.totalPrice
       totalPrice += extraOrderPrice
@@ -194,6 +195,7 @@ export const getPrice_Hub = ({
         order: totalJoinsOrder,
         isJoin: true,
         loc,
+        isHubShort,
       })
       extraJoinOrderPrice = extraJoinOrder.totalPrice
       totalPrice += extraJoinOrderPrice
@@ -476,6 +478,7 @@ export const getDiffJoinsPrice_Hub = ({
       order: totalJoinsOrder,
       isJoin: true,
       loc,
+      isHubShort,
     })
     crop += extraJoinOrder.totalPrice
   }

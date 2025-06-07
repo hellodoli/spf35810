@@ -1,4 +1,8 @@
-import { EXTRA_JOIN_ORDER, EXTRA_ORDER } from 'modules/Form/constants'
+import {
+  EXTRA_JOIN_ORDER,
+  EXTRA_ORDER,
+  EXTRA_ORDER_WITH_HUB_SHORT,
+} from 'modules/Form/constants'
 import { HUB_TYPE, JoinOrder, SETTING_LOCATE } from 'modules/Form/types'
 import * as join from './join'
 
@@ -7,14 +11,20 @@ export const getExtraOrderQtt = ({
   hubType,
   isJoin = false,
   loc,
+  isHubShort,
 }: {
   order: number
   hubType: HUB_TYPE
   isJoin?: boolean
   loc: SETTING_LOCATE
+  isHubShort: boolean
 }) => {
   let point = 0
-  const rewards = isJoin ? EXTRA_JOIN_ORDER[hubType] : EXTRA_ORDER[loc][hubType]
+  const rewards = isJoin
+    ? EXTRA_JOIN_ORDER[hubType]
+    : isHubShort
+      ? EXTRA_ORDER_WITH_HUB_SHORT[loc][hubType]
+      : EXTRA_ORDER[loc][hubType]
   for (let i = 0; i < rewards.length; i++) {
     const reward = rewards[i][0]
     if (reward !== 0) {
