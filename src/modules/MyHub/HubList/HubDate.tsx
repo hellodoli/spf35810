@@ -10,7 +10,11 @@ import {
   makeMyHubByHubTime,
 } from 'modules/Form/selectors'
 import * as asThunk from 'modules/Form/slices/asyncThunk'
-import { getIncludeWeekReward, getIsHubWellDone } from 'utils/hub'
+import {
+  getIncludeWeekReward,
+  getIsHubShort,
+  getIsHubWellDone,
+} from 'utils/hub'
 import { getFilter_Hubs } from 'utils/income'
 import { routes } from 'utils/route-path'
 import { getDisplayDate } from 'utils/time'
@@ -114,6 +118,7 @@ const HubDate = ({ date = '' }: Props) => {
                   )}
                   joins={hub.joins}
                   loc={loc}
+                  isHubShort={getIsHubShort(hub?.isHubShort)}
                 />
               )
             })}

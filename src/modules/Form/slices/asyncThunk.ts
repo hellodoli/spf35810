@@ -14,6 +14,7 @@ import { RootState } from 'types'
 import {
   getHubExtraIncome,
   getIncludeAutoCompensate,
+  getIsHubShort,
   getRangeTimeMyHubs,
 } from 'utils/hub'
 import { getCompensate_Hub } from 'utils/income'
@@ -73,7 +74,10 @@ const modifyHub = createAsyncThunk(
       const includeAutoCompensate = getIncludeAutoCompensate(
         hubAdvancedOpt.includeAutoCompensate,
       )
+      const isHubShort = getIsHubShort(state.form.isHubShort)
+
       const orderPrice = settings['ORDER_PRICE']['DEFAULT']
+      const hubShortPrice = settings['HUB_SHORT_PRICE']
       const loc = settings['LOCATE']
 
       const compensateHub = getCompensate_Hub({
@@ -86,6 +90,8 @@ const modifyHub = createAsyncThunk(
         isHubWellDone,
         includeAutoCompensate,
         loc,
+        isHubShort,
+        hubShortPrice,
       })
       const isAutoCompensate = compensateHub.isCompensate
       const hub: Hub = {
@@ -99,6 +105,7 @@ const modifyHub = createAsyncThunk(
         isAutoCompensate,
         hubAdvancedOpt,
         extraIncomeArr,
+        isHubShort,
       }
       console.log('modifyHub: ', { form: state.form, hub, type, joins })
       const response =

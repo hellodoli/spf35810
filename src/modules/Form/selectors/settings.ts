@@ -11,9 +11,22 @@ export const settingsSelector = createSelector(
   (state) => state.settings,
 )
 
+export const isHubShortSelector = createSelector(
+  [selectSlice],
+  (state) => state.isHubShort,
+)
+
 export const orderPriceDefaultSelector = createSelector(
+  [isHubShortSelector, settingsSelector],
+  (isHubShort, settings) =>
+    isHubShort
+      ? settings['HUB_SHORT_PRICE']
+      : settings['ORDER_PRICE']['DEFAULT'],
+)
+
+export const hubShortPriceSelector = createSelector(
   [settingsSelector],
-  (settings) => settings['ORDER_PRICE']['DEFAULT'],
+  (settings) => settings['HUB_SHORT_PRICE'],
 )
 
 export const locateSettingSelector = createSelector(

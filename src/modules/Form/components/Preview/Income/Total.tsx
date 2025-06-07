@@ -5,8 +5,10 @@ import clsx from 'clsx'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import {
   hubExtraIncomeSelector,
+  hubShortPriceSelector,
   hubTypeSelector,
   includeAutoCompensateSelector,
+  isHubShortSelector,
   isHubWellDoneSelector,
   isShowExtraJoinOrderPriceSelector,
   isShowExtraOrderPriceSelector,
@@ -37,6 +39,8 @@ const Total = () => {
     orderCompensateSelector(state, hubType),
   )
   const extraIncomePrice = useSelector(hubExtraIncomeSelector)
+  const isHubShort = useSelector(isHubShortSelector)
+  const hubShortPrice = useSelector(hubShortPriceSelector)
 
   const compensateHub = getCompensate_Hub({
     hubType,
@@ -48,6 +52,8 @@ const Total = () => {
     isHubWellDone,
     includeAutoCompensate,
     loc,
+    hubShortPrice,
+    isHubShort,
   })
 
   const { totalPrice } = getPrice_Hub({
@@ -60,6 +66,8 @@ const Total = () => {
     isShowExtraJoinOrderPrice,
     isShowExtraOrderPrice,
     loc,
+    hubShortPrice,
+    isHubShort,
   })
 
   const isCompensate = compensateHub.isCompensate

@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 import {
+  hubShortPriceSelector,
   isExpandExtraChildJoinOrderSelector,
   locateSettingSelector,
   orderPriceDefaultSelector,
@@ -19,11 +20,13 @@ const Price = ({ hubs }: Props) => {
 
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const loc = useSelector(locateSettingSelector)
+  const hubShortPrice = useSelector(hubShortPriceSelector)
 
   const diffPrice = getDiffJoinsPrice_Hubs({
     hubs,
     orderPrice,
     loc,
+    hubShortPrice,
   })
 
   return (

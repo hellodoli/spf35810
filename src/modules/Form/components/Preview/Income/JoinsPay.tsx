@@ -2,7 +2,9 @@ import React, { memo, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 import {
+  hubShortPriceSelector,
   hubTypeSelector,
+  isHubShortSelector,
   isHubWellDoneSelector,
   isShowIncomeDropByJoinOrderSelector,
   joinsSelector,
@@ -22,6 +24,8 @@ const JoinsPay = () => {
   const order = useSelector(orderSelector)
   const isShow = useSelector(isShowIncomeDropByJoinOrderSelector)
   const loc = useSelector(locateSettingSelector)
+  const isHubShort = useSelector(isHubShortSelector)
+  const hubShortPrice = useSelector(hubShortPriceSelector)
 
   const diffPrice = getDiffJoinsPrice_Hub({
     joins,
@@ -30,6 +34,8 @@ const JoinsPay = () => {
     hubType,
     order,
     loc,
+    isHubShort,
+    hubShortPrice,
   })
 
   if (!isShow) return null

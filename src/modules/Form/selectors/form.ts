@@ -38,8 +38,3 @@ export const hubShiftSelector = createSelector(
   [selectSlice],
   (state) => state.hubShift,
 )
-
-export const isHubShortSelector = createSelector(
-  [selectSlice],
-  (state) => state.isHubShort,
-)

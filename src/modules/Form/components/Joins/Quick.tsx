@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -6,17 +6,34 @@ import { ReactComponent as PencilIcon } from 'assets/icons/pencil.svg'
 import FormItem from 'components/FormItem'
 import Modal from 'components/Modal'
 import QuickAddJoinBtn from 'components/QuickAddJoinBtn'
-import { quickAddJoinsSelector } from 'modules/Form/selectors'
+import {
+  isHubShortSelector,
+  orderPriceDefaultSelector,
+  quickAddJoinsSelector,
+} from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import type { JoinOrder } from 'modules/Form/types'
 import Order from 'modules/Setting/Order'
+import { genarateQuickAddJoinsHubShort } from 'utils/join'
 
 const Label = () => {
+  const isHubShort = useSelector(isHubShortSelector)
   const [isOpen, setIsOpenModal] = useState(false)
   const closeModal = useCallback(() => setIsOpenModal(false), [])
+
+  const openModal = () => {
+    if (isHubShort) {
+      /**
+       * disabled open when hub short turn on
+       */
+      return
+    }
+    setIsOpenModal(true)
+  }
+
   return (
     <>
-      <div className="mb-1" onClick={() => setIsOpenModal(true)}>
+      <div className="mb-1" onClick={openModal}>
         <div className="custom-label inline-flex items-center cursor-pointer">
           <PencilIcon width={12} height={12} fill="var(--nc-primary)" />
           <span className="ml-1">Thêm nhanh</span>
@@ -34,7 +51,17 @@ const Label = () => {
 
 const Quick = () => {
   const dispatch = useDispatch()
-  const quickAddJoins = useSelector(quickAddJoinsSelector)
+  const orderPrice = useSelector(orderPriceDefaultSelector)
+  const quickAddJoinsDefault = useSelector(quickAddJoinsSelector)
+  const isHubShort = useSelector(isHubShortSelector)
+
+  const quickAddJoins = useMemo(() => {
+    return isHubShort
+      ? genarateQuickAddJoinsHubShort({
+          orderPrice,
+        })
+      : quickAddJoinsDefault
+  }, [isHubShort, quickAddJoinsDefault, orderPrice])
 
   const addJoin = useCallback((join: JoinOrder) => {
     const newJoin: JoinOrder = {

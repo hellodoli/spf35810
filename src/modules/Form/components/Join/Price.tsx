@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { InputNumber } from 'components/Input'
 import { useSettings } from 'modules/Form/hooks/useSettings'
-import { orderPriceDefaultSelector } from 'modules/Form/selectors'
+import {
+  isHubShortSelector,
+  orderPriceDefaultSelector,
+} from 'modules/Form/selectors'
 import { actions } from 'modules/Form/slices'
 import { JoinOrder } from 'modules/Form/types/join'
 
@@ -21,10 +24,12 @@ const isHappyJoin = false
 
 const Price = ({ joinId, joinType, initValue, isPlainUI = false }: Props) => {
   const dispatch = useDispatch()
+  const isHubShort = useSelector(isHubShortSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
 
   const { settings: ST } = useSettings()
   const fixedPrice = orderPrice * joinType
+  const isUseFixedPrice = isHappyJoin || isHubShort
 
   const onChangeInput = useCallback(
     (price: number) => {
@@ -40,23 +45,28 @@ const Price = ({ joinId, joinType, initValue, isPlainUI = false }: Props) => {
   )
 
   useEffect(() => {
-    if (isHappyJoin) onChangeInput(fixedPrice)
-  }, [isHappyJoin, onChangeInput, fixedPrice])
+    if (isUseFixedPrice) onChangeInput(fixedPrice)
+  }, [isUseFixedPrice, onChangeInput, fixedPrice])
 
   return (
     <>
-      {isHappyJoin ? (
-        <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
-          {fixedPrice}
-        </div>
-      ) : (
+      {isUseFixedPrice && (
+        <InputNumber
+          min={ST.ORDER_PRICE.MIN}
+          max={ST.ORDER_PRICE.MAX}
+          step={ST.ORDER_PRICE.STEP}
+          initValue={fixedPrice}
+          wrapperClassName={isPlainUI ? '!h-8' : ''}
+          disabled={true}
+        />
+      )}
+      {!isUseFixedPrice && (
         <InputNumber
           min={ST.ORDER_PRICE.MIN}
           max={ST.ORDER_PRICE.MAX}
           step={ST.ORDER_PRICE.STEP}
           initValue={initValue}
           onChangeInput={onChangeInput}
-          disabled={isHappyJoin}
           wrapperClassName={isPlainUI ? '!h-8' : ''}
         />
       )}

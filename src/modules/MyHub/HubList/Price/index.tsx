@@ -6,6 +6,7 @@ import { ReactComponent as EnviraIcon } from 'assets/icons/envira.svg'
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
 import { ReactComponent as HandHoldingDollarIcon } from 'assets/icons/hand-holding-dollar.svg'
 import {
+  hubShortPriceSelector,
   locateSettingSelector,
   orderCompensateNumberSelector,
   orderPriceDefaultSelector,
@@ -33,6 +34,7 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
   const loc = useSelector(locateSettingSelector)
   const orderPrice = useSelector(orderPriceDefaultSelector)
   const orderCompensateNumber = useSelector(orderCompensateNumberSelector)
+  const hubShortPrice = useSelector(hubShortPriceSelector)
 
   const orderHubs = getOrder_Hubs(hubs)
   const extraSundayPrice = getExtraSundayPrice_Hubs(hubs, loc)
@@ -50,6 +52,7 @@ const Price = ({ hubs, unixDate, isOpenViewDetailIncome }: Props) => {
     loc,
     orderCompensateNumber,
     isShowExtraSundayPrice: false,
+    hubShortPrice,
   })
 
   const incomeArr = useMemo(

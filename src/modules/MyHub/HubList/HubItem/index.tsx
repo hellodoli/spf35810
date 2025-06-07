@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 
 import { ReactComponent as CalendarXmark } from 'assets/icons/calendar-xmark.svg'
+import { ReactComponent as Dolly } from 'assets/icons/dolly.svg'
 import { ReactComponent as Envira } from 'assets/icons/envira.svg'
 import { ReactComponent as Shield } from 'assets/icons/shield-halved.svg'
 import { HUB_COLORS } from 'modules/Form/constants'
@@ -22,6 +23,7 @@ interface Props {
   joins: JoinOrder[]
   loc: SETTING_LOCATE
   isIncludeWeekReward: boolean
+  isHubShort: boolean
 }
 
 const HubItem = ({
@@ -37,6 +39,7 @@ const HubItem = ({
   joins,
   loc,
   isIncludeWeekReward,
+  isHubShort,
 }: Props) => {
   const [start, end] = hubShift.split('_')
   const label = `${start} - ${end}`
@@ -89,6 +92,8 @@ const HubItem = ({
         )}
         {isAutoCompensate && <Shield {...iconProps} />}
         {!isIncludeWeekReward && <CalendarXmark {...iconProps} />}
+        {isHubShort && <Dolly {...iconProps} />}
+
         <span className="leading-normal">{label}</span>
         <span
           className="lg:hidden delete-button ml-2 lg:ml-auto rounded-full w-[16px] h-[16px] flex items-center justify-center cursor-pointer border-line p-1 text-xs select-none"

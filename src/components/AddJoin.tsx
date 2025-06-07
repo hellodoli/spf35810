@@ -136,7 +136,7 @@ const AddJoin = ({
       <FormItem {...formItemProps} label="Giá đơn ghép:">
         {isHappyJoin ? (
           <div className="filter-none outline-none p-[12px] flex-[1_0_0%] border-none bg-none">
-            {orderPrice * joinType}
+            {fixedPrice}
           </div>
         ) : (
           <InputNumber

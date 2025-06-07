@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 import type { JoinOrder } from 'modules/Form/types'
 
 export const getJoinLabel = (
@@ -95,4 +97,26 @@ export const getSameJoin = (joins: JoinsOb, join: JoinOrder) => {
 
 export const getNoEmptyJoins = (joins: JoinOrder[]) => {
   return joins.filter((join) => join.order > 0)
+}
+
+export const genarateQuickAddJoinsHubShort = ({
+  orderPrice,
+}: {
+  orderPrice: number
+}) => {
+  const createJoinByType = (type: JoinOrder['type']) => {
+    const join: JoinOrder = {
+      key: uuidv4(),
+      type,
+      price: orderPrice * type,
+      order: 1,
+    }
+    return join
+  }
+  return [
+    createJoinByType(2),
+    createJoinByType(3),
+    createJoinByType(4),
+    createJoinByType(5),
+  ]
 }

@@ -11,6 +11,7 @@ import {
   getHubExtraIncome,
   getIncludeAutoCompensate,
   getIncludeSundayReward,
+  getIsHubShort,
   getIsHubWellDone,
   getIsSoftCompensate,
   isApplyForExtraSunday,
@@ -99,14 +100,36 @@ export const getOrder_Hubs = (hubs: Hub[]) => {
   return hubs.reduce((accumulator, hub) => accumulator + hub.order, 0)
 }
 
+const getPriceDefaultWithHubShort = ({
+  isHubShort,
+  orderPrice,
+  hubShortPrice,
+}: {
+  isHubShort: boolean
+  hubShortPrice: number
+  orderPrice: number
+}) => {
+  return isHubShort ? hubShortPrice : orderPrice
+}
 export const getPriceCompensate_Hub = ({
   orderCompensate,
   orderPrice,
+  hubShortPrice,
+  isHubShort,
 }: {
   orderCompensate: number
   orderPrice: number
+  isHubShort: boolean
+  hubShortPrice: number
 }) => {
-  return orderCompensate * orderPrice
+  return (
+    orderCompensate *
+    getPriceDefaultWithHubShort({
+      isHubShort,
+      orderPrice,
+      hubShortPrice,
+    })
+  )
 }
 export const getPrice_Hub = ({
   order,
@@ -118,6 +141,8 @@ export const getPrice_Hub = ({
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
   loc,
+  isHubShort,
+  hubShortPrice,
 }: {
   order: number
   joins: JoinOrder[]
@@ -128,12 +153,19 @@ export const getPrice_Hub = ({
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
   loc: SETTING_LOCATE
+  isHubShort: boolean
+  hubShortPrice: number
 }) => {
   const { singleOrder, totalJoinsOrder } = getPreviewOrder({ order, joins })
 
   const totalPriceJoinOrder = getPriceJoinOrder({ joins })
 
-  const singleOrderPrice = singleOrder * orderPrice
+  const defaultPrice = getPriceDefaultWithHubShort({
+    hubShortPrice,
+    orderPrice,
+    isHubShort,
+  })
+  const singleOrderPrice = singleOrder * defaultPrice
 
   const shipPrice = singleOrderPrice + totalPriceJoinOrder
   let totalPrice = shipPrice
@@ -187,6 +219,8 @@ export const getCompensate_Hub = ({
   orderPrice,
   joins,
   loc,
+  isHubShort,
+  hubShortPrice,
 }: {
   calPrice?: boolean
   hubType: HUB_TYPE
@@ -198,6 +232,8 @@ export const getCompensate_Hub = ({
   isHubWellDone: boolean
   loc: SETTING_LOCATE
   includeAutoCompensate: boolean
+  isHubShort: boolean
+  hubShortPrice: number
 }) => {
   const isSoftCompensate = getIsSoftCompensate({
     hubType,
@@ -208,6 +244,8 @@ export const getCompensate_Hub = ({
   const compensatePrice = getPriceCompensate_Hub({
     orderCompensate,
     orderPrice,
+    hubShortPrice,
+    isHubShort,
   })
   let isCompensate = false
   let shipPrice = 0
@@ -232,6 +270,8 @@ export const getCompensate_Hub = ({
         isHubWellDone,
         isShowExtraJoinOrderPrice: true,
         isShowExtraOrderPrice: true,
+        hubShortPrice,
+        isHubShort,
       })
       const hubTotalPrice = hub.totalPrice - hub.extraIncomePrice
       if (hubTotalPrice < compensatePrice) {
@@ -285,6 +325,7 @@ export const getPrice_Hubs = ({
   isShowExtraJoinOrderPrice = true,
   isShowExtraOrderPrice = true,
   isShowExtraSundayPrice = true,
+  hubShortPrice,
 }: {
   hubs: Hub[]
   orderPrice: number
@@ -293,6 +334,7 @@ export const getPrice_Hubs = ({
   isShowExtraJoinOrderPrice?: boolean
   isShowExtraOrderPrice?: boolean
   isShowExtraSundayPrice?: boolean
+  hubShortPrice: number
 }) => {
   const sdList: {
     [key: string]: Hub[]
@@ -312,6 +354,7 @@ export const getPrice_Hubs = ({
     )
     const isHubWellDone = getIsHubWellDone(hub.isHubWellDone)
     const extraIncomePrice = getHubExtraIncome(hub.extraIncomeArr)
+    const isHubShort = getIsHubShort(hub.isHubShort)
 
     const generalParams = {
       hubType,
@@ -321,6 +364,8 @@ export const getPrice_Hubs = ({
       loc,
       isHubWellDone,
       extraIncomePrice,
+      isHubShort,
+      hubShortPrice,
     }
 
     const { totalPrice, shipPrice, extraOrderPrice, extraJoinOrderPrice } =
@@ -403,6 +448,8 @@ export const getDiffJoinsPrice_Hub = ({
   orderPrice,
   isHubWellDone,
   loc,
+  hubShortPrice,
+  isHubShort,
 }: {
   order: number
   joins: JoinOrder[]
@@ -410,10 +457,17 @@ export const getDiffJoinsPrice_Hub = ({
   orderPrice: number
   isHubWellDone: boolean
   loc: SETTING_LOCATE
+  isHubShort: boolean
+  hubShortPrice: number
 }) => {
   const { totalJoinsOrder } = getPreviewOrder({ order, joins })
 
-  const full = orderPrice * totalJoinsOrder
+  const full =
+    getPriceDefaultWithHubShort({
+      hubShortPrice,
+      isHubShort,
+      orderPrice,
+    }) * totalJoinsOrder
   let crop = getPriceJoinOrder({ joins })
   if (isHubWellDone) {
     // thu nhập đơn con (của đơn ghép) vượt mốc
@@ -432,10 +486,12 @@ export const getDiffJoinsPrice_Hubs = ({
   hubs,
   loc,
   orderPrice,
+  hubShortPrice,
 }: {
   hubs: Hub[]
   orderPrice: number
   loc: SETTING_LOCATE
+  hubShortPrice: number
 }) => {
   let measure = 0
   for (let i = 0; i < hubs.length; i++) {
@@ -450,6 +506,8 @@ export const getDiffJoinsPrice_Hubs = ({
           orderPrice,
           isHubWellDone: getIsHubWellDone(hub.isHubWellDone),
           loc,
+          isHubShort: getIsHubShort(hub.isHubShort),
+          hubShortPrice,
         })
     measure += diff
   }

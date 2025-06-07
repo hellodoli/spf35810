@@ -5,6 +5,7 @@ import { ReactComponent as BookOpenIcon } from 'assets/icons/book-open.svg'
 import { ReactComponent as CalendarXmark } from 'assets/icons/calendar-xmark.svg'
 import { ReactComponent as CartShoppingIcon } from 'assets/icons/cart-shopping.svg'
 import { ReactComponent as InfoIcon } from 'assets/icons/circle-info.svg'
+import { ReactComponent as Dolly } from 'assets/icons/dolly.svg'
 import { ReactComponent as EnviraIcon } from 'assets/icons/envira.svg'
 import { ReactComponent as GearIcon } from 'assets/icons/gear.svg'
 import { ReactComponent as HandHoldingDollarIcon } from 'assets/icons/hand-holding-dollar.svg'
@@ -45,6 +46,10 @@ const icons = [
   {
     icon: BookOpenIcon,
     text: 'Chi tiết thu nhập ngày đang mở',
+  },
+  {
+    icon: Dolly,
+    text: 'Hub giao gần',
   },
 ].map((icon) => {
   iconIndex += 1
