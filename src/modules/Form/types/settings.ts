@@ -70,6 +70,13 @@ export type RewardList = {
   [key in HUB_TYPE]: OrderExtraRewardArr[]
 }
 
+export type RewardListConsume = {
+  /**
+   * string is timestamp
+   */
+  [key in string]: RewardListByLocate
+}
+
 export type ExtraOrderSundayList = {
   [key in SETTING_LOCATE]: OrderExtraRewardArr[]
 }

@@ -1,10 +1,6 @@
 import dayjs from 'dayjs'
 
-import {
-  WEEK_REWARD,
-  WEEK_REWARD_2025_05_19,
-  WEEK_REWARD_SEASON_2025_05_19,
-} from 'modules/Form/constants'
+import { WEEK_REWARD, WEEK_REWARD_REST_KEY } from 'modules/Form/constants'
 import {
   Hub,
   HUB_DISPLAY,
@@ -23,22 +19,27 @@ import type {
 
 const hubTypesCheckArr = [HUB_TYPE.HUB_10, HUB_TYPE.HUB_8, HUB_TYPE.HUB_5]
 
+const generateHubTypes = () => {
+  const checkArr: HubTypeValidForReward[] = [
+    HUB_TYPE.HUB_10,
+    HUB_TYPE.HUB_8,
+    HUB_TYPE.HUB_5,
+  ]
+  const hubTypes: HubTypeBySeason = {
+    [HUB_TYPE.HUB_10]: {},
+    [HUB_TYPE.HUB_8]: {},
+    [HUB_TYPE.HUB_5]: {},
+  }
+  checkArr.forEach((hubType) => {
+    hubTypes[hubType] = {
+      [WEEK_REWARD_REST_KEY]: 0,
+    }
+  })
+  return hubTypes
+}
 const defaultGetWeekReward: GetWeekReward = {
   price: 0,
-  hubTypes: {
-    [HUB_TYPE.HUB_10]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-    [HUB_TYPE.HUB_8]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-    [HUB_TYPE.HUB_5]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-  },
+  hubTypes: generateHubTypes(),
   hubTypesArr: [],
 }
 
@@ -59,21 +60,15 @@ export const isShowWeekReward = ({
   )
 }
 
+const getHubTimesConsume = () => {
+  return Object.keys(WEEK_REWARD)
+    .filter((k) => k !== WEEK_REWARD_REST_KEY)
+    .map((k) => Number(k))
+    .sort((a, b) => b - a)
+}
 const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
-  const hubTypes: HubTypeBySeason = {
-    [HUB_TYPE.HUB_10]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-    [HUB_TYPE.HUB_8]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-    [HUB_TYPE.HUB_5]: {
-      rest: 0,
-      [WEEK_REWARD_SEASON_2025_05_19]: 0,
-    },
-  }
+  const hubTypes: HubTypeBySeason = generateHubTypes()
+  const hubTimesConsume = getHubTimesConsume()
 
   for (let i = 0; i < hubs.length; i++) {
     const hub = hubs[i]
@@ -84,12 +79,22 @@ const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
       getIncludeWeekReward(hub.hubAdvancedOpt?.includeWeekReward)
     ) {
       const validHubType = hubType as HubTypeValidForReward
-      const time_reward_2025_05_19 = +WEEK_REWARD_SEASON_2025_05_19
       const hubTime = hub.hubTime
-      if (hubTime >= time_reward_2025_05_19) {
-        hubTypes[validHubType][WEEK_REWARD_SEASON_2025_05_19] += 1
-      } else {
-        hubTypes[validHubType]['rest'] += 1
+
+      for (let i = 0; i < hubTimesConsume.length; i++) {
+        const hubTimeConsume = hubTimesConsume[i]
+        if (hubTime >= hubTimeConsume) {
+          const key = `${hubTimeConsume}`
+          if (typeof hubTypes[validHubType][key] === 'undefined')
+            hubTypes[validHubType][key] = 1
+          else hubTypes[validHubType][key] += 1
+
+          break
+        } else {
+          if (i === hubTimesConsume.length - 1) {
+            hubTypes[validHubType][WEEK_REWARD_REST_KEY] += 1
+          }
+        }
       }
     }
   }
@@ -106,21 +111,6 @@ export const getWeekReward = (hubs: Hub[], loc: SETTING_LOCATE) => {
   }
 
   const hubTypes = getValidHubTypesForWeekReward(hubs)
-  const seasonKey = WEEK_REWARD_SEASON_2025_05_19
-
-  if (
-    !hubTypes[HUB_TYPE.HUB_10]['rest'] &&
-    !hubTypes[HUB_TYPE.HUB_10][seasonKey] &&
-    !hubTypes[HUB_TYPE.HUB_8]['rest'] &&
-    !hubTypes[HUB_TYPE.HUB_8][seasonKey] &&
-    !hubTypes[HUB_TYPE.HUB_5]['rest'] &&
-    !hubTypes[HUB_TYPE.HUB_5][seasonKey]
-  ) {
-    /**
-     *
-     */
-    return defaultGetWeekReward
-  }
 
   let price = 0
   const hubTypesArr: HubTypeItemPreview[] = []
@@ -147,21 +137,30 @@ export const getWeekReward = (hubs: Hub[], loc: SETTING_LOCATE) => {
     const hubType = hubTypes[type]
 
     const rewardPrice_Rest = getRewardByHubPrice(
-      WEEK_REWARD[loc][type],
-      hubType['rest'],
+      WEEK_REWARD[WEEK_REWARD_REST_KEY][loc][type],
+      hubType[WEEK_REWARD_REST_KEY],
     )
-    const rewardPrice_2025_05_19 = getRewardByHubPrice(
-      WEEK_REWARD_2025_05_19[loc][type],
-      hubType[seasonKey],
-    )
-    const totalPrice = rewardPrice_Rest + rewardPrice_2025_05_19
+
+    let totalPrice = rewardPrice_Rest
+    let count = hubType[WEEK_REWARD_REST_KEY] || 0
+
+    const hubTimesConsume = getHubTimesConsume()
+    for (let i = 0; i < hubTimesConsume.length; i++) {
+      const hubTimeConsume = hubTimesConsume[i]
+      const x = getRewardByHubPrice(
+        WEEK_REWARD[`${hubTimeConsume}`][loc][type],
+        hubType[`${hubTimeConsume}`],
+      )
+      totalPrice += x
+      count += hubType[`${hubTimeConsume}`] || 0
+    }
 
     price += totalPrice
 
     hubTypesArr.push({
       type,
       price: totalPrice,
-      count: hubType['rest'] + hubType[seasonKey],
+      count,
     })
   }
 
