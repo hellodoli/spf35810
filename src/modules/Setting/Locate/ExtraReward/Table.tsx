@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
 import {
-  ExtraRewardList,
   OrderExtraRewardArr,
+  RewardListByLocate,
   SETTING_LOCATE,
 } from 'modules/Form/types'
 import { getFormat } from 'utils/price'
@@ -12,7 +12,7 @@ import { Item, locatesArr } from '../Item'
 
 interface Props {
   curLocate: SETTING_LOCATE
-  extraRewardList: ExtraRewardList
+  extraRewardList: RewardListByLocate
   unit: string
   title: string
   subTitle: string

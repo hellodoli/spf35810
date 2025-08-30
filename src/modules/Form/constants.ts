@@ -7,7 +7,6 @@ import {
   ExtraIncomeLabel,
   ExtraIncomeLabelList,
   ExtraOrderSundayList,
-  ExtraRewardList,
   FilterHubTypeSetting,
   HUB_TYPE,
   HubColorsFilter,
@@ -15,6 +14,7 @@ import {
   JoinOrder,
   OrderExtraRewardArr,
   RewardList,
+  RewardListByLocate,
   SETTING_LOCATE,
   Settings,
 } from './types'
@@ -115,7 +115,7 @@ export const JOIN_3_DEFAULT: JoinOrder = {
 
 export const HUB_SHIFT = generate_HUB_SHIFT()
 
-export const EXTRA_ORDER: ExtraRewardList = {
+export const EXTRA_ORDER: RewardListByLocate = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [[31, null, 6000]],
     [HUB_TYPE.HUB_8]: [
@@ -178,7 +178,7 @@ export const EXTRA_ORDER: ExtraRewardList = {
     [HUB_TYPE.HUB_1]: [],
   },
 }
-export const EXTRA_ORDER_WITH_HUB_SHORT: ExtraRewardList = {
+export const EXTRA_ORDER_WITH_HUB_SHORT: RewardListByLocate = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [
       [41, 45, 7000],
@@ -288,7 +288,7 @@ export const EXTRA_SUNDAY_ORDER: ExtraOrderSundayList = {
 }
 
 export const WEEK_REWARD_SEASON_2025_05_19 = '1747587600000'
-export const WEEK_REWARD: ExtraRewardList = {
+export const WEEK_REWARD: RewardListByLocate = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [
       [4, 4, 100000],
@@ -351,7 +351,7 @@ export const WEEK_REWARD: ExtraRewardList = {
     [HUB_TYPE.HUB_1]: [],
   },
 }
-export const WEEK_REWARD_2025_05_19: ExtraRewardList = {
+export const WEEK_REWARD_2025_05_19: RewardListByLocate = {
   [SETTING_LOCATE.TPHCM]: {
     [HUB_TYPE.HUB_10]: [
       [4, 4, 100000],

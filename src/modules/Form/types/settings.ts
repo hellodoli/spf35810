@@ -60,7 +60,7 @@ export type FilterHubTypeSetting = {
   [key in HUB_TYPE]: boolean
 }
 
-export type ExtraRewardList = {
+export type RewardListByLocate = {
   [key in SETTING_LOCATE]: {
     [key in HUB_TYPE]: OrderExtraRewardArr[]
   }
