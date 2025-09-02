@@ -1,7 +1,11 @@
 import React, { useMemo } from 'react'
 
-import { EXTRA_JOIN_ORDER } from 'modules/Form/constants'
+import {
+  EXTRA_JOIN_ORDER,
+  EXTRA_JOIN_ORDER_REST_KEY,
+} from 'modules/Form/constants'
 import { OrderExtraRewardArr, SETTING_LOCATE } from 'modules/Form/types'
+import { getLastHubTimesConsume } from 'utils/locate'
 import { getFormat } from 'utils/price'
 import type { LocateBtnItem } from './Item'
 import { Item, locatesArr } from './Item'
@@ -13,17 +17,22 @@ interface Props {
 const headerClassName = 'text-white font-bold uppercase bg-[#35AB99]'
 const subHeadClassName = 'text-white font-bold bg-[#E64739]'
 
+const lastHubTimesConsume = getLastHubTimesConsume({
+  list: EXTRA_JOIN_ORDER,
+  restKey: EXTRA_JOIN_ORDER_REST_KEY,
+})
+
 const ExtraJoinsOrder = ({ curLocate }: Props) => {
   const f = useMemo(() => getFormat(), [])
   const loc = locatesArr.find((loc) => loc.value === curLocate) as LocateBtnItem
 
   const hubTypes = useMemo(
-    () => Object.keys(EXTRA_JOIN_ORDER),
-    [EXTRA_JOIN_ORDER],
+    () => Object.keys(EXTRA_JOIN_ORDER[lastHubTimesConsume][loc.value]),
+    [EXTRA_JOIN_ORDER, loc.value],
   )
   const orderArr = useMemo(
-    () => Object.values(EXTRA_JOIN_ORDER),
-    [EXTRA_JOIN_ORDER],
+    () => Object.values(EXTRA_JOIN_ORDER[lastHubTimesConsume][loc.value]),
+    [EXTRA_JOIN_ORDER, loc.value],
   )
 
   const getOrderLabel = (

@@ -1,5 +1,6 @@
 import {
   EXTRA_JOIN_ORDER,
+  EXTRA_JOIN_ORDER_REST_KEY,
   EXTRA_ORDER,
   EXTRA_ORDER_WITH_HUB_SHORT,
 } from 'modules/Form/constants'
@@ -9,6 +10,12 @@ import {
   OrderExtraRewardArr,
   SETTING_LOCATE,
 } from 'modules/Form/types'
+import { getLastHubTimesConsume } from './locate'
+
+const lastHubTimesConsume = getLastHubTimesConsume({
+  list: EXTRA_JOIN_ORDER,
+  restKey: EXTRA_JOIN_ORDER_REST_KEY,
+})
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -44,7 +51,7 @@ export function getPriceExtraOrder({
   isHubShort: boolean
 }) {
   const rewards = isJoin
-    ? EXTRA_JOIN_ORDER[hubType]
+    ? EXTRA_JOIN_ORDER[lastHubTimesConsume][loc][hubType]
     : isHubShort
       ? EXTRA_ORDER_WITH_HUB_SHORT[loc][hubType]
       : EXTRA_ORDER[loc][hubType]

@@ -8,11 +8,8 @@ import {
   OrderExtraRewardArr,
   SETTING_LOCATE,
 } from 'modules/Form/types'
-import {
-  getHubTimesConsume,
-  getIncludeWeekReward,
-  getIsHubWellDone,
-} from 'utils/hub'
+import { getIncludeWeekReward, getIsHubWellDone } from 'utils/hub'
+import { getHubTimesConsume } from 'utils/locate'
 import { getDisplayDate } from 'utils/time'
 import type {
   GetWeekReward,

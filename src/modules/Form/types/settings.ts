@@ -60,14 +60,19 @@ export type FilterHubTypeSetting = {
   [key in HUB_TYPE]: boolean
 }
 
-export type RewardListByLocate = {
-  [key in SETTING_LOCATE]: {
-    [key in HUB_TYPE]: OrderExtraRewardArr[]
-  }
-}
-
 export type RewardList = {
   [key in HUB_TYPE]: OrderExtraRewardArr[]
+}
+
+export type RewardListByLocate = {
+  [key in SETTING_LOCATE]: RewardList
+}
+
+export type RewardListConsumeWithoutLocate = {
+  /**
+   * string is timestamp
+   */
+  [key in string]: RewardList
 }
 
 export type RewardListConsume = {
