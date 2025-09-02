@@ -3,6 +3,7 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import weekday from 'dayjs/plugin/weekday'
 import { v4 as uuidv4 } from 'uuid'
 
+import { WEEK_REWARD, WEEK_REWARD_REST_KEY } from 'modules/Form/constants'
 import {
   ExtraIncomeItem,
   Hub,
@@ -314,6 +315,18 @@ export const getIsSoftCompensate = ({
   const isSoftCompensate =
     includeAutoCompensate && isSuperHub(hubType) && isHubWellDone && order > 0
   return isSoftCompensate
+}
+
+export const getHubTimesConsume = () => {
+  return Object.keys(WEEK_REWARD)
+    .filter((k) => k !== WEEK_REWARD_REST_KEY)
+    .map((k) => Number(k))
+    .sort((a, b) => b - a)
+}
+export const getLastHubTimesConsume = () => {
+  const hubTimesConsume = getHubTimesConsume()
+  const lastHubTimesConsume = hubTimesConsume[0]
+  return lastHubTimesConsume
 }
 
 //==== END

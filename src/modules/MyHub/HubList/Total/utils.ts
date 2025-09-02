@@ -8,7 +8,11 @@ import {
   OrderExtraRewardArr,
   SETTING_LOCATE,
 } from 'modules/Form/types'
-import { getIncludeWeekReward, getIsHubWellDone } from 'utils/hub'
+import {
+  getHubTimesConsume,
+  getIncludeWeekReward,
+  getIsHubWellDone,
+} from 'utils/hub'
 import { getDisplayDate } from 'utils/time'
 import type {
   GetWeekReward,
@@ -60,12 +64,6 @@ export const isShowWeekReward = ({
   )
 }
 
-const getHubTimesConsume = () => {
-  return Object.keys(WEEK_REWARD)
-    .filter((k) => k !== WEEK_REWARD_REST_KEY)
-    .map((k) => Number(k))
-    .sort((a, b) => b - a)
-}
 const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
   const hubTypes: HubTypeBySeason = generateHubTypes()
   const hubTimesConsume = getHubTimesConsume()
@@ -85,15 +83,13 @@ const getValidHubTypesForWeekReward = (hubs: Hub[]) => {
         const hubTimeConsume = hubTimesConsume[i]
         if (hubTime >= hubTimeConsume) {
           const key = `${hubTimeConsume}`
-          if (typeof hubTypes[validHubType][key] === 'undefined')
-            hubTypes[validHubType][key] = 1
+          const isNotFound = typeof hubTypes[validHubType][key] === 'undefined'
+          if (isNotFound) hubTypes[validHubType][key] = 1
           else hubTypes[validHubType][key] += 1
 
           break
-        } else {
-          if (i === hubTimesConsume.length - 1) {
-            hubTypes[validHubType][WEEK_REWARD_REST_KEY] += 1
-          }
+        } else if (i === hubTimesConsume.length - 1) {
+          hubTypes[validHubType][WEEK_REWARD_REST_KEY] += 1
         }
       }
     }
